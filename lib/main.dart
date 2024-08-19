@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:first_app/progress_indicator.dart' as pi;
 
 var rng = Random();
 FlutterTts flutterTts = FlutterTts();
@@ -41,11 +42,28 @@ class _MyHomePageState extends State<MyHomePage> {
   int _firstNumber = 0;
   int _secondNumber = 0;
   int _attempt = 0;
+  double _progress = 0;
 
   @override
   void initState(){
 
     super.initState();
+    _incrementCounter();
+
+  }
+
+  void _displayProgress(){
+
+    setState(() {
+      _progress = _attempt / 10;
+    });
+
+  }
+
+
+  void _handleFloatingActionButtonPress(){
+    
+    _displayProgress();
     _incrementCounter();
 
   }
@@ -123,16 +141,17 @@ class _MyHomePageState extends State<MyHomePage> {
           Opacity(
             opacity: 0.15,
             child: Center(
-              child: Text(
-                "$_attempt",
-                style: const TextStyle(color: Colors.white, fontSize: 200),
-              ),
+              // child: Text(
+              //   "$_attempt",
+              //   style: const TextStyle(color: Colors.white, fontSize: 200),
+              // ),
+              child: pi.ProgressIndicator(progress: _progress)
             ),
           ),
         ]
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _handleFloatingActionButtonPress,
         tooltip: 'Restart',
         child: const Icon(Icons.restart_alt),
       ),
