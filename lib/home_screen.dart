@@ -1,10 +1,15 @@
+import 'package:first_app/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  void _handleOnPressed(){
-    print("_handleOnPressed");
+  void _handleOnPressed(BuildContext context){
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => MainScreen(title: 'Practice Addition'),
+      ),
+    );
   }
 
   @override
@@ -15,7 +20,9 @@ class HomeScreen extends StatelessWidget {
         height: 50.0,
         child: 
           ElevatedButton(
-            onPressed: _handleOnPressed,
+            onPressed: () { 
+              _handleOnPressed(context);
+            },
             child: const Padding(
               padding: EdgeInsets.all(10.0),
               child: Row(
