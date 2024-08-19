@@ -1,3 +1,4 @@
+import 'package:first_app/final_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:first_app/progress_indicator.dart' as pi;
 import 'dart:math';
@@ -6,6 +7,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 
 var rng = Random();
 FlutterTts flutterTts = FlutterTts();
+const numOfIterations = 5;
 
 class MainScreen extends StatefulWidget {
   MainScreen({super.key, required this.title}) 
@@ -22,7 +24,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _firstNumber = 0;
   int _secondNumber = 0;
-  int _attempt = 0;
+  int _iteration = 0;
   double _progress = 0;
 
   @override
@@ -36,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
   void _displayProgress(){
 
     setState(() {
-      _progress = _attempt / 10;
+      _progress = _iteration / numOfIterations;
     });
 
   }
@@ -51,26 +53,45 @@ class _MainScreenState extends State<MainScreen> {
 
 
   void _incrementCounter() async{
-    
-    int firstNumber = 0;
-    int secondNumber = 0;
 
-    do{
+    if( _iteration >= numOfIterations){
+
+        // sleep(const Duration(seconds:1));
+        await Future.delayed(const Duration(seconds: 1));
+
+        if (!mounted) return; // Checks `this.mounted`, not `context.mounted`.
+
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (ctx) => const FinalScreen()
+          ),
+        );
+        
+
+    } else {
+    
+      int firstNumber = 0;
+      int secondNumber = 0;
+
+      do{
+        
+        firstNumber = rng.nextInt( 5 ) + 1;
+        secondNumber = rng.nextInt( 5 ) + 1;
+
+      }
+      while( firstNumber == _firstNumber && secondNumber == _secondNumber );
+
+      final text = 'How much is $firstNumber plus $secondNumber?';
+      flutterTts.speak(text);
+      print(_iteration);
       
-      firstNumber = rng.nextInt( 5 ) + 1;
-      secondNumber = rng.nextInt( 5 ) + 1;
+      setState(() {
+        _firstNumber = firstNumber;
+        _secondNumber = secondNumber;
+        _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
+      });
 
     }
-    while( firstNumber == _firstNumber && secondNumber == _secondNumber );
-
-    final text = 'How much is $firstNumber plus $secondNumber?';
-    flutterTts.speak(text);
-    
-    setState(() {
-      _firstNumber = firstNumber;
-      _secondNumber = secondNumber;
-      _attempt = _attempt == 10 ? 1 : _attempt + 1;
-    });
 
   }
 
@@ -130,7 +151,7 @@ class _MainScreenState extends State<MainScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: _handleFloatingActionButtonPress,
         tooltip: 'Restart',
-        child: const Icon(Icons.restart_alt),
+        child: const Icon(Icons.navigate_next),
       ),
     );
   }
