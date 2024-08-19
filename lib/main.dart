@@ -1,7 +1,9 @@
+import 'package:first_app/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:first_app/progress_indicator.dart' as pi;
+
 
 var rng = Random();
 FlutterTts flutterTts = FlutterTts();
@@ -21,7 +23,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: 'Practice Addition'),
+      // home: MyHomePage(title: 'Practice Addition'),
+      home: Scaffold(
+      appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text("Practice Addition"),
+        ),
+        body: const HomeScreen(),
+      ),
     );
   }
 }
@@ -141,10 +150,6 @@ class _MyHomePageState extends State<MyHomePage> {
           Opacity(
             opacity: 0.15,
             child: Center(
-              // child: Text(
-              //   "$_attempt",
-              //   style: const TextStyle(color: Colors.white, fontSize: 200),
-              // ),
               child: pi.ProgressIndicator(progress: _progress)
             ),
           ),
