@@ -7,7 +7,7 @@ class HomeScreen extends StatelessWidget {
   void _handleOnPressed(BuildContext context){
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (ctx) => MainScreen(title: 'Practice Addition'),
+        builder: (ctx) => MainScreen(),
       ),
     );
   }
@@ -39,7 +39,6 @@ class HomeScreen extends StatelessWidget {
                 ],
               )
             ),
-            
           ),
       )
     );

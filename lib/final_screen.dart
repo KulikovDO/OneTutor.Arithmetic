@@ -7,40 +7,49 @@ class FinalScreen extends StatelessWidget {
   void _handleOnPressed(BuildContext context){
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (ctx) => MainScreen(title: 'Practice Addition'),
+        builder: (ctx) => MainScreen(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        width: 200.0,
-        height: 50.0,
-        child: 
-          ElevatedButton(
-            onPressed: () { 
-              _handleOnPressed(context);
-            },
-            child: const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.restart_alt,
-                  ),
-                  SizedBox(
-                    width: 5.0,
-                  ),
-                  Text('Restart'),
-                  
-                ],
-              )
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        automaticallyImplyLeading: false,
+        title: const Text("Practice Addition"),
+      ),
+      body: Center(
+        child: SizedBox(
+          width: 200.0,
+          height: 50.0,
+          child: 
+            ElevatedButton(
+              onPressed: () { 
+                _handleOnPressed(context);
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.restart_alt,
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Text('Restart'),
+                    
+                  ],
+                )
+              ),
             ),
-          ),
-      )
+        )
+      ),
     );
+    
   }
 }

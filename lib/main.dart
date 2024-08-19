@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
       appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          automaticallyImplyLeading: false,
           title: const Text("Practice Addition"),
         ),
         body: const HomeScreen(),

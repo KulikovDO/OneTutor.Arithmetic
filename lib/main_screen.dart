@@ -10,12 +10,10 @@ FlutterTts flutterTts = FlutterTts();
 const numOfIterations = 5;
 
 class MainScreen extends StatefulWidget {
-  MainScreen({super.key, required this.title}) 
+  MainScreen({super.key}) 
   {
     flutterTts.setSpeechRate(0.4);
   }
-
-  final String title;
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -56,16 +54,15 @@ class _MainScreenState extends State<MainScreen> {
 
     if( _iteration >= numOfIterations){
 
-        // sleep(const Duration(seconds:1));
-        await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(milliseconds: 500));
 
-        if (!mounted) return; // Checks `this.mounted`, not `context.mounted`.
+      if (!mounted) return;
 
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (ctx) => const FinalScreen()
-          ),
-        );
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => const FinalScreen()
+        ),
+      );
         
 
     } else {
@@ -83,7 +80,6 @@ class _MainScreenState extends State<MainScreen> {
 
       final text = 'How much is $firstNumber plus $secondNumber?';
       flutterTts.speak(text);
-      print(_iteration);
       
       setState(() {
         _firstNumber = firstNumber;
@@ -100,7 +96,8 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        automaticallyImplyLeading: false,
+        title: const Text("Practice Addition"),
       ),
       body: Stack(
         children: <Widget>[ 
