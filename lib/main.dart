@@ -40,7 +40,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _firstNumber = 0;
   int _secondNumber = 0;
-  int _attempt = 1;
+  int _attempt = 0;
+
+  @override
+  void initState(){
+
+    super.initState();
+    _incrementCounter();
+
+  }
+
 
   void _incrementCounter() async{
     
@@ -63,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _secondNumber = secondNumber;
       _attempt = _attempt == 10 ? 1 : _attempt + 1;
     });
+
   }
 
   @override
@@ -103,7 +113,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Text(
                           "$_secondNumber",
                           style: const TextStyle(color: Colors.white, fontSize: 100),
-          
                         ),
                       )
                     )
@@ -126,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Restart',
         child: const Icon(Icons.restart_alt),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
