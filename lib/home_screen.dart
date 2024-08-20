@@ -1,19 +1,16 @@
-import 'package:first_app/audio_controller.dart';
 import 'package:first_app/main_screen.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({required this.audioController, super.key});
 
-  final AudioController audioController;
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   void _handleOnPressed(BuildContext context){
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (ctx) => MainScreen(),
-    //   ),
-    // );
-    audioController.playSound("assets/audio/win-fantasia.mp3");
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => MainScreen(),
+      ),
+    );
   }
 
   @override

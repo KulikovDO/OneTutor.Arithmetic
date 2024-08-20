@@ -1,16 +1,45 @@
+import 'package:first_app/audio_controller.dart';
 import 'package:first_app/main_screen.dart';
 import 'package:flutter/material.dart';
 
-class FinalScreen extends StatelessWidget {
+
+class FinalScreen extends StatefulWidget {
   const FinalScreen({super.key});
 
-  void _handleOnPressed(BuildContext context){
+  @override
+  State<FinalScreen> createState() => _FinalScreenState();
+}
+
+class _FinalScreenState extends State<FinalScreen> {
+
+  late AudioController _audioController;
+
+  @override
+  void initState(){
+
+    super.initState();
+    _initAudioController();
+
+  }
+
+  void _initAudioController() async {
+
+    _audioController = AudioController();
+    await _audioController.initialize();
+    _audioController.playSound("assets/audio/win-fantasia.mp3");
+
+  }
+
+
+  void _handleOnPressed(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => MainScreen(),
       ),
     );
+    
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -52,4 +81,5 @@ class FinalScreen extends StatelessWidget {
     );
     
   }
+
 }
