@@ -7,7 +7,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 
 var rng = Random();
 FlutterTts flutterTts = FlutterTts();
-const numOfIterations = 5;
+const numOfIterations = 20;
 
 class MainScreen extends StatefulWidget {
   MainScreen({super.key}) 
@@ -54,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
 
     if( _iteration >= numOfIterations){
 
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 600));
 
       if (!mounted) return;
 
