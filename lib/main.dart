@@ -1,14 +1,20 @@
+import 'package:first_app/audio_controller.dart';
 import 'package:first_app/home_screen.dart';
 import 'package:flutter/material.dart';
 
 
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+  final audioController = AudioController();
+  await audioController.initialize();
+  runApp(MyApp(audioController: audioController,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({required this.audioController, super.key});
+
+  final AudioController audioController;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +26,12 @@ class MyApp extends StatelessWidget {
       ),
       // home: MyHomePage(title: 'Practice Addition'),
       home: Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           automaticallyImplyLeading: false,
           title: const Text("Practice Addition"),
         ),
-        body: const HomeScreen(),
+        body: HomeScreen(audioController: audioController),
       ),
     );
   }
