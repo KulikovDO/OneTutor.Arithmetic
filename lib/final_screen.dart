@@ -2,6 +2,7 @@ import 'package:first_app/audio_controller.dart';
 import 'package:first_app/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:confetti/confetti.dart';
 
 
 class FinalScreen extends StatefulWidget {
@@ -14,12 +15,14 @@ class FinalScreen extends StatefulWidget {
 class _FinalScreenState extends State<FinalScreen> {
 
   late AudioController _audioController;
+  final _confettiController = ConfettiController();
 
   @override
   void initState(){
 
     super.initState();
     _initAudioController();
+    _confettiController.play();
 
   }
 
@@ -66,6 +69,11 @@ class _FinalScreenState extends State<FinalScreen> {
                   ),
                   const SizedBox(
                     height: 50.0,
+                  ),
+                  ConfettiWidget(
+                    confettiController: _confettiController, 
+                    shouldLoop: true,
+                    blastDirectionality: BlastDirectionality.explosive,
                   ),
                   SizedBox(
                     width: 200.0,
