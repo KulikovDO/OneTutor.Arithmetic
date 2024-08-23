@@ -1,6 +1,7 @@
 import 'package:first_app/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ConfigScreen extends StatefulWidget {
@@ -12,13 +13,45 @@ class ConfigScreen extends StatefulWidget {
 
 class _ConfigScreenState extends State<ConfigScreen> {
 
-  void _handleSaveOnPressed(BuildContext context) {
+  late TextEditingController _textEditingController;
+  bool canSave = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController();
+    _textEditingController.addListener(() {
+      setState(() {
+        canSave = _textEditingController.text == "";  
+      });
+    });
+    _loadPrefs();
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final iterations = prefs.getInt('iterations') ?? 10;
+    _textEditingController.text = iterations.toString();
+
+  }
+
+  void _handleSaveOnPressed(BuildContext context) async{
+    
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('iterations', int.parse(_textEditingController.text));
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => const HomeScreen(),
       ),
     );
-    
+   
   }
 
   @override
@@ -28,7 +61,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
       Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          automaticallyImplyLeading: false,
+          // automaticallyImplyLeading: false,
           title: const Text("Practice Addition"),
         ),
         body: 
@@ -42,9 +75,9 @@ class _ConfigScreenState extends State<ConfigScreen> {
                       width: 300.0,
                       height: 50.0,
                       child: TextField(
+                        controller: _textEditingController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          // hintText: "Number of iterations",
                           labelText: "Number of iterations",
                         ),
                       keyboardType: TextInputType.number,
@@ -59,9 +92,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
                     height: 50.0,
                     child: 
                       ElevatedButton(
-                        onPressed: () { 
-                          _handleSaveOnPressed(context);
-                        },
+                        onPressed: canSave ? null: () => _handleSaveOnPressed(context),
                         child: const Padding(
                           padding: EdgeInsets.all(10.0),
                           child: Row(

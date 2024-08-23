@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:first_app/progress_indicator.dart' as pi;
 import 'dart:math';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 var rng = Random();
 FlutterTts flutterTts = FlutterTts();
-const numOfIterations = 20;
 
 class MainScreen extends StatefulWidget {
   MainScreen({super.key}) 
@@ -23,12 +23,14 @@ class _MainScreenState extends State<MainScreen> {
   int _firstNumber = 0;
   int _secondNumber = 0;
   int _iteration = 0;
+  int numOfIterations = 10;
   double _progress = 0;
 
   @override
   void initState(){
 
     super.initState();
+    _readConfig();
     _incrementCounter();
 
   }
@@ -88,6 +90,13 @@ class _MainScreenState extends State<MainScreen> {
       });
 
     }
+
+  }
+
+  void _readConfig() async {
+
+    final prefs = await SharedPreferences.getInstance();
+    numOfIterations = prefs.getInt('iterations') ?? 10;
 
   }
 
