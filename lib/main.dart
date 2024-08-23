@@ -1,4 +1,4 @@
-import 'package:first_app/home_screen.dart';
+import 'package:first_app/start_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: 
-        const HomeScreen(),
+        const StartScreen(),
     );
   }
 }

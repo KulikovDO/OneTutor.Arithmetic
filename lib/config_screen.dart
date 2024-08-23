@@ -1,4 +1,4 @@
-import 'package:first_app/home_screen.dart';
+import 'package:first_app/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,14 +41,16 @@ class _ConfigScreenState extends State<ConfigScreen> {
 
   }
 
-  void _handleSaveOnPressed(BuildContext context) async{
+  void _handleSaveOnPressed(BuildContext context) async {
     
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('iterations', int.parse(_textEditingController.text));
 
+    // ??? if (!mounted) return;
+
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (ctx) => const HomeScreen(),
+        builder: (ctx) => const StartScreen(),
       ),
     );
    

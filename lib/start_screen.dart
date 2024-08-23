@@ -3,8 +3,8 @@ import 'package:first_app/main_screen.dart';
 import 'package:flutter/material.dart';
 
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class StartScreen extends StatelessWidget {
+  const StartScreen({super.key});
 
   void _handleStartOnPressed(BuildContext context){
     Navigator.of(context).push(
