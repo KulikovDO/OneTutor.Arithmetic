@@ -17,6 +17,7 @@ class _FinalScreenState extends State<FinalScreen> {
   late AudioController _audioController;
   final _confettiController = ConfettiController();
 
+
   @override
   void initState(){
 
@@ -25,6 +26,7 @@ class _FinalScreenState extends State<FinalScreen> {
     _confettiController.play();
 
   }
+
 
   void _initAudioController() async {
 

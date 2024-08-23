@@ -7,7 +7,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 
 var rng = Random();
 FlutterTts flutterTts = FlutterTts();
-const numOfIterations = 5;
+const numOfIterations = 20;
 
 class MainScreen extends StatefulWidget {
   MainScreen({super.key}) 

@@ -1,3 +1,4 @@
+import 'package:first_app/config_screen.dart';
 import 'package:first_app/main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -5,10 +6,18 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  void _handleOnPressed(BuildContext context){
+  void _handleStartOnPressed(BuildContext context){
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => MainScreen(),
+      ),
+    );
+  }
+
+  void _handleConfigOnPressed(BuildContext context){
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => const ConfigScreen(),
       ),
     );
   }
@@ -22,6 +31,14 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           automaticallyImplyLeading: false,
           title: const Text("Practice Addition"),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.more_horiz),
+              onPressed: () { 
+                _handleConfigOnPressed(context);
+              },
+            ),
+          ],
         ),
         body: 
           Center(
@@ -31,7 +48,7 @@ class HomeScreen extends StatelessWidget {
               child: 
                 ElevatedButton(
                   onPressed: () { 
-                    _handleOnPressed(context);
+                    _handleStartOnPressed(context);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
