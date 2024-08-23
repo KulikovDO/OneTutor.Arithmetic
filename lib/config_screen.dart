@@ -46,7 +46,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('iterations', int.parse(_textEditingController.text));
 
-    // ??? if (!mounted) return;
+    if (!context.mounted) return;
 
     Navigator.of(context).push(
       MaterialPageRoute(
