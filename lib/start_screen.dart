@@ -1,3 +1,4 @@
+import 'package:first_app/background.dart';
 import 'package:first_app/config_screen.dart';
 import 'package:first_app/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +25,7 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    
-    Scaffold(
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           automaticallyImplyLeading: false,
@@ -40,35 +39,40 @@ class StartScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: 
-          Center(
-            child: SizedBox(
-              width: 200.0,
-              height: 50.0,
-              child: 
-                ElevatedButton(
-                  onPressed: () { 
-                    _handleStartOnPressed(context);
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.play_arrow,
-                        ),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        Text('Start'),
-                        
-                      ],
-                    )
+        body: Stack(
+          children: [
+            const Background(),
+            Center(
+              child: SizedBox(
+                width: 200.0,
+                height: 50.0,
+                child: 
+                  ElevatedButton(
+                    onPressed: () { 
+                      _handleStartOnPressed(context);
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.play_arrow,
+                          ),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Text('Start'),
+                          
+                        ],
+                      )
+                    ),
                   ),
-                ),
-            )
-          ),
+              )
+            ),
+          ],
+        ),
+          
     );
   }
 }
