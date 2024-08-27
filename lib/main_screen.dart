@@ -1,14 +1,14 @@
 import 'package:first_app/data/arithmetic_operation.dart';
 import 'package:first_app/final_screen.dart';
 import 'package:first_app/misc/extensions.dart';
+import 'package:first_app/model/addition_operation.dart';
+import 'package:first_app/model/task.dart';
 import 'package:flutter/material.dart';
 import 'package:first_app/progress_indicator.dart' as pi;
-import 'dart:math';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-var rng = Random();
 FlutterTts flutterTts = FlutterTts();
 
 class MainScreen extends StatefulWidget {
@@ -73,23 +73,13 @@ class _MainScreenState extends State<MainScreen> {
 
     } else {
     
-      int firstNumber = 0;
-      int secondNumber = 0;
-
-      do{
-        
-        firstNumber = rng.nextInt( 5 ) + 1;
-        secondNumber = rng.nextInt( 5 ) + 1;
-
-      }
-      while( firstNumber == _firstNumber && secondNumber == _secondNumber );
-
-      final text = 'How much is $firstNumber plus $secondNumber?';
-      flutterTts.speak(text);
+      Task task = AdditionOperation.prepareTask(_firstNumber, _secondNumber);
+      
+      flutterTts.speak(task.text);
       
       setState(() {
-        _firstNumber = firstNumber;
-        _secondNumber = secondNumber;
+        _firstNumber = task.firstNumber;
+        _secondNumber = task.secondNumber;
         _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
       });
 
