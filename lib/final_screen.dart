@@ -1,4 +1,5 @@
 import 'package:first_app/audio_controller.dart';
+import 'package:first_app/background.dart';
 import 'package:first_app/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,6 +39,7 @@ class _FinalScreenState extends State<FinalScreen> {
 
 
   void _handleOnPressed(BuildContext context) {
+    
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => StartScreen(),
@@ -55,59 +57,64 @@ class _FinalScreenState extends State<FinalScreen> {
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           automaticallyImplyLeading: false,
-          title: const Text("Practice Addition"),
+          title: const Text( "OneTutor: Arithmetic" ),
         ),
-        body: 
-          Center(
-            child: 
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Well Done!!!",
-                    style: GoogleFonts.merriweather(
-                      textStyle: const TextStyle(fontSize: 35, fontWeight: FontWeight.bold)
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50.0,
-                  ),
-                  ConfettiWidget(
-                    confettiController: _confettiController, 
-                    shouldLoop: true,
-                    blastDirectionality: BlastDirectionality.explosive,
-                  ),
-                  SizedBox(
-                    width: 200.0,
-                    height: 50.0,
-                    child: 
-                      ElevatedButton(
-                        onPressed: () { 
-                          _handleOnPressed(context);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.restart_alt,
-                              ),
-                              SizedBox(
-                                width: 5.0,
-                              ),
-                              Text('Restart'),
-                              
-                            ],
-                          )
+        body:
+          Stack(
+            children: [
+              const Background( ),
+              Center(
+                child: 
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Well Done!!!",
+                        style: GoogleFonts.merriweather(
+                          textStyle: const TextStyle(fontSize: 35, fontWeight: FontWeight.bold)
                         ),
                       ),
+                      const SizedBox(
+                        height: 50.0,
+                      ),
+                      ConfettiWidget(
+                        confettiController: _confettiController, 
+                        shouldLoop: true,
+                        blastDirectionality: BlastDirectionality.explosive,
+                      ),
+                      SizedBox(
+                        width: 200.0,
+                        height: 50.0,
+                        child:
+                          ElevatedButton(
+                            onPressed: () { 
+                              _handleOnPressed(context);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.menu,
+                                  ),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Text( "Main Menu" ),
+                                  
+                                ],
+                              )
+                            ),
+                          ),
+                      ),
+                    ]
                   ),
-                ]
               ),
+            ],
           ),
-      );
-      
+        );
+
   }
 
 }

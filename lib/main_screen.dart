@@ -94,9 +94,6 @@ class _MainScreenState extends State<MainScreen> {
           break;
       }
       
-      
-      // Task task = AdditionOperation.prepareTask(_firstNumber, _secondNumber);
-      
       flutterTts.speak(task.text);
       
       setState(() {
