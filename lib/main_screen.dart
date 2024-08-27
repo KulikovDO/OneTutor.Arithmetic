@@ -2,6 +2,8 @@ import 'package:first_app/data/arithmetic_operation.dart';
 import 'package:first_app/final_screen.dart';
 import 'package:first_app/misc/extensions.dart';
 import 'package:first_app/model/addition_operation.dart';
+import 'package:first_app/model/division_operation.dart';
+import 'package:first_app/model/multiplication_operation.dart';
 import 'package:first_app/model/subtraction_operation.dart';
 import 'package:first_app/model/task.dart';
 import 'package:flutter/material.dart';
@@ -85,9 +87,11 @@ class _MainScreenState extends State<MainScreen> {
           task = SubtractionOperation.prepareTask(_firstNumber, _secondNumber);
           break;
         case ArithmeticOperation.multiplication:
-          throw UnimplementedError();
+          task = MultiplicationOperation.prepareTask(_firstNumber, _secondNumber);
+          break;
         case ArithmeticOperation.division:
-          throw UnimplementedError();
+          task = DivisionOperation.prepareTask(_firstNumber, _secondNumber);
+          break;
       }
       
       
