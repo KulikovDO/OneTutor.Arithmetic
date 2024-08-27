@@ -2,6 +2,7 @@ import 'package:first_app/data/arithmetic_operation.dart';
 import 'package:first_app/final_screen.dart';
 import 'package:first_app/misc/extensions.dart';
 import 'package:first_app/model/addition_operation.dart';
+import 'package:first_app/model/subtraction_operation.dart';
 import 'package:first_app/model/task.dart';
 import 'package:flutter/material.dart';
 import 'package:first_app/progress_indicator.dart' as pi;
@@ -73,7 +74,24 @@ class _MainScreenState extends State<MainScreen> {
 
     } else {
     
-      Task task = AdditionOperation.prepareTask(_firstNumber, _secondNumber);
+      Task task;
+      
+      switch(widget.arithmeticOperation){
+
+        case ArithmeticOperation.addition:
+          task = AdditionOperation.prepareTask(_firstNumber, _secondNumber);
+          break;
+        case ArithmeticOperation.subtraction:
+          task = SubtractionOperation.prepareTask(_firstNumber, _secondNumber);
+          break;
+        case ArithmeticOperation.multiplication:
+          throw UnimplementedError();
+        case ArithmeticOperation.division:
+          throw UnimplementedError();
+      }
+      
+      
+      // Task task = AdditionOperation.prepareTask(_firstNumber, _secondNumber);
       
       flutterTts.speak(task.text);
       
