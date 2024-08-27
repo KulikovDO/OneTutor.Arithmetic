@@ -1,3 +1,4 @@
+import 'package:first_app/misc/extensions.dart';
 import 'package:first_app/model/category.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +60,7 @@ class Tile extends StatelessWidget {
                 flex: 1,
                 child: Center(
                   child: Text(
-                    category.title,
+                    category.arithmeticOperation.name.capitalize(),
                     style: const TextStyle(fontSize: 30, color: Colors.black),
                   ),
                 ),

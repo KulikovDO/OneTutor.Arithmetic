@@ -1,15 +1,14 @@
+import 'package:first_app/data/arithmetic_operation.dart';
 import 'package:flutter/material.dart';
 
 class Category {
   const Category({
-    required this.id,
-    required this.title,
+    required this.arithmeticOperation,
     required this.color,
     required this.icon,
   });
 
-  final String id;
-  final String title;
+  final ArithmeticOperation arithmeticOperation;
   final Color color;
   final IconData icon;
 }
