@@ -1,5 +1,5 @@
 import 'package:first_app/audio_controller.dart';
-import 'package:first_app/main_screen.dart';
+import 'package:first_app/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:confetti/confetti.dart';
@@ -40,7 +40,7 @@ class _FinalScreenState extends State<FinalScreen> {
   void _handleOnPressed(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (ctx) => MainScreen(),
+        builder: (ctx) => StartScreen(),
       ),
     );
     

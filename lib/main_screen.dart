@@ -1,4 +1,6 @@
+import 'package:first_app/data/arithmetic_operation.dart';
 import 'package:first_app/final_screen.dart';
+import 'package:first_app/misc/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:first_app/progress_indicator.dart' as pi;
 import 'dart:math';
@@ -10,10 +12,12 @@ var rng = Random();
 FlutterTts flutterTts = FlutterTts();
 
 class MainScreen extends StatefulWidget {
-  MainScreen({super.key}) 
+  MainScreen({super.key, required this.arithmeticOperation}) 
   {
     flutterTts.setSpeechRate(0.4);
   }
+
+  final ArithmeticOperation arithmeticOperation;
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -105,8 +109,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // automaticallyImplyLeading: false,
-        title: const Text("OneTutor: Arithmetic"),
+        title: Text(widget.arithmeticOperation.name.capitalize()),
       ),
       body: Stack(
         children: <Widget>[ 

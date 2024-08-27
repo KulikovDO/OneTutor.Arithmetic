@@ -15,7 +15,7 @@ class StartScreen extends StatelessWidget {
     // print(category.title);
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (ctx) => MainScreen(),
+        builder: (ctx) => MainScreen(arithmeticOperation: category.arithmeticOperation),
       ),
     );
   
