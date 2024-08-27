@@ -17,11 +17,11 @@ class StartScreen extends StatelessWidget {
   }
 
   void _handleStartOnPressed(BuildContext context){
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => MainScreen(),
-      ),
-    );
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (ctx) => MainScreen(),
+    //   ),
+    // );
   }
 
   void _handleConfigOnPressed(BuildContext context){
@@ -51,31 +51,61 @@ class StartScreen extends StatelessWidget {
         body: Stack(
           children: [
             const Background(),
-            GridView(
-              padding: const EdgeInsets.all(50),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: 5 / 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (final category in categories)
+                      Tile(
+                        width: 300.0,
+                        height: 100.0,
+                        category: category,
+                        onPressed: () {
+                          _selectCategory(context, category);
+                        },
+                      )
+                ],
               ),
-              children: [
-                // availableCategories.map((category) => CategoryGridItem(category: category)).toList()
-                for (final category in categories)
-                  Tile(
-                    category: category,
-                    onSelect: () {
-                      _selectCategory(context, category);
-                    },
-                  )
-              ],
-            )
-            // Center(
+            ),
+          ],
+        ),
+
+        // body: Stack(
+        //   children: [
+        //     const Background(),
+        //     GridView(
+        //       padding: const EdgeInsets.all(50),
+        //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        //         crossAxisCount: 1,
+        //         childAspectRatio: 5 / 2,
+        //         crossAxisSpacing: 20,
+        //         mainAxisSpacing: 20,
+        //       ),
+        //       children: [
+        //         for (final category in categories)
+        //           Tile(
+        //             category: category,
+        //             onSelect: () {
+        //               _selectCategory(context, category);
+        //             },
+        //           )
+        //       ],
+        //     ),
+        //   ],
+        // ),
+            // body: Center(
             //   child: SizedBox(
-            //     width: 200.0,
-            //     height: 50.0,
+            //     width: 300.0,
+            //     height: 100.0,
             //     child: 
             //       ElevatedButton(
+            //         style: ElevatedButton.styleFrom(
+            //           shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(5),
+            //           ),
+            //           // backgroundColor: null,
+
+            //         ),
             //         onPressed: () { 
             //           _handleStartOnPressed(context);
             //         },
@@ -98,9 +128,21 @@ class StartScreen extends StatelessWidget {
             //       ),
             //   )
             // ),
-          ],
-        ),
+          //body: 
           
+          //  Stack(
+          // children: [
+          //   const Background(),
+          // Tile(
+          //   category: categories[0],
+          //   width: 300.0,
+          //   height: 100.0,
+          //   onPressed: () { 
+          //     _handleStartOnPressed(context);
+          //   },
+          // ),
+          // ]
+          //  )
     );
   }
 }
