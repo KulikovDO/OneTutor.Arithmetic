@@ -12,16 +12,13 @@ class StartScreen extends StatelessWidget {
 
   void _selectCategory(BuildContext context, Category category) {
   
-    print(category);
+    // print(category.title);
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => MainScreen(),
+      ),
+    );
   
-  }
-
-  void _handleStartOnPressed(BuildContext context){
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (ctx) => MainScreen(),
-    //   ),
-    // );
   }
 
   void _handleConfigOnPressed(BuildContext context){
@@ -38,7 +35,7 @@ class StartScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           automaticallyImplyLeading: false,
-          title: const Text("Practice Addition"),
+          title: const Text("OneTutor: Arithmetic"),
           actions: [
             IconButton(
               icon: const Icon(Icons.more_horiz),
@@ -69,80 +66,6 @@ class StartScreen extends StatelessWidget {
             ),
           ],
         ),
-
-        // body: Stack(
-        //   children: [
-        //     const Background(),
-        //     GridView(
-        //       padding: const EdgeInsets.all(50),
-        //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        //         crossAxisCount: 1,
-        //         childAspectRatio: 5 / 2,
-        //         crossAxisSpacing: 20,
-        //         mainAxisSpacing: 20,
-        //       ),
-        //       children: [
-        //         for (final category in categories)
-        //           Tile(
-        //             category: category,
-        //             onSelect: () {
-        //               _selectCategory(context, category);
-        //             },
-        //           )
-        //       ],
-        //     ),
-        //   ],
-        // ),
-            // body: Center(
-            //   child: SizedBox(
-            //     width: 300.0,
-            //     height: 100.0,
-            //     child: 
-            //       ElevatedButton(
-            //         style: ElevatedButton.styleFrom(
-            //           shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(5),
-            //           ),
-            //           // backgroundColor: null,
-
-            //         ),
-            //         onPressed: () { 
-            //           _handleStartOnPressed(context);
-            //         },
-            //         child: const Padding(
-            //           padding: EdgeInsets.all(10.0),
-            //           child: Row(
-            //             mainAxisAlignment: MainAxisAlignment.center,
-            //             children: [
-            //               Icon(
-            //                 Icons.play_arrow,
-            //               ),
-            //               SizedBox(
-            //                 width: 5.0,
-            //               ),
-            //               Text('Start'),
-                          
-            //             ],
-            //           )
-            //         ),
-            //       ),
-            //   )
-            // ),
-          //body: 
-          
-          //  Stack(
-          // children: [
-          //   const Background(),
-          // Tile(
-          //   category: categories[0],
-          //   width: 300.0,
-          //   height: 100.0,
-          //   onPressed: () { 
-          //     _handleStartOnPressed(context);
-          //   },
-          // ),
-          // ]
-          //  )
     );
   }
 }
