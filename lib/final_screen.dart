@@ -1,9 +1,12 @@
 import 'package:first_app/audio_controller.dart';
 import 'package:first_app/background.dart';
 import 'package:first_app/start_screen.dart';
+import 'package:first_app/widgets/decorated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:confetti/confetti.dart';
+import 'dart:io' show Platform, exit;
+import 'package:flutter/services.dart';
 
 
 class FinalScreen extends StatefulWidget {
@@ -38,11 +41,22 @@ class _FinalScreenState extends State<FinalScreen> {
   }
 
 
-  void _handleOnPressed(BuildContext context) {
+  void _handleOnPressedExit( ){
+
+    if (Platform.isAndroid) {
+      SystemNavigator.pop();
+    } else if (Platform.isIOS) {
+      exit(0);
+    }
+
+  }
+
+
+  void _handleOnPressedMainMenu(BuildContext context) {
     
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (ctx) => StartScreen(),
+        builder: (ctx) => const StartScreen(),
       ),
     );
     
@@ -82,31 +96,26 @@ class _FinalScreenState extends State<FinalScreen> {
                         shouldLoop: true,
                         blastDirectionality: BlastDirectionality.explosive,
                       ),
-                      SizedBox(
+                      DecoratedButton(
                         width: 200.0,
                         height: 50.0,
-                        child:
-                          ElevatedButton(
-                            onPressed: () { 
-                              _handleOnPressed(context);
-                            },
-                            child: const Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.menu,
-                                  ),
-                                  SizedBox(
-                                    width: 5.0,
-                                  ),
-                                  Text( "Main Menu" ),
-                                  
-                                ],
-                              )
-                            ),
-                          ),
+                        text: "Main Menu", 
+                        icon: Icons.menu, 
+                        onPressed: () {
+                          _handleOnPressedMainMenu(context);
+                        }
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      DecoratedButton(
+                        width: 200.0,
+                        height: 50.0,
+                        text: "Exit", 
+                        icon: Icons.exit_to_app, 
+                        onPressed: () {
+                          _handleOnPressedExit();
+                        }
                       ),
                     ]
                   ),
