@@ -1,5 +1,5 @@
 import 'package:first_app/background.dart';
-import 'package:first_app/start_screen.dart';
+import 'package:first_app/screens/start_screen.dart';
 import 'package:first_app/widgets/decorated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -75,7 +75,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
                             showValueIndicator: ShowValueIndicator.always),
                         child: Slider(
                           value: _iterations.toDouble(),
-                          min: 5,
+                          min: 3,
                           max: 25,
                           // divisions: 20,
                           label: _iterations.toString(),

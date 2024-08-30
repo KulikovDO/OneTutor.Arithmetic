@@ -1,6 +1,6 @@
 import 'package:first_app/audio_controller.dart';
 import 'package:first_app/background.dart';
-import 'package:first_app/start_screen.dart';
+import 'package:first_app/screens/start_screen.dart';
 import 'package:first_app/widgets/decorated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
