@@ -34,14 +34,14 @@ class Tile extends StatelessWidget {
         ),
         child: ElevatedButton(
           style: ButtonStyle(
-            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
               ),
             ),
-            fixedSize: WidgetStateProperty.all(Size(width, height)),
-            backgroundColor: WidgetStateProperty.all(Colors.transparent),
-            shadowColor: WidgetStateProperty.all(Colors.transparent),
+            fixedSize: MaterialStateProperty.all(Size(width, height)),
+            backgroundColor: MaterialStateProperty.all(Colors.transparent),
+            shadowColor: MaterialStateProperty.all(Colors.transparent),
           ),
           onPressed: () {
             onPressed();

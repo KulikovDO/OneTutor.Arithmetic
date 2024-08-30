@@ -2,7 +2,6 @@ import 'package:first_app/background.dart';
 import 'package:first_app/start_screen.dart';
 import 'package:first_app/widgets/decorated_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -15,38 +14,26 @@ class ConfigScreen extends StatefulWidget {
 
 class _ConfigScreenState extends State<ConfigScreen> {
 
-  late TextEditingController _textEditingController;
+  int _iterations = 10;
   bool canSave = true;
 
   @override
   void initState() {
     super.initState();
-    _textEditingController = TextEditingController();
-    _textEditingController.addListener(() {
-      setState(() {
-        canSave = _textEditingController.text == "";  
-      });
-    });
     _loadPrefs();
-  }
-
-  @override
-  void dispose() {
-    _textEditingController.dispose();
-    super.dispose();
   }
 
   Future<void> _loadPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    final iterations = prefs.getInt('iterations') ?? 10;
-    _textEditingController.text = iterations.toString();
-
+    setState(() {
+      _iterations = prefs.getInt('iterations') ?? 10;
+    });
   }
 
   void _handleOnPressedSave(BuildContext context) async {
     
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('iterations', int.parse(_textEditingController.text));
+    await prefs.setInt('iterations', _iterations);
 
     if (!context.mounted) return;
 
@@ -75,17 +62,28 @@ class _ConfigScreenState extends State<ConfigScreen> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                          width: 300.0,
-                          height: 50.0,
-                          child: TextField(
-                            controller: _textEditingController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "Number of iterations",
-                            ),
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      Text(
+                        "Number of iterations: $_iterations",
+                        style: const TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold),
+
+                      ),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      SliderTheme(
+                        data: const SliderThemeData(
+                            showValueIndicator: ShowValueIndicator.always),
+                        child: Slider(
+                          value: _iterations.toDouble(),
+                          min: 5,
+                          max: 25,
+                          // divisions: 20,
+                          label: _iterations.toString(),
+                          onChanged: (double value) {
+                            setState(() {
+                              _iterations = value.toInt();
+                            });
+                          },
                         ),
                       ),
                       const SizedBox(
