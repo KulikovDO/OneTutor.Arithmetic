@@ -44,9 +44,6 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
                     Container(
                       width: 300.0,
                       height: 100.0,
-                      // decoration: const BoxDecoration(
-                      //   color: Colors.white
-                      // ),
                       child: Center(
                         child: Text(
                           category.arithmeticOperation.name.capitalize(),
@@ -59,37 +56,18 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
             ),
           ),
 
-          // const Expanded(
+          const Expanded(
+            child: Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Text(
+                   "Got it",
+                   style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                 ),
+            ),
+          ),
 
-          // child: Padding(
-          //   padding: EdgeInsets.only(bottom: 20.0),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     //crossAxisAlignment: CrossAxisAlignment.center,
-          //     children: [
-          //       Text(
-          //         "Got it",
-          //         style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // ),
         ]
-
       )
-      // child: Center(
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: [
-      //       for (final category in categories)
-      //           const SizedBox(
-      //             width: 300.0,
-      //             height: 100.0,
-      //           )
-      //     ],
-      //   ),
-      // ),
     );
   }
 

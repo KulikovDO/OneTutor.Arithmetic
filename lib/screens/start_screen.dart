@@ -1,6 +1,6 @@
 import 'package:first_app/background.dart';
 import 'package:first_app/config_screen.dart';
-import 'package:first_app/intros/start_screen_intro.dart';
+// import 'package:first_app/intros/start_screen_intro.dart';
 import 'package:first_app/screens/main_screen.dart';
 import 'package:first_app/model/category.dart';
 import 'package:first_app/tile.dart';
@@ -12,8 +12,7 @@ class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
 
   void _selectCategory(BuildContext context, Category category) {
-  
-    // print(category.title);
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => MainScreen(arithmeticOperation: category.arithmeticOperation),
@@ -65,7 +64,7 @@ class StartScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const StartScreenIntro(),
+            // const StartScreenIntro(),
           ],
         ),
     );
