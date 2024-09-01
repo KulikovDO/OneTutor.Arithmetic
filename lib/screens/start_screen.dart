@@ -51,75 +51,25 @@ class StartScreen extends StatelessWidget {
           Stack(
             children: [
               const Background(),
-              isPortrait
-                ?
               Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: GridView.count(
+                  childAspectRatio: 3,
+                  crossAxisCount: isPortrait ? 1 : 2,
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  shrinkWrap: true,
                   children: [
                     for (final category in categories)
-                        Tile(
-                          width: 300.0,
-                          height: 100.0,
-                          category: category,
-                          onPressed: () {
-                            _selectCategory(context, category);
-                          },
-                        )
-                  ],
+                      Tile(
+                        width: 300.0,
+                        height: 100.0,
+                        category: category,
+                        onPressed: () {
+                          _selectCategory(context, category);
+                        },
+                      )
+                ],
                 ),
-              )
-                :
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Tile(
-                          width: 300.0,
-                          height: 100.0,
-                          category: categories[0],
-                          onPressed: () {
-                            _selectCategory(context, categories[0]);
-                          },
-                        ),
-                        Tile(
-                          width: 300.0,
-                          height: 100.0,
-                          category: categories[1],
-                          onPressed: () {
-                            _selectCategory(context, categories[1]);
-                          },
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Tile(
-                          width: 300.0,
-                          height: 100.0,
-                          category: categories[2],
-                          onPressed: () {
-                            _selectCategory(context, categories[2]);
-                          },
-                        ),
-                        Tile(
-                          width: 300.0,
-                          height: 100.0,
-                          category: categories[3],
-                          onPressed: () {
-                            _selectCategory(context, categories[3]);
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )
-              
+              ),
               // const StartScreenIntro(),
             ],
           )
