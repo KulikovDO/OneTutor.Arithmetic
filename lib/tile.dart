@@ -4,15 +4,11 @@ import 'package:flutter/material.dart';
 
 class Tile extends StatelessWidget {
   final Category category;
-  final double width;
-  final double height;
   final Function onPressed;
 
   const Tile({
     super.key,
     required this.category,
-    required this.width,
-    required this.height,
     required this.onPressed,
   });
 
@@ -39,33 +35,36 @@ class Tile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.0),
               ),
             ),
-            fixedSize: MaterialStateProperty.all(Size(width, height)),
             backgroundColor: MaterialStateProperty.all(Colors.transparent),
             shadowColor: MaterialStateProperty.all(Colors.transparent),
           ),
           onPressed: () {
             onPressed();
           },
-          child: Row(
-            children: [
-              SizedBox(
-                width: height / 2,
-                child: Icon(
-                  category.icon,
-                  color: Colors.black,
-                  size: 30,
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Center(
-                  child: Text(
-                    category.arithmeticOperation.name.capitalize(),
-                    style: const TextStyle(fontSize: 30, color: Colors.black),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Row(
+                children: [
+                  SizedBox(
+                    width: constraints.maxHeight/2,
+                    child: Icon(
+                      category.icon,
+                      color: Colors.black,
+                      size: 30,
+                    ),
                   ),
-                ),
-              ),
-            ],
+                  Expanded(
+                    flex: 1,
+                    child: Center(
+                      child: Text(
+                        category.arithmeticOperation.name.capitalize(),
+                        style: const TextStyle(fontSize: 30, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
           ),
         ),
       ),

@@ -60,8 +60,6 @@ class StartScreen extends StatelessWidget {
                   children: [
                     for (final category in categories)
                       Tile(
-                        width: 300.0,
-                        height: 100.0,
                         category: category,
                         onPressed: () {
                           _selectCategory(context, category);
