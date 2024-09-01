@@ -8,6 +8,7 @@ import 'package:first_app/data/categories.dart';
 import 'package:flutter/material.dart';
 
 
+
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
 
@@ -31,6 +32,7 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -45,28 +47,87 @@ class StartScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: Stack(
-          children: [
-            const Background(),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (final category in categories)
-                      Tile(
-                        width: 300.0,
-                        height: 100.0,
-                        category: category,
-                        onPressed: () {
-                          _selectCategory(context, category);
-                        },
-                      )
-                ],
-              ),
-            ),
-            // const StartScreenIntro(),
-          ],
-        ),
+        body: 
+          Stack(
+            children: [
+              const Background(),
+              isPortrait
+                ?
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (final category in categories)
+                        Tile(
+                          width: 300.0,
+                          height: 100.0,
+                          category: category,
+                          onPressed: () {
+                            _selectCategory(context, category);
+                          },
+                        )
+                  ],
+                ),
+              )
+                :
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Tile(
+                          width: 300.0,
+                          height: 100.0,
+                          category: categories[0],
+                          onPressed: () {
+                            _selectCategory(context, categories[0]);
+                          },
+                        ),
+                        Tile(
+                          width: 300.0,
+                          height: 100.0,
+                          category: categories[1],
+                          onPressed: () {
+                            _selectCategory(context, categories[1]);
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Tile(
+                          width: 300.0,
+                          height: 100.0,
+                          category: categories[2],
+                          onPressed: () {
+                            _selectCategory(context, categories[2]);
+                          },
+                        ),
+                        Tile(
+                          width: 300.0,
+                          height: 100.0,
+                          category: categories[3],
+                          onPressed: () {
+                            _selectCategory(context, categories[3]);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )
+              
+              // const StartScreenIntro(),
+            ],
+          )
+
+        
+        
+        
+        
     );
   }
 }
