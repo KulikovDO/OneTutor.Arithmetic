@@ -64,9 +64,21 @@ class _ProgressIndicatorState extends State<ProgressIndicator> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
+
+    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery.sizeOf(context).height;
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
+    double size = isPortrait
+      ?
+    (width / 100).floor() * 100 - 100
+      :
+    (height / 100).floor() * 100 - 100;
+    
+
     return Center(
       child: CustomPaint(
-        size: const Size(300, 300),
+        size: Size(size, size),
         painter: ProgressIndicatorPainter(animation.value),
       ),
     );
