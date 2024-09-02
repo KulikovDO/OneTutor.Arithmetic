@@ -32,7 +32,7 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -65,7 +65,7 @@ class StartScreen extends StatelessWidget {
                           _selectCategory(context, category);
                         },
                       )
-                ],
+                  ],
                 ),
               ),
               // const StartScreenIntro(),

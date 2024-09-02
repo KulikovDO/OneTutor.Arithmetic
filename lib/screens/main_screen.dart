@@ -113,8 +113,40 @@ class _MainScreenState extends State<MainScreen> {
 
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
+    List<Expanded> numberComponents = [
+      Expanded(
+        child: Container(
+          color: Colors.red,
+          width: double.infinity,
+          child: Center(
+            child: Text(
+              "$_firstNumber",
+              style: const TextStyle(color: Colors.white, fontSize: 100),
+            ),
+          )
+        )
+      ),
+      
+      Expanded(
+        child: Container(
+          color: Colors.blue,
+          width: double.infinity,
+          child: Center(
+            child: Text(
+              "$_secondNumber",
+              style: const TextStyle(color: Colors.white, fontSize: 100),
+            ),
+          )
+        )
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -122,48 +154,28 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: Stack(
         children: <Widget>[ 
-          
-          Container(
-            color: Colors.amber,
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                  Expanded(
-                    child: Container(
-                      color: Colors.red,
-                      width: double.infinity,
-                      child: Center(
-                        child: Text(
-                          "$_firstNumber",
-                          style: const TextStyle(color: Colors.white, fontSize: 100),
-                        ),
-                      )
-                    )
-                  ),
-                  
-                  Expanded(
-                    child: Container(
-                      color: Colors.blue,
-                      width: double.infinity,
-                      child: Center(
-                        child: Text(
-                          "$_secondNumber",
-                          style: const TextStyle(color: Colors.white, fontSize: 100),
-                        ),
-                      )
-                    )
-                  ),
-                ]
-              ),
+
+          isPortrait
+            ?
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: numberComponents
+          )
+            :
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: numberComponents
           ),
+
           Opacity(
             opacity: 0.15,
             child: Center(
               child: pi.ProgressIndicator(progress: _progress)
             ),
           ),
+          
         ]
       ),
       floatingActionButton: FloatingActionButton(
