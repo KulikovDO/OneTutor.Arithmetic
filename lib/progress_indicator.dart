@@ -69,6 +69,7 @@ class _ProgressIndicatorState extends State<ProgressIndicator> with SingleTicker
     double height = MediaQuery.sizeOf(context).height;
     bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
 
+    // progress indicator size depending on screen orientation
     double size = isPortrait
       ?
     (width / 100).floor() * 100 - 100
