@@ -1,6 +1,7 @@
 import 'package:one_tutor_arithmetic/data/categories.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/widgets/corner_border_decoration.dart';
 import 'package:one_tutor_arithmetic/widgets/intro_button.dart';
 
 class StartScreenIntro extends StatefulWidget {
@@ -50,10 +51,16 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
                   shrinkWrap: true,
                   children: [
                     for (final category in categories)
-                      Center(
-                        child: Text(
-                          category.arithmeticOperation.name.capitalize(),
-                          style: const TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                      Container(
+                        decoration: const CornerBorderDecoration(
+                          frameSFactor: 0.05,
+                          gap: 5,
+                        ),
+                        child: Center(
+                          child: Text(
+                            category.arithmeticOperation.name.capitalize(),
+                            style: const TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                   ],
@@ -64,11 +71,7 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
             child: Align(
               alignment: FractionalOffset.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 20.0),
-                // child: Text(
-                //   "Got it",
-                //   style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                // ),
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: IntroButton(text: "Got it", onPressed: _handleOnPressedGotIt)
               ),
             ),
