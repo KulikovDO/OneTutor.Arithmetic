@@ -1,5 +1,5 @@
-import 'package:first_app/misc/extensions.dart';
-import 'package:first_app/model/category.dart';
+import 'package:one_tutor_arithmetic/misc/extensions.dart';
+import 'package:one_tutor_arithmetic/model/category.dart';
 import 'package:flutter/material.dart';
 
 class Tile extends StatelessWidget {

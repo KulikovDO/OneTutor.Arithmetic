@@ -1,4 +1,4 @@
-import 'package:first_app/screens/start_screen.dart';
+import 'package:one_tutor_arithmetic/screens/start_screen.dart';
 import 'package:flutter/material.dart';
 
 

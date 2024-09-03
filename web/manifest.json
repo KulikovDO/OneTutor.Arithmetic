@@ -1,6 +1,6 @@
 {
-    "name": "first_app",
-    "short_name": "first_app",
+    "name": "one_tutor_arithmetic",
+    "short_name": "one_tutor_arithmetic",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

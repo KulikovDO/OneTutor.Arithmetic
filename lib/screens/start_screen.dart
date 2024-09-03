@@ -1,10 +1,10 @@
-import 'package:first_app/background.dart';
-import 'package:first_app/config_screen.dart';
-// import 'package:first_app/intros/start_screen_intro.dart';
-import 'package:first_app/screens/main_screen.dart';
-import 'package:first_app/model/category.dart';
-import 'package:first_app/tile.dart';
-import 'package:first_app/data/categories.dart';
+import 'package:one_tutor_arithmetic/background.dart';
+import 'package:one_tutor_arithmetic/config_screen.dart';
+// import 'package:one_tutor_arithmetic/intros/start_screen_intro.dart';
+import 'package:one_tutor_arithmetic/screens/main_screen.dart';
+import 'package:one_tutor_arithmetic/model/category.dart';
+import 'package:one_tutor_arithmetic/tile.dart';
+import 'package:one_tutor_arithmetic/data/categories.dart';
 import 'package:flutter/material.dart';
 
 

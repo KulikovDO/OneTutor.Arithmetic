@@ -1,5 +1,5 @@
-import 'package:first_app/data/arithmetic_operation.dart';
-import 'package:first_app/model/category.dart';
+import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
+import 'package:one_tutor_arithmetic/model/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

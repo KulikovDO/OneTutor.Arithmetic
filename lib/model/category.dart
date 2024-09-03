@@ -1,4 +1,4 @@
-import 'package:first_app/data/arithmetic_operation.dart';
+import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
 import 'package:flutter/material.dart';
 
 class Category {

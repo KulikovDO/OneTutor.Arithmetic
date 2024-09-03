@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:first_app/model/task.dart';
+import 'package:one_tutor_arithmetic/model/task.dart';
 
 
 var rng = Random();

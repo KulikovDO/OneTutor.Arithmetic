@@ -1,4 +1,4 @@
-# first_app
+# one_tutor_arithmetic
 
 A new Flutter project.
 

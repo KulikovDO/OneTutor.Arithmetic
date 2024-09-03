@@ -1,5 +1,5 @@
-import 'package:first_app/data/categories.dart';
-import 'package:first_app/misc/extensions.dart';
+import 'package:one_tutor_arithmetic/data/categories.dart';
+import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:flutter/material.dart';
 
 class StartScreenIntro extends StatefulWidget {
