@@ -1,9 +1,9 @@
-import 'package:one_tutor_arithmetic/background.dart';
-import 'package:one_tutor_arithmetic/config_screen.dart';
-// import 'package:one_tutor_arithmetic/intros/start_screen_intro.dart';
+import 'package:one_tutor_arithmetic/widgets/background.dart';
+import 'package:one_tutor_arithmetic/screens/config_screen.dart';
+import 'package:one_tutor_arithmetic/intros/start_screen_intro.dart';
 import 'package:one_tutor_arithmetic/screens/main_screen.dart';
 import 'package:one_tutor_arithmetic/model/category.dart';
-import 'package:one_tutor_arithmetic/tile.dart';
+import 'package:one_tutor_arithmetic/widgets/tile.dart';
 import 'package:one_tutor_arithmetic/data/categories.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +33,7 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -68,7 +69,7 @@ class StartScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              // const StartScreenIntro(),
+              const StartScreenIntro(),
             ],
           )
 

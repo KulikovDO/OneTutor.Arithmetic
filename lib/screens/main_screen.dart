@@ -1,5 +1,5 @@
 import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
-import 'package:one_tutor_arithmetic/final_screen.dart';
+import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:one_tutor_arithmetic/model/addition_operation.dart';
 import 'package:one_tutor_arithmetic/model/division_operation.dart';
@@ -7,7 +7,7 @@ import 'package:one_tutor_arithmetic/model/multiplication_operation.dart';
 import 'package:one_tutor_arithmetic/model/subtraction_operation.dart';
 import 'package:one_tutor_arithmetic/model/task.dart';
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/progress_indicator.dart' as pi;
+import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

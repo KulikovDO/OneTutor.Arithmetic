@@ -1,6 +1,7 @@
 import 'package:one_tutor_arithmetic/data/categories.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/widgets/intro_button.dart';
 
 class StartScreenIntro extends StatefulWidget {
   const StartScreenIntro({super.key});
@@ -11,8 +12,14 @@ class StartScreenIntro extends StatefulWidget {
 
 class _StartScreenIntroState extends State<StartScreenIntro> {
 
+  _handleOnPressedGotIt(){
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -21,6 +28,7 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
       ),
       child: Stack(
         children: [
+
           const Padding(
             padding: EdgeInsets.only(top: 20.0),
             child: Row(
@@ -33,36 +41,36 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
               ],
             ),
           ),
+
           Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (final category in categories)
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                    child:
-                    Container(
-                      width: 300.0,
-                      height: 100.0,
-                      child: Center(
+                child: GridView.count(
+                  childAspectRatio: 3,
+                  crossAxisCount: isPortrait ? 1 : 2,
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  shrinkWrap: true,
+                  children: [
+                    for (final category in categories)
+                      Center(
                         child: Text(
                           category.arithmeticOperation.name.capitalize(),
                           style: const TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ),
-                    ),
-              ],
-            ),
-          ),
+                  ],
+                ),
+              ),
 
-          const Expanded(
+          Expanded(
             child: Align(
               alignment: FractionalOffset.bottomCenter,
-              child: Text(
-                   "Got it",
-                   style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                 ),
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 20.0),
+                // child: Text(
+                //   "Got it",
+                //   style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                // ),
+                child: IntroButton(text: "Got it", onPressed: _handleOnPressedGotIt)
+              ),
             ),
           ),
 

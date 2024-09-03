@@ -1,4 +1,4 @@
-import 'package:one_tutor_arithmetic/background.dart';
+import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/screens/start_screen.dart';
 import 'package:one_tutor_arithmetic/widgets/decorated_button.dart';
 import 'package:flutter/material.dart';
