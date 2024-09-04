@@ -79,46 +79,47 @@ void dispose() {
           ),
 
           Center(
-                child: GridView.count(
-                  childAspectRatio: 3,
-                  crossAxisCount: isPortrait ? 1 : 2,
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  shrinkWrap: true,
-                  children: [
-                    for (final category in categories)
-                      Container(
-                        decoration: category == categories[categoryIndex]
-                          ?
-                        const CornerBorderDecoration(
-                          frameSFactor: 0.05,
-                        gap: 5,
-                        )
-                          : 
-                        null,
-                        child: Center(
-                          child: Text(
-                            category.arithmeticOperation.name.capitalize(),
-                            style: TextStyle(
-                              color: category == categories[categoryIndex] ?Colors.white : Colors.transparent,
-                              fontSize: 30, 
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
+            child: GridView.count(
+              childAspectRatio: 3,
+              crossAxisCount: isPortrait ? 1 : 2,
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              shrinkWrap: true,
+              children: [
+                for (final category in categories)
+                  Container(
+                    decoration: category == categories[categoryIndex]
+                      ?
+                    const CornerBorderDecoration(
+                      frameSFactor: 0.05,
+                    gap: 5,
+                    )
+                      : 
+                    null,
+                    child: Center(
+                      child: Text(
+                        category.arithmeticOperation.name.capitalize(),
+                        style: TextStyle(
+                          color: category == categories[categoryIndex] ? Colors.white : Colors.transparent,
+                          fontSize: 30, 
+                          fontWeight: FontWeight.bold
                         ),
                       ),
-                  ],
-                ),
-              ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
 
-          // Expanded(
-          //   child: Align(
-          //     alignment: FractionalOffset.bottomCenter,
-          //     child: Padding(
-          //       padding: const EdgeInsets.only(bottom: 20.0),
-          //       child: IntroButton(text: "Got it", onPressed: _handleOnPressedGotIt)
-          //     ),
-          //   ),
-          // ),
+          const Expanded(
+            child: Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 20.0),
+                // child: IntroButton(text: "Got it", onPressed: _handleOnPressedGotIt)
+                child: Text("Got it")
+              ),
+            ),
+          ),
 
         ]
       )
