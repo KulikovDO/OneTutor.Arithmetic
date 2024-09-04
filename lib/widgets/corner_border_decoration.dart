@@ -15,9 +15,9 @@ class CornerBorderDecoration extends Decoration {
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
     return CornerBorderDecorationPainter(
-        backgroundColor: backgroundColor!,
-        frameSFactor: frameSFactor,
-        padding: gap);
+      backgroundColor: backgroundColor!,
+      frameSFactor: frameSFactor,
+      padding: gap);
   }
 }
 
@@ -34,7 +34,6 @@ class CornerBorderDecorationPainter extends BoxPainter {
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    // print(configuration.size!.height);
 
     final Rect bounds = offset & configuration.size!;
     final frameHWidth = configuration.size!.width * frameSFactor;
