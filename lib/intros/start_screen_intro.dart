@@ -87,7 +87,7 @@ void dispose() {
                   children: [
                     for (final category in categories)
                       Container(
-                        decoration: category == categories[categoryIndex] 
+                        decoration: category == categories[categoryIndex]
                           ?
                         const CornerBorderDecoration(
                           frameSFactor: 0.05,
@@ -98,7 +98,11 @@ void dispose() {
                         child: Center(
                           child: Text(
                             category.arithmeticOperation.name.capitalize(),
-                            style: const TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              color: category == categories[categoryIndex] ?Colors.white : Colors.transparent,
+                              fontSize: 30, 
+                              fontWeight: FontWeight.bold
+                            ),
                           ),
                         ),
                       ),
