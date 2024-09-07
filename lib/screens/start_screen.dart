@@ -9,8 +9,15 @@ import 'package:flutter/material.dart';
 
 
 
-class StartScreen extends StatelessWidget {
+class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
+
+  @override
+  State<StartScreen> createState() => _StartScreenState();
+}
+
+class _StartScreenState extends State<StartScreen> {
+  bool displayStartScreenIntro = true;
 
   void _selectCategory(BuildContext context, Category category) {
 
@@ -22,12 +29,18 @@ class StartScreen extends StatelessWidget {
   
   }
 
-  void _handleConfigOnPressed(BuildContext context){
+  _handleConfigOnPressed(BuildContext context){
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => const ConfigScreen(),
       ),
     );
+  }
+
+  _handleOnPressedGotIt() {
+    setState(() {
+      displayStartScreenIntro = false;
+    });
   }
 
   @override
@@ -69,7 +82,10 @@ class StartScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const StartScreenIntro(),
+              if(displayStartScreenIntro)
+                StartScreenIntro(
+                  onPressed: _handleOnPressedGotIt,
+                ),
             ],
           )
 

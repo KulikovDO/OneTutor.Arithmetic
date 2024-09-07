@@ -1,14 +1,18 @@
 import 'dart:async';
-
 import 'package:one_tutor_arithmetic/data/categories.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/model/category.dart';
 import 'package:one_tutor_arithmetic/widgets/corner_border_decoration.dart';
 import 'package:one_tutor_arithmetic/widgets/intro_button.dart';
 
+
 class StartScreenIntro extends StatefulWidget {
-  const StartScreenIntro({super.key});
+  final Function onPressed;
+  
+  const StartScreenIntro({
+    super.key,
+    required this.onPressed
+  });
 
   @override
   State<StartScreenIntro> createState() => _StartScreenIntroState();
@@ -32,6 +36,7 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
         } else {
           categoryIndex += 1; 
         }
+        
       });
     
     });
@@ -41,10 +46,6 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
   void dispose() {
     _timer.cancel();
     super.dispose();
-  }
-
-  _handleOnPressedGotIt(){
-
   }
 
   @override
@@ -66,7 +67,7 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Select Operation",
+                  "#1. Select Operation",
                   style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -111,7 +112,12 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(bottom: isPortrait ? 20.0 : 0),
-                  child: IntroButton(text: "Got it", onPressed: _handleOnPressedGotIt),
+                  child: IntroButton(
+                    text: "Got it", 
+                    onPressed: () {
+                      widget.onPressed();
+                    },
+                  ),
                 )
               ],
             ),
