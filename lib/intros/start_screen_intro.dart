@@ -16,37 +16,35 @@ class StartScreenIntro extends StatefulWidget {
 
 class _StartScreenIntroState extends State<StartScreenIntro> {
 
-  late Timer _timer;
-  // Category category = categories[0];
+  // late Timer _timer;
   int categoryIndex = 0;
   
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    // var a = categories.indexed;
 
     
 
-    _timer = Timer.periodic(const Duration(seconds:3), (Timer t) {
+  //    _timer = Timer.periodic(const Duration(seconds:3), (Timer t) {
 
-      setState(() {
+  //     setState(() {
 
-        if(categoryIndex == categories.length - 1){
-          categoryIndex = 0;
-        } else {
-          categoryIndex += 1; 
-        }
-      });
+  //       if(categoryIndex == categories.length - 1){
+  //         categoryIndex = 0;
+  //       } else {
+  //         categoryIndex += 1; 
+  //       }
+  //     });
     
-    });
-  }
+  //   });
+  // }
 
-@override
-void dispose() {
-  _timer.cancel();
-  super.dispose();
-}
+// @override
+// void dispose() {
+//   _timer.cancel();
+//   super.dispose();
+// }
 
   _handleOnPressedGotIt(){
 
@@ -110,16 +108,17 @@ void dispose() {
             ),
           ),
 
-          const Expanded(
-            child: Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 20.0),
-                // child: IntroButton(text: "Got it", onPressed: _handleOnPressedGotIt)
-                child: Text("Got it")
-              ),
+          Positioned.fill(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: IntroButton(text: "Got it", onPressed: _handleOnPressedGotIt),
+                )
+              ],
             ),
-          ),
+        ),
 
         ]
       )
