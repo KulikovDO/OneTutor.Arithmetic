@@ -16,35 +16,32 @@ class StartScreenIntro extends StatefulWidget {
 
 class _StartScreenIntroState extends State<StartScreenIntro> {
 
-  // late Timer _timer;
+  late Timer _timer;
   int categoryIndex = 0;
   
-  // @override
-  // void initState() {
-  //   super.initState();
+  @override
+  void initState() {
+    super.initState();
+ 
+     _timer = Timer.periodic(const Duration(seconds:3), (Timer t) {
 
+      setState(() {
 
+        if(categoryIndex == categories.length - 1){
+          categoryIndex = 0;
+        } else {
+          categoryIndex += 1; 
+        }
+      });
     
+    });
+  }
 
-  //    _timer = Timer.periodic(const Duration(seconds:3), (Timer t) {
-
-  //     setState(() {
-
-  //       if(categoryIndex == categories.length - 1){
-  //         categoryIndex = 0;
-  //       } else {
-  //         categoryIndex += 1; 
-  //       }
-  //     });
-    
-  //   });
-  // }
-
-// @override
-// void dispose() {
-//   _timer.cancel();
-//   super.dispose();
-// }
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   _handleOnPressedGotIt(){
 
@@ -63,9 +60,9 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
       child: Stack(
         children: [
 
-          const Padding(
-            padding: EdgeInsets.only(top: 20.0),
-            child: Row(
+          Padding(
+            padding: EdgeInsets.only(top: isPortrait ? 20.0 : 0),
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
@@ -113,7 +110,7 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0),
+                  padding: EdgeInsets.only(bottom: isPortrait ? 20.0 : 0),
                   child: IntroButton(text: "Got it", onPressed: _handleOnPressedGotIt),
                 )
               ],
