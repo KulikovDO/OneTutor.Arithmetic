@@ -1,4 +1,5 @@
 import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
+import 'package:one_tutor_arithmetic/intros/main_screen_intro.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:one_tutor_arithmetic/model/addition_operation.dart';
@@ -32,6 +33,7 @@ class _MainScreenState extends State<MainScreen> {
   int _iteration = 0;
   int numOfIterations = 10;
   double _progress = 0;
+  bool displayMainScreenIntro = true;
 
   @override
   void initState(){
@@ -106,11 +108,17 @@ class _MainScreenState extends State<MainScreen> {
 
   }
 
-  void _readConfig() async {
+  _readConfig() async {
 
     final prefs = await SharedPreferences.getInstance();
     numOfIterations = prefs.getInt('iterations') ?? 10;
 
+  }
+
+  _handleOnPressedGotIt() {
+    setState(() {
+      displayMainScreenIntro = false;
+    });
   }
 
   
@@ -153,7 +161,7 @@ class _MainScreenState extends State<MainScreen> {
         title: Text(widget.arithmeticOperation.name.capitalize()),
       ),
       body: Stack(
-        children: <Widget>[ 
+        children: [ 
 
           isPortrait
             ?
@@ -175,11 +183,16 @@ class _MainScreenState extends State<MainScreen> {
               child: pi.ProgressIndicator(progress: _progress)
             ),
           ),
+          if(displayMainScreenIntro)
+            MainScreenIntro(
+              onPressed: _handleOnPressedGotIt,
+            ),
           
         ]
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _handleFloatingActionButtonPress,
+        backgroundColor: displayMainScreenIntro ? const Color.fromARGB(255, 96, 91, 102) : Theme.of(context).colorScheme.secondaryContainer,
+        onPressed: displayMainScreenIntro ? null : _handleFloatingActionButtonPress,
         tooltip: 'Restart',
         child: const Icon(Icons.navigate_next),
       ),
