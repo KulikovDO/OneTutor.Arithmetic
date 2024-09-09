@@ -24,7 +24,7 @@ class Arrow extends StatelessWidget {
 class ArrowPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    // final rect = Rect.fromLTRB(0, 0, size.width, size.height);
+
     final paint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.fill
@@ -32,14 +32,17 @@ class ArrowPainter extends CustomPainter {
 
     Path path = Path();
 
-    path.moveTo( 0.4 * size.width, 0.1 * size.height );
-    path.lineTo( 0.6 * size.width, 0.1 * size.height );
-    path.lineTo( 0.6 * size.width, 0.7 * size.height );
-    path.lineTo( 0.7 * size.width, 0.7 * size.height );
-    path.lineTo( 0.5 * size.width, 0.9 * size.height );
-    path.lineTo( 0.3 * size.width, 0.7 * size.height );
-    path.lineTo( 0.4 * size.width, 0.7 * size.height );
-    path.lineTo( 0.4 * size.width, 0.1 * size.height );
+    path.moveTo( 0.4 * size.width, 0.2 * size.height );
+    
+    path.lineTo( 0.6 * size.width, 0.2 * size.height );
+    path.lineTo( 0.6 * size.width, 0.6 * size.height );
+    path.lineTo( 0.7 * size.width, 0.6 * size.height );
+    
+    path.lineTo( 0.5 * size.width, 0.8 * size.height );
+
+    path.lineTo( 0.3 * size.width, 0.6 * size.height );
+    path.lineTo( 0.4 * size.width, 0.6 * size.height );
+    path.lineTo( 0.4 * size.width, 0.2 * size.height );
 
     canvas.drawPath(path, paint);
   }
