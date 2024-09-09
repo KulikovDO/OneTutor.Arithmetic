@@ -37,11 +37,16 @@ class _MainScreenState extends State<MainScreen> {
   late Task task;
 
   @override
-  void initState(){
+  initState() {
 
     super.initState();
-    _readConfig();
-    _incrementCounter();
+    asyncInitState();
+
+  }
+
+  asyncInitState() async {
+    await _readConfig();
+    await _incrementCounter();
 
   }
 
@@ -62,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
 
-  void _incrementCounter() async{
+  _incrementCounter() async{
 
     if( _iteration >= numOfIterations){
 
@@ -94,7 +99,6 @@ class _MainScreenState extends State<MainScreen> {
           task = DivisionOperation.prepareTask(_firstNumber, _secondNumber);
           break;
       }
-
       
       if(!displayMainScreenIntro) {
         flutterTts.speak(task.text);
@@ -110,18 +114,28 @@ class _MainScreenState extends State<MainScreen> {
 
   }
 
+
   _readConfig() async {
 
     final prefs = await SharedPreferences.getInstance();
     numOfIterations = prefs.getInt('iterations') ?? 10;
+    displayMainScreenIntro = prefs.getBool('display_main_screen_intro') ?? true;
+
+    setState(() {
+      displayMainScreenIntro = prefs.getBool('display_main_screen_intro') ?? true;
+    });
 
   }
 
-  _handleOnPressedGotIt() {
+  _handleOnPressedGotIt() async {
+    
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('display_main_screen_intro', false);
     flutterTts.speak(task.text);
     setState(() {
       displayMainScreenIntro = false;
     });
+
   }
 
   

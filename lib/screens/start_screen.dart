@@ -6,6 +6,7 @@ import 'package:one_tutor_arithmetic/model/category.dart';
 import 'package:one_tutor_arithmetic/widgets/tile.dart';
 import 'package:one_tutor_arithmetic/data/categories.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -17,7 +18,21 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
+
   bool displayStartScreenIntro = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPrefs();
+  }
+
+  Future<void> _loadPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      displayStartScreenIntro = prefs.getBool('display_start_screen_intro') ?? true;
+    });
+  }
 
   void _selectCategory(BuildContext context, Category category) {
 
@@ -37,7 +52,11 @@ class _StartScreenState extends State<StartScreen> {
     );
   }
 
-  _handleOnPressedGotIt() {
+  _handleOnPressedGotIt() async {
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('display_start_screen_intro', false);
+
     setState(() {
       displayStartScreenIntro = false;
     });
