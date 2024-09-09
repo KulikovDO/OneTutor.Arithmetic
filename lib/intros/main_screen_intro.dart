@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/widgets/arrow.dart';
 import 'package:one_tutor_arithmetic/widgets/intro_button.dart';
 
 
@@ -57,7 +58,8 @@ class _MainScreenIntroState extends State<MainScreenIntro> {
                             children: [
                               Container(
                                 width: 100.0,
-                                color: Colors.red,
+                                // color: Colors.red,
+                                child: const Center(child: Arrow())
                               ),
                             ],
                           )

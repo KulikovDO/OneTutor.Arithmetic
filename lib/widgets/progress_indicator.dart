@@ -106,7 +106,7 @@ class ProgressIndicatorPainter extends CustomPainter {
     canvas.drawArc(rect, startAngle, sweepAngle, useCenter, paint);
   }
 
-   @override
+  @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
   }
