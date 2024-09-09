@@ -34,6 +34,7 @@ class _MainScreenState extends State<MainScreen> {
   int numOfIterations = 10;
   double _progress = 0;
   bool displayMainScreenIntro = true;
+  late Task task;
 
   @override
   void initState(){
@@ -77,8 +78,6 @@ class _MainScreenState extends State<MainScreen> {
         
 
     } else {
-    
-      Task task;
       
       switch(widget.arithmeticOperation){
 
@@ -95,8 +94,11 @@ class _MainScreenState extends State<MainScreen> {
           task = DivisionOperation.prepareTask(_firstNumber, _secondNumber);
           break;
       }
+
       
-      flutterTts.speak(task.text);
+      if(!displayMainScreenIntro) {
+        flutterTts.speak(task.text);
+      }
       
       setState(() {
         _firstNumber = task.firstNumber;
@@ -116,6 +118,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   _handleOnPressedGotIt() {
+    flutterTts.speak(task.text);
     setState(() {
       displayMainScreenIntro = false;
     });
