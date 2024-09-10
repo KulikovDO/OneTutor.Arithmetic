@@ -19,14 +19,25 @@ class LabeledCheckbox extends StatelessWidget {
         onChanged(!value);
       },
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Checkbox(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(2.0),
+            ),
+            side: MaterialStateBorderSide.resolveWith(
+                (states) => const BorderSide(width: 2.0, color: Colors.deepPurple),
+            ),
             value: value,
+            activeColor: Colors.deepPurple,
             onChanged: (bool? newValue) {
               onChanged(newValue);
             },
           ),
-          Text(label),
+          Text(
+            label, 
+            style: const TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );

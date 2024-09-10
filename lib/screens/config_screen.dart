@@ -2,6 +2,7 @@ import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/screens/start_screen.dart';
 import 'package:one_tutor_arithmetic/widgets/decorated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/widgets/labeled_checkbox.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -15,6 +16,7 @@ class ConfigScreen extends StatefulWidget {
 class _ConfigScreenState extends State<ConfigScreen> {
 
   int _iterations = 10;
+  bool _isIntroMode = true;
   bool canSave = true;
 
   @override
@@ -27,6 +29,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _iterations = prefs.getInt('iterations') ?? 10;
+      _isIntroMode = (prefs.getBool('display_main_screen_intro') ?? true) && (prefs.getBool('display_start_screen_intro') ?? true);
     });
   }
 
@@ -34,6 +37,8 @@ class _ConfigScreenState extends State<ConfigScreen> {
     
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('iterations', _iterations);
+    await prefs.setBool('display_main_screen_intro', _isIntroMode);
+    await prefs.setBool('display_start_screen_intro', _isIntroMode);
 
     if (!context.mounted) return;
 
@@ -43,6 +48,13 @@ class _ConfigScreenState extends State<ConfigScreen> {
       ),
     );
    
+  }
+
+
+  _handleIntroModeOnChanged(newValue){
+    setState(() {
+      _isIntroMode = newValue;
+    });
   }
 
   @override
@@ -85,6 +97,14 @@ class _ConfigScreenState extends State<ConfigScreen> {
                             });
                           },
                         ),
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      LabeledCheckbox(
+                        label: "Intro Mode",
+                        value: _isIntroMode,
+                        onChanged: _handleIntroModeOnChanged,
                       ),
                       const SizedBox(
                         height: 50.0,

@@ -63,15 +63,19 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
 
           Padding(
             padding: EdgeInsets.only(top: isPortrait ? 20.0 : 0),
+            
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "#1. Select Operation",
-                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                Flexible(
+                  child: Text(
+                    "#1. Select an arithmetic operation",
+                    style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
+
           ),
 
           Center(
