@@ -1,5 +1,6 @@
-import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
+import 'package:one_tutor_arithmetic/data/task_name.dart';
 import 'package:one_tutor_arithmetic/intros/main_screen_intro.dart';
+import 'package:one_tutor_arithmetic/model/tile_content.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:one_tutor_arithmetic/model/addition_operation.dart';
@@ -8,6 +9,7 @@ import 'package:one_tutor_arithmetic/model/multiplication_operation.dart';
 import 'package:one_tutor_arithmetic/model/subtraction_operation.dart';
 import 'package:one_tutor_arithmetic/model/task.dart';
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,12 +18,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 FlutterTts flutterTts = FlutterTts();
 
 class MainScreen extends StatefulWidget {
-  MainScreen({super.key, required this.arithmeticOperation}) 
+  MainScreen({super.key, required this.tileContent}) 
   {
     flutterTts.setSpeechRate(0.4);
   }
 
-  final ArithmeticOperation arithmeticOperation;
+  final TileContent tileContent;
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -84,20 +86,22 @@ class _MainScreenState extends State<MainScreen> {
 
     } else {
       
-      switch(widget.arithmeticOperation){
+      switch(widget.tileContent.taskName){
 
-        case ArithmeticOperation.addition:
+        case TaskName.addition:
           task = AdditionOperation.prepareTask(_firstNumber, _secondNumber);
           break;
-        case ArithmeticOperation.subtraction:
+        case TaskName.subtraction:
           task = SubtractionOperation.prepareTask(_firstNumber, _secondNumber);
           break;
-        case ArithmeticOperation.multiplication:
+        case TaskName.multiplication:
           task = MultiplicationOperation.prepareTask(_firstNumber, _secondNumber);
           break;
-        case ArithmeticOperation.division:
+        case TaskName.division:
           task = DivisionOperation.prepareTask(_firstNumber, _secondNumber);
           break;
+        case TaskName.ordering:
+          throw UnimplementedError();
       }
       
       if(!displayMainScreenIntro) {
@@ -175,7 +179,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.arithmeticOperation.name.capitalize()),
+        title: Text(widget.tileContent.taskName.name.capitalize()),
       ),
       body: Stack(
         children: [ 
@@ -200,6 +204,19 @@ class _MainScreenState extends State<MainScreen> {
               child: pi.ProgressIndicator(progress: _progress)
             ),
           ),
+
+          Center(
+            child: Text(String.fromCharCode(widget.tileContent.icon.codePoint),
+                style: TextStyle(
+                  inherit: false,
+                  fontSize: 70,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: widget.tileContent.icon.fontFamily,
+                  color: Colors.white
+                ),
+              ),
+          ),
+
           if(displayMainScreenIntro)
             MainScreenIntro(
               onPressed: _handleOnPressedGotIt,
@@ -207,12 +224,8 @@ class _MainScreenState extends State<MainScreen> {
           
         ]
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: displayMainScreenIntro ? const Color.fromARGB(255, 96, 91, 102) : Theme.of(context).colorScheme.secondaryContainer,
-        onPressed: displayMainScreenIntro ? null : _handleFloatingActionButtonPress,
-        tooltip: 'Restart',
-        child: const Icon(Icons.navigate_next),
-      ),
+      extendBody: true,
+      bottomNavigationBar: BottomNavigationBarContainer(onPress: _handleFloatingActionButtonPress,),
     );
   }
 }

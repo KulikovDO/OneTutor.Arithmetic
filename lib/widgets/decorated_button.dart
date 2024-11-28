@@ -38,7 +38,8 @@ class DecoratedButton extends StatelessWidget {
                 ),
                 Text(text),
               ],
-            )),
+            )
+          ),
       ),
     );
   }

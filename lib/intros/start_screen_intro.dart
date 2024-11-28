@@ -97,7 +97,7 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
                     null,
                     child: Center(
                       child: Text(
-                        category.arithmeticOperation.name.capitalize(),
+                        category.taskName.name.capitalize(),
                         style: TextStyle(
                           color: category == categories[categoryIndex] ? Colors.white : Colors.transparent,
                           fontSize: 30, 

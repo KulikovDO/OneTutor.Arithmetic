@@ -1,8 +1,10 @@
+import 'package:one_tutor_arithmetic/data/task_name.dart';
+import 'package:one_tutor_arithmetic/screens/ordering_screen.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/screens/config_screen.dart';
 import 'package:one_tutor_arithmetic/intros/start_screen_intro.dart';
 import 'package:one_tutor_arithmetic/screens/main_screen.dart';
-import 'package:one_tutor_arithmetic/model/category.dart';
+import 'package:one_tutor_arithmetic/model/tile_content.dart';
 import 'package:one_tutor_arithmetic/widgets/tile.dart';
 import 'package:one_tutor_arithmetic/data/categories.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +36,27 @@ class _StartScreenState extends State<StartScreen> {
     });
   }
 
-  void _selectCategory(BuildContext context, Category category) {
+  void _selectTile(BuildContext context, TileContent tileContent) {
 
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => MainScreen(arithmeticOperation: category.arithmeticOperation),
-      ),
-    );
+    if([TaskName.addition, TaskName.subtraction, TaskName.multiplication, TaskName.division].contains(tileContent.taskName)){
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => MainScreen(tileContent: tileContent),
+        ),
+      );
+
+    } else if ( tileContent.taskName == TaskName.ordering ){
+      
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => OrderingScreen(),
+        ),
+      );
+
+    }
+
+
   
   }
 
@@ -95,7 +111,7 @@ class _StartScreenState extends State<StartScreen> {
                       Tile(
                         category: category,
                         onPressed: () {
-                          _selectCategory(context, category);
+                          _selectTile(context, category);
                         },
                       )
                   ],
@@ -107,10 +123,6 @@ class _StartScreenState extends State<StartScreen> {
                 ),
             ],
           )
-
-        
-        
-        
         
     );
   }

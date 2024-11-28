@@ -1,9 +1,9 @@
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
-import 'package:one_tutor_arithmetic/model/category.dart';
+import 'package:one_tutor_arithmetic/model/tile_content.dart';
 import 'package:flutter/material.dart';
 
 class Tile extends StatelessWidget {
-  final Category category;
+  final TileContent category;
   final Function onPressed;
 
   const Tile({
@@ -57,7 +57,7 @@ class Tile extends StatelessWidget {
                     flex: 1,
                     child: Center(
                       child: Text(
-                        category.arithmeticOperation.name.capitalize(),
+                        category.taskName.name.capitalize(),
                         style: const TextStyle(fontSize: 30, color: Colors.black),
                       ),
                     ),
