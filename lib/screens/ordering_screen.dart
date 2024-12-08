@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
-import 'package:one_tutor_arithmetic/widgets/draggable_text_container.dart';
-import 'package:one_tutor_arithmetic/widgets/droppable_text_container.dart';
+import 'package:one_tutor_arithmetic/widgets/drag_and_droppable_text_container.dart';
+// import 'package:one_tutor_arithmetic/widgets/draggable_text_container.dart';
+// import 'package:one_tutor_arithmetic/widgets/droppable_text_container.dart';
 
 
 FlutterTts flutterTts = FlutterTts();
@@ -32,7 +33,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
   int shouldReset = 0;
   int order = 0;
   
-  List<GlobalKey<DroppableTextContainerState>> widgetKeys = [];
+  List<GlobalKey<DragAndDroppableTextContainerState>> widgetKeys = [];
 
   onAccepted(int data){
 
@@ -141,14 +142,16 @@ class _OrderingScreenState extends State<OrderingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(_numbers.length,(index) => 
-                        DraggableTextContainer(acceptedData: _acceptedData, text: _numbers[index], shouldReset: shouldReset,)
+                        // DraggableTextContainer(acceptedData: _acceptedData, text: _numbers[index], shouldReset: shouldReset,)
+                        DragAndDroppableTextContainer(acceptedData: _acceptedData, text: _numbers[index], shouldReset: shouldReset, isDraggable: true, onAccepted: null,)
                       ),
                     ),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate( _numbers.length, (index) => 
-                        DroppableTextContainer(key: widgetKeys[index], onAccepted: onAccepted, shouldReset: shouldReset,)
+                        // DroppableTextContainer(key: widgetKeys[index], onAccepted: onAccepted, shouldReset: shouldReset,)
+                        DragAndDroppableTextContainer(acceptedData: null, text: null, shouldReset: shouldReset, isDraggable: false, onAccepted: onAccepted,)
                       ),
                     ),
                   ],

@@ -8,7 +8,7 @@ class DraggableTextContainer extends StatefulWidget {
   final String text;
   final int shouldReset;
 
-  const DraggableTextContainer({super.key, required this.acceptedData, required this.text, required this.shouldReset});
+  const DraggableTextContainer({ super.key, required this.acceptedData, required this.text, required this.shouldReset });
 
   
   @override
