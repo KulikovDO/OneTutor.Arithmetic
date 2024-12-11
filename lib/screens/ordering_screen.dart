@@ -1,13 +1,13 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/drag_and_droppable_text_container.dart';
-// import 'package:one_tutor_arithmetic/widgets/draggable_text_container.dart';
-// import 'package:one_tutor_arithmetic/widgets/droppable_text_container.dart';
-
+import 'package:flutter/foundation.dart';
+import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
+import 'package:shared_preferences/shared_preferences.dart';
 
 FlutterTts flutterTts = FlutterTts();
 var rng = Random();
@@ -30,37 +30,123 @@ class _OrderingScreenState extends State<OrderingScreen> {
 
   int? _acceptedData;
   final List<String> _numbers = [];
-  int shouldReset = 0;
-  int order = 0;
+  int _order = 0;
+  int _iteration = 0;
+  int numOfIterations = 10;
+  double _progress = 0;
   
-  List<GlobalKey<DragAndDroppableTextContainerState>> widgetKeys = [];
+  List<GlobalKey<DragAndDroppableTextContainerState>> draggableKeys = [];
+  List<GlobalKey<DragAndDroppableTextContainerState>> droppableKeys = [];
 
-  onAccepted(int data){
+  List<DragAndDroppableTextContainer> draggableList = [];
+  List<DragAndDroppableTextContainer> droppableList = [];
 
-    setState(() {
-      _acceptedData = data; 
-    });
+  Future<void> speak(String text) async {
+    
+    await flutterTts.awaitSpeakCompletion(true);
+    await flutterTts.speak(text);
     
   }
 
-  void _handleSubmit() {
+  _readConfig() async {
 
-    // print(widgetKeys.length);
+    final prefs = await SharedPreferences.getInstance();
+    numOfIterations = prefs.getInt('iterations') ?? 10;
 
-    // for(var widgetKey in widgetKeys)
-    // {
-    //   print(widgetKey.currentState!.acceptedData);
-    // }
+  }
 
+
+  onAccepted(int data){
     setState(() {
+      _acceptedData = data; 
+    });
+  
+  }
+
+  checkAnswerIsGiven(){
+
+    bool answerNotNull = true;    
+    
+    for(var droppableKey in droppableKeys)
+    {
+
+      if(droppableKey.currentState == null || droppableKey.currentState!.text == null){
+
+        answerNotNull = false;
+        break;
+
+      }
+
+    }
+
+    return answerNotNull;
+
+  }
+
+
+  Future<bool> checkAnswer() async{
+
+    List<int> answers = [];
+    
+    for(var droppableKey in droppableKeys)
+    {
+
+      if(droppableKey.currentState == null || droppableKey.currentState!.text == null){
+
+        return false;
+
+      }
+
+      answers.add(int.parse(droppableKey.currentState!.text!));
+    }
+
+    List<int> correctAnswers = [...answers];
+
+    if(_order == 0) {
+      correctAnswers.sort((b, a) => a.compareTo(b)); // descending
+    } else {
+      correctAnswers.sort((a, b) => a.compareTo(b)); // ascending
+    }
+
+    bool answerIsCorrect =  listEquals(answers, correctAnswers);
+
+    if(answerIsCorrect){
+      await speak("That's correct");
+    } else {
+      await speak("Please try again");
+    }
+
+    return answerIsCorrect;
+
+  }
+
+  
+  init(){
+
       _acceptedData = null; 
+
       _numbers.clear();
       _numbers.addAll(_generateNumbers());
-      order = rng.nextInt( 2 );
-      shouldReset++;
-    });
+      _order = rng.nextInt( 2 );
+      
+      draggableKeys.clear();
+      draggableList.clear();
 
-    flutterTts.speak(description[order]);
+      droppableKeys.clear();
+      droppableList.clear();
+
+      for(int i = 0; i < 3; i++){
+        draggableKeys.add(GlobalKey());
+        droppableKeys.add(GlobalKey());
+      }
+
+      draggableList = List.generate(_numbers.length,(index) => 
+        DragAndDroppableTextContainer(key: draggableKeys[index], acceptedData: _acceptedData, text: _numbers[index], isDraggable: true, onAccepted: onAccepted,)
+      );    
+
+      droppableList = List.generate( _numbers.length, (index) => 
+        DragAndDroppableTextContainer(key: droppableKeys[index], acceptedData: _acceptedData, text: null, isDraggable: false, onAccepted: onAccepted,)
+      );
 
   }
 
@@ -87,18 +173,59 @@ class _OrderingScreenState extends State<OrderingScreen> {
 
   }
 
+
+  _handleSubmit() async{
+
+    bool answerIsCorrect = await checkAnswer();
+
+    if(answerIsCorrect){
+
+      setState(() {
+        
+        _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
+        _progress = _iteration / numOfIterations;
+
+      });
+
+      if( _iteration >= numOfIterations){
+
+    await Future.delayed(const Duration(milliseconds: 600));
+
+    if (!mounted) return;
+
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (ctx) => const FinalScreen()
+          ),
+        );
+          
+      } else {
+
+        setState(() {
+        
+          init();
+
+        });
+
+        flutterTts.speak(description[_order]);
+      }
+    } 
+
+  }
+
+  asyncInitState() async {
+    await _readConfig();
+  }
+
   @override
   initState() {
 
     super.initState();
-    order = rng.nextInt( 2 );
-    _numbers.addAll(_generateNumbers());
 
-    for(int i = 0; i < 3; i++){
-      widgetKeys.add(GlobalKey());
-    }
+    asyncInitState();
 
-    flutterTts.speak(description[order]);
+    init();
+    flutterTts.speak(description[_order]);
 
   }
 
@@ -112,67 +239,67 @@ class _OrderingScreenState extends State<OrderingScreen> {
       ),
       body:
         Stack(
-            children: [
-              const Background( ),
-        
-        Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-
-            Expanded(
-              child: SizedBox(
-                width: double.infinity,
-                child: 
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Text( description[order], style:  const TextStyle( fontSize: 20, fontWeight: FontWeight.w500 ))
-                    ),
-                  ),
-              )
-            ),
-
-            Expanded(
-              flex: 3,
-              child: SizedBox(
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(_numbers.length,(index) => 
-                        // DraggableTextContainer(acceptedData: _acceptedData, text: _numbers[index], shouldReset: shouldReset,)
-                        DragAndDroppableTextContainer(acceptedData: _acceptedData, text: _numbers[index], shouldReset: shouldReset, isDraggable: true, onAccepted: null,)
-                      ),
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate( _numbers.length, (index) => 
-                        // DroppableTextContainer(key: widgetKeys[index], onAccepted: onAccepted, shouldReset: shouldReset,)
-                        DragAndDroppableTextContainer(acceptedData: null, text: null, shouldReset: shouldReset, isDraggable: false, onAccepted: onAccepted,)
-                      ),
-                    ),
-                  ],
-                  ),
-                ),
-              ),
+          children: [
             
-            const Expanded(
-              child: SizedBox(
-                width: double.infinity,
-              )
+            const Background( ),
+
+            Opacity(
+              opacity: 0.15,
+              child: Center(
+                child: pi.ProgressIndicator(progress: _progress)
+              ),
             ),
-            ],
-          ),
+      
+            Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: 
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Text( description[_order], style:  const TextStyle( fontSize: 20, fontWeight: FontWeight.w500 ))
+                        ),
+                      ),
+                  )
+                ),
+
+                Expanded(
+                  flex: 3,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: draggableList,
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: droppableList
+                        ),
+                      ],
+                      ),
+                    ),
+                  ),
+                
+                const Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                  )
+                ),
+                ],
+              ),
           ]
         ),
       extendBody: true,
-      bottomNavigationBar: BottomNavigationBarContainer(onPress: _handleSubmit,),
+      bottomNavigationBar: BottomNavigationBarContainer(onPress: _handleSubmit, isDisabled: /*!answerIsGiven,*/!checkAnswerIsGiven()),
     );
   }
-  
-  
 
 }

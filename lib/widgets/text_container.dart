@@ -30,7 +30,7 @@ class TextContainer extends StatelessWidget {
         
         child: Center(
           child: 
-          text != null ? Text( text!, style: TextStyle(fontSize: 50, color: textColor)) : null,
+          text != null ? Text( text!, style: TextStyle(fontSize: 50, color: textColor, decoration: TextDecoration.none )) : null,
         ),
       );
 

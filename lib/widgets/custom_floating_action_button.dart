@@ -4,19 +4,19 @@ class CustomFloatingActionButton extends StatelessWidget{
   
   final Widget child;
   final Function onPressed;
+  final bool isDisabled;
 
   const CustomFloatingActionButton({
     super.key,
     required this.child,
-    required this.onPressed
+    required this.onPressed,
+    required this.isDisabled
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {
-          onPressed();
-        },
+        onPressed: isDisabled ? null : () => onPressed(),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

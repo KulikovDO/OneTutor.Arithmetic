@@ -3,5 +3,7 @@ enum TaskName {
   subtraction,
   multiplication,
   division,
-  ordering
+  ordering,
+  sequence,
+  evenOdd
 }

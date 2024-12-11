@@ -1,4 +1,4 @@
-import 'package:one_tutor_arithmetic/misc/extensions.dart';
+// import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:one_tutor_arithmetic/model/tile_content.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +57,7 @@ class Tile extends StatelessWidget {
                     flex: 1,
                     child: Center(
                       child: Text(
-                        category.taskName.name.capitalize(),
+                        category.description,
                         style: const TextStyle(fontSize: 30, color: Colors.black),
                       ),
                     ),

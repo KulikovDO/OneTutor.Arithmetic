@@ -1,5 +1,7 @@
 import 'package:one_tutor_arithmetic/data/task_name.dart';
+import 'package:one_tutor_arithmetic/screens/even_odd_screen/even_odd_screen.dart';
 import 'package:one_tutor_arithmetic/screens/ordering_screen.dart';
+import 'package:one_tutor_arithmetic/screens/sequence_screen/sequence_screen.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/screens/config_screen.dart';
 import 'package:one_tutor_arithmetic/intros/start_screen_intro.dart';
@@ -54,9 +56,23 @@ class _StartScreenState extends State<StartScreen> {
         ),
       );
 
+    } else if ( tileContent.taskName == TaskName.sequence ){
+      
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => SequenceScreen(),
+        ),
+      );
+
+    } else if ( tileContent.taskName == TaskName.evenOdd ){
+      
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => EvenOddScreen(),
+        ),
+      );
+
     }
-
-
   
   }
 

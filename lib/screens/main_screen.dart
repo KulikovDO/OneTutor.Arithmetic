@@ -85,7 +85,8 @@ class _MainScreenState extends State<MainScreen> {
         
 
     } else {
-      
+
+      // TODO: refactoring
       switch(widget.tileContent.taskName){
 
         case TaskName.addition:
@@ -101,6 +102,10 @@ class _MainScreenState extends State<MainScreen> {
           task = DivisionOperation.prepareTask(_firstNumber, _secondNumber);
           break;
         case TaskName.ordering:
+          throw UnimplementedError();
+        case TaskName.sequence:
+          throw UnimplementedError();
+        case TaskName.evenOdd:
           throw UnimplementedError();
       }
       
@@ -183,7 +188,6 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: Stack(
         children: [ 
-
           isPortrait
             ?
           Column(
@@ -225,7 +229,7 @@ class _MainScreenState extends State<MainScreen> {
         ]
       ),
       extendBody: true,
-      bottomNavigationBar: BottomNavigationBarContainer(onPress: _handleFloatingActionButtonPress,),
+      bottomNavigationBar: BottomNavigationBarContainer(onPress: _handleFloatingActionButtonPress, isDisabled: false),
     );
   }
 }

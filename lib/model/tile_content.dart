@@ -6,9 +6,11 @@ class TileContent {
     required this.taskName,
     required this.color,
     required this.icon,
+    required this.description,
   });
 
   final TaskName taskName;
   final Color color;
   final IconData icon;
+  final String description;
 }

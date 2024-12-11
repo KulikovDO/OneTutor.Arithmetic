@@ -4,13 +4,12 @@ import 'package:one_tutor_arithmetic/widgets/droppable_text_container.dart';
 
 class DragAndDroppableTextContainer extends StatefulWidget {
   
-  final Function? onAccepted;
-  final int shouldReset;
+  final Function onAccepted;
   final int? acceptedData;
   final String? text;
   final bool isDraggable;
   
-  const DragAndDroppableTextContainer({super.key, required this.onAccepted, required this.shouldReset, required this.acceptedData, required this.text, required this.isDraggable});
+  const DragAndDroppableTextContainer({super.key, required this.onAccepted, required this.acceptedData, required this.text, required this.isDraggable});
  
 
   @override
@@ -19,14 +18,45 @@ class DragAndDroppableTextContainer extends StatefulWidget {
 
 class DragAndDroppableTextContainerState extends State<DragAndDroppableTextContainer> {
 
+  bool isDraggable = false;
+  String? text = "";
+
+  @override
+  void initState() {
+    super.initState();
+    isDraggable = widget.isDraggable;
+    text = widget.text;
+  }
+
+  _onDragCompleted(){
+
+    setState(() {
+      text = null;
+      isDraggable = false;
+    });
+    
+  }
+  
+  
+  _onAccepted(int data){
+
+    setState(() {
+      isDraggable = true;
+      text = data.toString();
+    });
+
+    widget.onAccepted(data);
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return
-      widget.isDraggable
+      isDraggable
         ?
-      DraggableTextContainer(acceptedData: widget.acceptedData, text: widget.text!, shouldReset: widget.shouldReset,)
+      DraggableTextContainer(acceptedData: widget.acceptedData, text: text!, onDragCompleted: _onDragCompleted,)
         :
-      DroppableTextContainer(key: widget.key, onAccepted: widget.onAccepted!, shouldReset: widget.shouldReset,)
+      DroppableTextContainer(onAccepted: _onAccepted)
     ;
   }
 

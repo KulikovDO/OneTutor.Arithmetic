@@ -5,7 +5,9 @@ import 'package:one_tutor_arithmetic/widgets/stacked_icons.dart';
 class BottomNavigationBarContainer extends StatelessWidget {
   
   final Function onPress;
-  const BottomNavigationBarContainer({super.key, required this.onPress});
+  final bool isDisabled;
+
+  const BottomNavigationBarContainer({ super.key, required this.onPress, required this.isDisabled });
   
   _handleFloatingActionButtonPress() {
     onPress();
@@ -22,6 +24,7 @@ class BottomNavigationBarContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             CustomFloatingActionButton(
+              isDisabled: isDisabled,
               onPressed: _handleFloatingActionButtonPress,
               child: const StackedIcons(
                 baseIcon: Icons.navigate_next,
