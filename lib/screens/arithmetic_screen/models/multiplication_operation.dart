@@ -1,12 +1,14 @@
 import 'dart:math';
-import 'package:one_tutor_arithmetic/model/task.dart';
+// import 'package:one_tutor_arithmetic/model/task.dart';
+import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
+import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/arithmetic_task.dart';
 
 
 var rng = Random();
 
 class MultiplicationOperation{
 
-  static Task prepareTask(int prevFirstNumber, int prevSecondNumber){
+  static ArithmeticTask prepareTask(int prevFirstNumber, int prevSecondNumber){
       
     int firstNumber = 0;
     int secondNumber = 0;
@@ -21,10 +23,16 @@ class MultiplicationOperation{
 
     final text = 'How much is $firstNumber times $secondNumber?';
 
-    return Task(firstNumber: firstNumber, secondNumber: secondNumber, text: text, operationSymbol: "*");
+    return ArithmeticTask(
+      firstNumber: firstNumber, 
+      secondNumber: secondNumber, 
+      text: text, 
+      operationSymbol: "*",
+      arithmeticOperation: ArithmeticOperation.multiplication,
+    );
 
   }
 
-  static bool checkAnswer(Task task, int enteredValue) => task.firstNumber * task.secondNumber == enteredValue;
+  static bool checkAnswer(ArithmeticTask task, int enteredValue) => task.firstNumber * task.secondNumber == enteredValue;
 
 }

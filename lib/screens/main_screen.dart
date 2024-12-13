@@ -87,27 +87,27 @@ class _MainScreenState extends State<MainScreen> {
     } else {
 
       // TODO: refactoring
-      switch(widget.tileContent.taskName){
+      // switch(widget.tileContent.taskName){
 
-        case TaskName.addition:
-          task = AdditionOperation.prepareTask(_firstNumber, _secondNumber);
-          break;
-        case TaskName.subtraction:
-          task = SubtractionOperation.prepareTask(_firstNumber, _secondNumber);
-          break;
-        case TaskName.multiplication:
-          task = MultiplicationOperation.prepareTask(_firstNumber, _secondNumber);
-          break;
-        case TaskName.division:
-          task = DivisionOperation.prepareTask(_firstNumber, _secondNumber);
-          break;
-        case TaskName.ordering:
-          throw UnimplementedError();
-        case TaskName.sequence:
-          throw UnimplementedError();
-        case TaskName.evenOdd:
-          throw UnimplementedError();
-      }
+      //   case TaskName.addition:
+      //     task = AdditionOperation.prepareTask(_firstNumber, _secondNumber);
+      //     break;
+      //   case TaskName.subtraction:
+      //     task = SubtractionOperation.prepareTask(_firstNumber, _secondNumber);
+      //     break;
+      //   case TaskName.multiplication:
+      //     task = MultiplicationOperation.prepareTask(_firstNumber, _secondNumber);
+      //     break;
+      //   case TaskName.division:
+      //     task = DivisionOperation.prepareTask(_firstNumber, _secondNumber);
+      //     break;
+      //   case TaskName.ordering:
+      //     throw UnimplementedError();
+      //   case TaskName.sequence:
+      //     throw UnimplementedError();
+      //   case TaskName.evenOdd:
+      //     throw UnimplementedError();
+      // }
       
       if(!displayMainScreenIntro) {
         flutterTts.speak(task.text);

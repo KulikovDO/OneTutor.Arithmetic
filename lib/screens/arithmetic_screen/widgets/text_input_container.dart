@@ -25,7 +25,6 @@ class _TextInputContainerState extends State<TextInputContainer> {
       return;
     }
 
-
     widget.onValueEntered(int.parse(value));
   }
 

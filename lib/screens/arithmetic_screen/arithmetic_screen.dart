@@ -1,13 +1,8 @@
-import 'package:flutter/services.dart';
 import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
+import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/arithmetic_task.dart';
 import 'package:one_tutor_arithmetic/screens/arithmetic_screen/widgets/text_input_container.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
-import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/addition_operation.dart';
-import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/division_operation.dart';
-import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/multiplication_operation.dart';
-import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/subtraction_operation.dart';
-import 'package:one_tutor_arithmetic/model/task.dart';
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
@@ -38,7 +33,7 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
   int numOfIterations = 10;
   double _progress = 0;
   bool displayMainScreenIntro = true;
-  late Task task;
+  late ArithmeticTask task;
   late Widget textInputContainer;
 
   // Future<void> speak(String text) async {
@@ -58,22 +53,7 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
 
   void handleValueEntered(int value) async{
 
-    bool answerIsCorrect = false;
-
-    switch(widget.arithmeticOperation){
-      case ArithmeticOperation.addition:
-        answerIsCorrect = AdditionOperation.checkAnswer(task, value);
-        break;
-      case ArithmeticOperation.subtraction:
-        answerIsCorrect = SubtractionOperation.checkAnswer(task, value);
-        break;
-      case ArithmeticOperation.multiplication:
-        answerIsCorrect = MultiplicationOperation.checkAnswer(task, value);
-        break;
-      case ArithmeticOperation.division:
-        answerIsCorrect = DivisionOperation.checkAnswer(task, value);
-        break;
-    }
+    bool answerIsCorrect = task.checkAnswer(value);
 
     if(answerIsCorrect){
       // await speak("That's correct");
@@ -123,27 +103,16 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
   @override
   initState() {
     super.initState();
+    
+    task = ArithmeticTask.create(widget.arithmeticOperation);
+    
     asyncInitState();
     init();
   }
 
   init(){
 
-    switch(widget.arithmeticOperation){
-      case ArithmeticOperation.addition:
-        task = AdditionOperation.prepareTask(prevFirstNumber, prevSecondNumber);
-        break;
-      case ArithmeticOperation.subtraction:
-        task = SubtractionOperation.prepareTask(prevFirstNumber, prevSecondNumber);
-        break;
-      case ArithmeticOperation.multiplication:
-        task = MultiplicationOperation.prepareTask(prevFirstNumber, prevSecondNumber);
-        break;
-      case ArithmeticOperation.division:
-        task = DivisionOperation.prepareTask(prevFirstNumber, prevSecondNumber);
-        break;
-    }
-
+    task = task.prepareTask();
     flutterTts.speak(task.text);
 
     textInputContainer = TextInputContainer(key: GlobalKey(), onValueEntered: handleValueEntered,);
