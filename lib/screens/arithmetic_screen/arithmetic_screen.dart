@@ -1,8 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
-import 'package:one_tutor_arithmetic/data/task_name.dart';
-import 'package:one_tutor_arithmetic/intros/main_screen_intro.dart';
-import 'package:one_tutor_arithmetic/model/tile_content.dart';
 import 'package:one_tutor_arithmetic/screens/arithmetic_screen/widgets/text_input_container.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
@@ -13,7 +10,6 @@ import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/subtractio
 import 'package:one_tutor_arithmetic/model/task.dart';
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
-import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -130,7 +126,6 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
         ),
       extendBody: true,
       resizeToAvoidBottomInset : false,
-      // bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: enteredValue == -1),
     );
   }
 }

@@ -16,8 +16,16 @@ class TextInputContainer extends StatefulWidget {
 class _TextInputContainerState extends State<TextInputContainer> {
 
   bool isTapped = false;
+  FocusNode focusNode = FocusNode();
 
   onSubmitted(String value){
+
+    if(value == ""){
+      FocusScope.of(context).requestFocus(focusNode);
+      return;
+    }
+
+
     widget.onValueEntered(int.parse(value));
   }
 
@@ -47,6 +55,7 @@ class _TextInputContainerState extends State<TextInputContainer> {
             child: Center(
               child: 
                 TextField(
+                  focusNode: focusNode,
                   cursorHeight: 50,
                   autofocus: true,
                   onSubmitted: onSubmitted,
