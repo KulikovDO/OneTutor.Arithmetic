@@ -39,13 +39,14 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
   double _progress = 0;
   bool displayMainScreenIntro = true;
   late Task task;
+  late Widget textInputContainer;
 
-  Future<void> speak(String text) async {
+  // Future<void> speak(String text) async {
     
-    await flutterTts.awaitSpeakCompletion(true);
-    await flutterTts.speak(text);
+  //   await flutterTts.awaitSpeakCompletion(true);
+  //   await flutterTts.speak(text);
     
-  }
+  // }
 
   _readConfig() async {
 
@@ -75,9 +76,11 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
     }
 
     if(answerIsCorrect){
-      await speak("That's correct");
+      // await speak("That's correct");
+      flutterTts.speak("That's correct");
     } else {
-      await speak("Please try again");
+      // await speak("Please try again");
+      flutterTts.speak("Please try again");
     }
 
     if(answerIsCorrect){
@@ -141,11 +144,13 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
         break;
     }
 
-    setState(() {
-      prevFirstNumber = task.firstNumber;
-      prevSecondNumber = task.secondNumber;
-      _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
-    });
+    flutterTts.speak(task.text);
+
+    textInputContainer = TextInputContainer(key: GlobalKey(), onValueEntered: handleValueEntered,);
+
+    prevFirstNumber = task.firstNumber;
+    prevSecondNumber = task.secondNumber;
+    _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
 
   }
 
@@ -182,12 +187,9 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text( "${task.firstNumber} ${task.operationSymbol} ${task.secondNumber} = ", style:  const TextStyle( fontSize: 50, fontWeight: FontWeight.w500 )),
-
-                            TextInputContainer(onValueEntered: handleValueEntered,)
+                            textInputContainer,
                           ]
                         ),
-                      
-                      
                     ),
                   ),
               )
