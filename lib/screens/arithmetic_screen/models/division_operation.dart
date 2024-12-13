@@ -24,5 +24,7 @@ class DivisionOperation{
     return Task(firstNumber: firstNumber, secondNumber: secondNumber, text: text, operationSymbol: "/");
 
   }
+
+  static bool checkAnswer(Task task, int enteredValue) => task.firstNumber / task.secondNumber == enteredValue;
   
 }

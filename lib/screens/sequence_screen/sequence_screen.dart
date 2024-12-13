@@ -34,7 +34,6 @@ class _SequenceScreenState extends State<SequenceScreen> {
     
   }
 
-
   int missingValue = -1;
   int enteredValue = -1;
   String description = "What is the missing number?";
@@ -64,9 +63,9 @@ class _SequenceScreenState extends State<SequenceScreen> {
 
       if( _iteration >= numOfIterations){
 
-    await Future.delayed(const Duration(milliseconds: 600));
+        await Future.delayed(const Duration(milliseconds: 600));
 
-    if (!mounted) return;
+        if (!mounted) return;
 
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -83,7 +82,6 @@ class _SequenceScreenState extends State<SequenceScreen> {
         });
       }
     } 
-
   }
 
   void onValueEntered(int value){

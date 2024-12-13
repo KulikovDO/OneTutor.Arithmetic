@@ -25,4 +25,7 @@ class AdditionOperation {
 
   }
 
+  static bool checkAnswer(Task task, int enteredValue) => task.firstNumber + task.secondNumber == enteredValue;
+
+
 }

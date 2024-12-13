@@ -32,49 +32,118 @@ class ArithmeticScreen extends StatefulWidget {
 
 class _ArithmeticScreenState extends State<ArithmeticScreen> {
 
-  int _firstNumber = 0;
-  int _secondNumber = 0;
+  int prevFirstNumber = 0;
+  int prevSecondNumber = 0;
   int _iteration = 0;
   int numOfIterations = 10;
   double _progress = 0;
   bool displayMainScreenIntro = true;
   late Task task;
 
-  onSubmitted(String value){
-    // widget.onValueEntered(int.parse(value));
+  Future<void> speak(String text) async {
+    
+    await flutterTts.awaitSpeakCompletion(true);
+    await flutterTts.speak(text);
+    
+  }
 
-    print(int.parse(value));
+  _readConfig() async {
+
+    final prefs = await SharedPreferences.getInstance();
+    numOfIterations = prefs.getInt('iterations') ?? 10;
 
   }
 
-  void onValueEntered(int value){
-    setState(() {
-      // enteredValue = value;
-    });
+
+  void handleValueEntered(int value) async{
+
+    bool answerIsCorrect = false;
+
+    switch(widget.arithmeticOperation){
+      case ArithmeticOperation.addition:
+        answerIsCorrect = AdditionOperation.checkAnswer(task, value);
+        break;
+      case ArithmeticOperation.subtraction:
+        answerIsCorrect = SubtractionOperation.checkAnswer(task, value);
+        break;
+      case ArithmeticOperation.multiplication:
+        answerIsCorrect = MultiplicationOperation.checkAnswer(task, value);
+        break;
+      case ArithmeticOperation.division:
+        answerIsCorrect = DivisionOperation.checkAnswer(task, value);
+        break;
+    }
+
+    if(answerIsCorrect){
+      await speak("That's correct");
+    } else {
+      await speak("Please try again");
+    }
+
+    if(answerIsCorrect){
+
+      setState(() {
+        
+        _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
+        _progress = _iteration / numOfIterations;
+
+      });
+
+      if( _iteration >= numOfIterations){
+
+        await Future.delayed(const Duration(milliseconds: 600));
+
+        if (!mounted) return;
+
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (ctx) => const FinalScreen()
+          ),
+        );
+          
+      } else {
+
+        setState(() {
+        
+          init();
+
+        });
+      }
+    } 
+
+  }
+
+  asyncInitState() async {
+    await _readConfig();
   }
   
   @override
   initState() {
     super.initState();
-    
+    asyncInitState();
+    init();
+  }
+
+  init(){
+
     switch(widget.arithmeticOperation){
       case ArithmeticOperation.addition:
-        task = AdditionOperation.prepareTask(_firstNumber, _secondNumber);
+        task = AdditionOperation.prepareTask(prevFirstNumber, prevSecondNumber);
         break;
       case ArithmeticOperation.subtraction:
-        task = SubtractionOperation.prepareTask(_firstNumber, _secondNumber);
+        task = SubtractionOperation.prepareTask(prevFirstNumber, prevSecondNumber);
         break;
       case ArithmeticOperation.multiplication:
-        task = MultiplicationOperation.prepareTask(_firstNumber, _secondNumber);
+        task = MultiplicationOperation.prepareTask(prevFirstNumber, prevSecondNumber);
         break;
       case ArithmeticOperation.division:
-        task = DivisionOperation.prepareTask(_firstNumber, _secondNumber);
+        task = DivisionOperation.prepareTask(prevFirstNumber, prevSecondNumber);
         break;
     }
 
     setState(() {
-      _firstNumber = task.firstNumber;
-      _secondNumber = task.secondNumber;
+      prevFirstNumber = task.firstNumber;
+      prevSecondNumber = task.secondNumber;
       _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
     });
 
@@ -114,7 +183,7 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
                           children: [
                             Text( "${task.firstNumber} ${task.operationSymbol} ${task.secondNumber} = ", style:  const TextStyle( fontSize: 50, fontWeight: FontWeight.w500 )),
 
-                            TextInputContainer(onValueEntered: onValueEntered,)
+                            TextInputContainer(onValueEntered: handleValueEntered,)
                           ]
                         ),
                       

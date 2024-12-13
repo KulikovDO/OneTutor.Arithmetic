@@ -25,4 +25,6 @@ class MultiplicationOperation{
 
   }
 
+  static bool checkAnswer(Task task, int enteredValue) => task.firstNumber * task.secondNumber == enteredValue;
+
 }
