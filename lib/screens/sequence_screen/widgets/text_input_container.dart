@@ -54,6 +54,7 @@ class _TextInputContainerState extends State<TextInputContainer> {
                   :
                 TextField(
                   autofocus: true,
+                  cursorHeight: 50,
                   onSubmitted: onSubmitted,
                   keyboardType: TextInputType.number,
                   inputFormatters: [

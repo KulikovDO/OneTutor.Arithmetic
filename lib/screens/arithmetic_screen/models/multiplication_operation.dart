@@ -4,7 +4,7 @@ import 'package:one_tutor_arithmetic/model/task.dart';
 
 var rng = Random();
 
-class AdditionOperation {
+class MultiplicationOperation{
 
   static Task prepareTask(int prevFirstNumber, int prevSecondNumber){
       
@@ -19,9 +19,9 @@ class AdditionOperation {
     }
     while( firstNumber == prevFirstNumber && secondNumber == prevSecondNumber );
 
-    final text = 'How much is $firstNumber plus $secondNumber?';
+    final text = 'How much is $firstNumber times $secondNumber?';
 
-    return Task(firstNumber: firstNumber, secondNumber: secondNumber, text: text);
+    return Task(firstNumber: firstNumber, secondNumber: secondNumber, text: text, operationSymbol: "*");
 
   }
 

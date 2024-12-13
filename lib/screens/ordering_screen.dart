@@ -254,45 +254,45 @@ class _OrderingScreenState extends State<OrderingScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
 
-                Expanded(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: 
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Text( description[_order], style:  const TextStyle( fontSize: 20, fontWeight: FontWeight.w500 ))
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: 
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Text( description[_order], style:  const TextStyle( fontSize: 20, fontWeight: FontWeight.w500 ))
+                          ),
                         ),
-                      ),
-                  )
-                ),
+                    )
+                  ),
 
-                Expanded(
-                  flex: 3,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: draggableList,
-                        ),
+                  Expanded(
+                    flex: 3,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: draggableList,
+                          ),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: droppableList
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: droppableList
+                          ),
+                        ],
                         ),
-                      ],
                       ),
                     ),
+                  
+                  const Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                    )
                   ),
-                
-                const Expanded(
-                  child: SizedBox(
-                    width: double.infinity,
-                  )
-                ),
                 ],
               ),
           ]

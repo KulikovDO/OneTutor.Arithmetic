@@ -1,11 +1,12 @@
+import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
 import 'package:one_tutor_arithmetic/data/task_name.dart';
+import 'package:one_tutor_arithmetic/screens/arithmetic_screen/arithmetic_screen.dart';
 import 'package:one_tutor_arithmetic/screens/even_odd_screen/even_odd_screen.dart';
 import 'package:one_tutor_arithmetic/screens/ordering_screen.dart';
 import 'package:one_tutor_arithmetic/screens/sequence_screen/sequence_screen.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/screens/config_screen.dart';
 import 'package:one_tutor_arithmetic/intros/start_screen_intro.dart';
-import 'package:one_tutor_arithmetic/screens/main_screen.dart';
 import 'package:one_tutor_arithmetic/model/tile_content.dart';
 import 'package:one_tutor_arithmetic/widgets/tile.dart';
 import 'package:one_tutor_arithmetic/data/categories.dart';
@@ -38,13 +39,38 @@ class _StartScreenState extends State<StartScreen> {
     });
   }
 
+  ArithmeticOperation taskNameToArithmeticOperation(TaskName taskName){
+
+    if(taskName == TaskName.addition)
+    {
+      return ArithmeticOperation.addition;
+    }
+    if(taskName == TaskName.subtraction)
+    {
+      return ArithmeticOperation.subtraction;
+    }
+    if(taskName == TaskName.multiplication)
+    {
+      return ArithmeticOperation.multiplication;
+    }
+    if(taskName == TaskName.division)
+    {
+      return ArithmeticOperation.division;
+    }
+    
+    throw ArgumentError();
+
+  }
+
   void _selectTile(BuildContext context, TileContent tileContent) {
 
     if([TaskName.addition, TaskName.subtraction, TaskName.multiplication, TaskName.division].contains(tileContent.taskName)){
 
+      ArithmeticOperation arithmeticOperation = taskNameToArithmeticOperation(tileContent.taskName);
+
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (ctx) => MainScreen(tileContent: tileContent),
+          builder: (ctx) => ArithmeticScreen(arithmeticOperation: arithmeticOperation),
         ),
       );
 
