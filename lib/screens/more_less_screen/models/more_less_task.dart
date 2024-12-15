@@ -9,16 +9,20 @@ class MoreLessTask {
   const MoreLessTask({
     required this.firstNumber,
     required this.secondNumber,
+    required this.answerOptions,
+    required this.answer,
     required this.text,
     required this.richText,
   });
 
   final int firstNumber;
   final int secondNumber;
+  final List<int> answerOptions;
+  final int answer;
   final String text;
   final Widget richText;
 
-  static MoreLessTask create() => const MoreLessTask( firstNumber: -1, secondNumber: -1, text: "", richText: Text(""));
+  static MoreLessTask create() => const MoreLessTask( firstNumber: -1, secondNumber: -1, answerOptions: [], answer: -1, text: "", richText: Text(""));
 
   MoreLessTask prepareTask() {
 
@@ -51,6 +55,8 @@ class MoreLessTask {
       "$firstNumber is $secondNumber less than which number?",
     ];
 
+    int answer = firstNumber + secondNumber;
+
     List<Widget> richTextOptions = [
       RichText(
         text: TextSpan(
@@ -76,7 +82,7 @@ class MoreLessTask {
       )
     ];
 
-    return MoreLessTask( firstNumber: firstNumber, secondNumber: secondNumber, text: textOptions[option], richText: richTextOptions[option] );
+    return MoreLessTask( firstNumber: firstNumber, secondNumber: secondNumber, answerOptions: generateAnswerOptions(answer), answer: answer, text: textOptions[option], richText: richTextOptions[option] );
 
   }
 
@@ -96,6 +102,11 @@ class MoreLessTask {
     int sum = firstNumber + secondNumber;
 
     int option = rng.nextInt(2);
+
+    List<int> answerOptions = [
+      sum - firstNumber,
+      firstNumber + secondNumber
+    ];
     
     List<String> textOptions = [
       "Which number is $firstNumber less than $sum?",
@@ -127,10 +138,43 @@ class MoreLessTask {
       )
     ];
 
-    return MoreLessTask( firstNumber: firstNumber, secondNumber: secondNumber, text: textOptions[option], richText: richTextOptions[option] );
+    return MoreLessTask( firstNumber: firstNumber, secondNumber: secondNumber, answerOptions: generateAnswerOptions(answer), answer: answerOptions[option], text: textOptions[option], richText: richTextOptions[option] );
 
 
   }
+
+  List<int> generateAnswerOptions(int answer){
+    List<int> answerOptions = [];
+    
+    int min = 0;
+    int max = 10;
+
+    if(answer == min){
+
+      answerOptions.add(answer);
+      answerOptions.add(answer + 1);
+      answerOptions.add(answer + 2);
+
+    } else if(answer == max){
+      
+      answerOptions.add(answer);
+      answerOptions.add(answer - 1);
+      answerOptions.add(answer - 2);
+
+    } else {
+
+      answerOptions.add(answer);
+      answerOptions.add(answer - 1);
+      answerOptions.add(answer + 1);
+
+    }
+
+    answerOptions.shuffle();
+
+    return answerOptions;
+
+  }
+
 
   bool checkAnswer(int value) {
     return true;
