@@ -4,7 +4,7 @@ import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
 import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/arithmetic_task.dart';
 
 
-var rng = Random();
+Random rng = Random();
 
 class SubtractionOperation{
 
