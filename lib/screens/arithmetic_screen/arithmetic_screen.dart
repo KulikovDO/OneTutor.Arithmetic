@@ -36,12 +36,12 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
   late ArithmeticTask task;
   late Widget textInputContainer;
 
-  // Future<void> speak(String text) async {
+  Future<void> speak(String text) async {
     
-  //   await flutterTts.awaitSpeakCompletion(true);
-  //   await flutterTts.speak(text);
+    await flutterTts.awaitSpeakCompletion(true);
+    await flutterTts.speak(text);
     
-  // }
+  }
 
   _readConfig() async {
 
@@ -56,11 +56,11 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
     bool answerIsCorrect = task.checkAnswer(value);
 
     if(answerIsCorrect){
-      // await speak("That's correct");
-      flutterTts.speak("That's correct");
+      await speak("That's correct");
+      // flutterTts.speak("That's correct");
     } else {
-      // await speak("Please try again");
-      flutterTts.speak("Please try again");
+      await speak("Please try again");
+      // flutterTts.speak("Please try again");
     }
 
     if(answerIsCorrect){

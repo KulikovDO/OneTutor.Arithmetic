@@ -5,5 +5,6 @@ enum TaskName {
   division,
   ordering,
   sequence,
-  evenOdd
+  evenOdd,
+  moreLess,
 }

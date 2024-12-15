@@ -46,4 +46,10 @@ const categories = [
     icon: Icons.switch_left,
     description: "Even And Odd",
   ),
+  TileContent(
+    taskName: TaskName.moreLess,
+    color: Colors.teal,
+    icon: Icons.question_mark,
+    description: "More or Less",
+  ),
 ];

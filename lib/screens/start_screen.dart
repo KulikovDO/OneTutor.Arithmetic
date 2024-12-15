@@ -2,6 +2,7 @@ import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
 import 'package:one_tutor_arithmetic/data/task_name.dart';
 import 'package:one_tutor_arithmetic/screens/arithmetic_screen/arithmetic_screen.dart';
 import 'package:one_tutor_arithmetic/screens/even_odd_screen/even_odd_screen.dart';
+import 'package:one_tutor_arithmetic/screens/more_less_screen/more_less_screen.dart';
 import 'package:one_tutor_arithmetic/screens/ordering_screen.dart';
 import 'package:one_tutor_arithmetic/screens/sequence_screen/sequence_screen.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
@@ -57,7 +58,7 @@ class _StartScreenState extends State<StartScreen> {
     {
       return ArithmeticOperation.division;
     }
-    
+
     throw ArgumentError();
 
   }
@@ -95,6 +96,14 @@ class _StartScreenState extends State<StartScreen> {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) => EvenOddScreen(),
+        ),
+      );
+
+    } else if ( tileContent.taskName == TaskName.moreLess ){
+      
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => MoreLessScreen(),
         ),
       );
 
