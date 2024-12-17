@@ -1,7 +1,6 @@
-
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+
 
 Random rng = Random();
 
@@ -138,7 +137,7 @@ class MoreLessTask {
       )
     ];
 
-    return MoreLessTask( firstNumber: firstNumber, secondNumber: secondNumber, answerOptions: generateAnswerOptions(answer), answer: answerOptions[option], text: textOptions[option], richText: richTextOptions[option] );
+    return MoreLessTask( firstNumber: firstNumber, secondNumber: secondNumber, answerOptions: generateAnswerOptions(answerOptions[option]), answer: answerOptions[option], text: textOptions[option], richText: richTextOptions[option] );
 
 
   }

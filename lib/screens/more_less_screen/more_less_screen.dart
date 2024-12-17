@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/screens/more_less_screen/models/more_less_task.dart';
+import 'package:one_tutor_arithmetic/screens/more_less_screen/widgets/tappable_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
@@ -26,19 +27,83 @@ class MoreLessScreen extends StatefulWidget {
 
 class _MoreLessScreenState extends State<MoreLessScreen> {
 
-  late MoreLessTask task;
+  Future<void> speak(String text) async {
+    
+    await flutterTts.awaitSpeakCompletion(true);
+    await flutterTts.speak(text);
+    
+  }
 
-  var richText = RichText(
-        text: TextSpan(
-          style: const TextStyle(fontSize: 20, color: Colors.black,),
-          children: [
-            TextSpan(text: 5.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
-            const TextSpan(text: " is "),
-            TextSpan(text: 10.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
-            const TextSpan(text: " less than which number?"),
-          ],
-        ),
-      );
+  late MoreLessTask task;
+  List<Widget> tappableTextContainerList = [];
+  String answer = "";
+  int _iteration = 0;
+  int numOfIterations = 10;
+  double _progress = 0;
+
+
+  handleSubmit() async{
+
+    bool answerIsCorrect = answer == task.answer.toString();
+
+     if(answerIsCorrect){
+      await speak("That's correct");
+    } else {
+      await speak("Please try again");
+    }
+
+    if(answerIsCorrect){
+
+      setState(() {
+        
+        _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
+        _progress = _iteration / numOfIterations;
+        answer = "";
+
+      });
+
+      if( _iteration >= numOfIterations){
+
+        await Future.delayed(const Duration(milliseconds: 600));
+
+        if (!mounted) return;
+
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (ctx) => const FinalScreen()
+          ),
+        );
+          
+      } else {
+
+        setState(() {
+        
+          init();
+
+        });
+
+        flutterTts.speak(task.text);
+      }
+    } 
+
+  }
+
+  _readConfig() async {
+
+    final prefs = await SharedPreferences.getInstance();
+    numOfIterations = prefs.getInt('iterations') ?? 10;
+
+  }
+
+  onTapped(String number){
+    
+    setState(() {
+      answer = number;
+    });
+
+  }
+
+  asyncInitState() async =>  await _readConfig();
   
 
   @override
@@ -47,7 +112,7 @@ class _MoreLessScreenState extends State<MoreLessScreen> {
     super.initState();
     task = MoreLessTask.create();
 
-    // asyncInitState();
+    asyncInitState();
     init();
 
   }
@@ -55,7 +120,9 @@ class _MoreLessScreenState extends State<MoreLessScreen> {
   init(){
 
     task = task.prepareTask();
+    tappableTextContainerList.clear();
     flutterTts.speak(task.text);
+
   }
 
   @override
@@ -71,6 +138,13 @@ class _MoreLessScreenState extends State<MoreLessScreen> {
           children: [
             const Background( ),
 
+            Opacity(
+              opacity: 0.15,
+              child: Center(
+                child: pi.ProgressIndicator(progress: _progress)
+              ),
+            ),
+
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -84,32 +158,33 @@ class _MoreLessScreenState extends State<MoreLessScreen> {
                         child: Padding(
                          padding: const EdgeInsets.only(left: 10, right: 10),
                          child:
-                          // Text( task.text, style: const TextStyle( fontSize: 20, fontWeight: FontWeight.w500 ))
                             task.richText
- 
-                            
-       
                         ),
                       ),
                   )
                 ),
 
-                // Expanded(
-                //   flex: 5,
-                //   child: 
-                //     Wrap(
-                //       spacing: 20,
-                //       runSpacing: 20,
-                //       children: tappableTextContainerList,
-                //     )
-                // ),
+                Expanded(
+                  flex: 5,
+                  child: 
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      // children: tappableTextContainerList
+                      children:[
+                        TappableTextContainer(key: GlobalKey(), text: task.answerOptions[0].toString(), selectedText: answer, onTapped: onTapped,),
+                        TappableTextContainer(key: GlobalKey(), text: task.answerOptions[1].toString(), selectedText: answer, onTapped: onTapped,),
+                        TappableTextContainer(key: GlobalKey(), text: task.answerOptions[2].toString(), selectedText: answer, onTapped: onTapped,),
+                      ]
+                    ),
+                ),
               ]
             )
           ],
         ),
       extendBody: true,
       resizeToAvoidBottomInset : false,
-      // bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: false),
+      bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: answer == ""),
     );
   }
 }

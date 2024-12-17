@@ -28,7 +28,7 @@ const categories = [
   //   icon: CupertinoIcons.divide,
   //   description: "Division",
   // ),
-    TileContent(
+  TileContent(
     taskName: TaskName.ordering,
     color: Colors.green,
     icon: Icons.sort,
@@ -51,5 +51,17 @@ const categories = [
     color: Colors.teal,
     icon: Icons.question_mark,
     description: "More or Less",
+  ),
+  TileContent(
+    taskName: TaskName.lollies,
+    color: Colors.lightBlue,
+    icon: Icons.leak_add,
+    description: "Lollies",
+  ),
+  TileContent(
+    taskName: TaskName.daysOfWeek,
+    color: Colors.pink,
+    icon: Icons.calendar_month,
+    description: "Days of Week",
   ),
 ];

@@ -7,4 +7,6 @@ enum TaskName {
   sequence,
   evenOdd,
   moreLess,
+  lollies,
+  daysOfWeek,
 }

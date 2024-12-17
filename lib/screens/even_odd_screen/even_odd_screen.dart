@@ -7,10 +7,12 @@ import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:collection/collection.dart';
 
 
 FlutterTts flutterTts = FlutterTts();
 var rng = Random();
+Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
 
 
 class EvenOddScreen extends StatefulWidget {
@@ -68,8 +70,6 @@ class _EvenOddScreenState extends State<EvenOddScreen> {
 
   Future<bool> checkAnswer() async{
 
-    bool answerIsCorrect = true;
-
     List<String> evenNumbers = [];
     List<String> oddNumbers = [];
 
@@ -81,29 +81,7 @@ class _EvenOddScreenState extends State<EvenOddScreen> {
       }
     }
 
-    if(isEven == 1){
-    
-      for(String evenNumber in evenNumbers){
-    
-        if(!selectedNumbers.contains(evenNumber)){
-          answerIsCorrect = false;
-          break;
-        }
-
-      }
-
-    } else {
-
-      for(String oddNumber in oddNumbers){
-    
-        if(!selectedNumbers.contains(oddNumber)){
-          answerIsCorrect = false;
-          break;
-        }
-
-      }
-
-    }
+    bool answerIsCorrect = isEven == 1 ? unOrdDeepEq(selectedNumbers, evenNumbers) : unOrdDeepEq(selectedNumbers, oddNumbers);
 
     if(answerIsCorrect){
       await speak("That's correct");
@@ -178,7 +156,7 @@ class _EvenOddScreenState extends State<EvenOddScreen> {
     isEven = rng.nextInt(2);
     numbers.clear();
     numbers.addAll(generateNumbers());
-
+    selectedNumbers.clear();
     tappableTextContainerList.clear();
 
     for(String number in numbers){
@@ -189,9 +167,8 @@ class _EvenOddScreenState extends State<EvenOddScreen> {
 
   }
 
-  asyncInitState() async {
-    await _readConfig();
-  }
+  asyncInitState() async =>  await _readConfig();
+  
 
   @override
   initState() {
