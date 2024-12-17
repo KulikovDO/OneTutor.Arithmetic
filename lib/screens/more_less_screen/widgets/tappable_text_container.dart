@@ -18,14 +18,8 @@ class TappableTextContainer extends StatefulWidget {
 
 class _TappableTextContainerState extends State<TappableTextContainer> {
 
-  // bool isSelected = false;
+  onTapInside() => widget.onTapped(widget.text);
   
-  onTapInside() {
-    widget.onTapped(widget.text);
-    // setState(() {
-    //   isSelected = !isSelected;
-    // });
-  }
 
   @override
   Widget build(BuildContext context) {
