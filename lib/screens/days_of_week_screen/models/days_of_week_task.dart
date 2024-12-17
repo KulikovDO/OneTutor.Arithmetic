@@ -41,9 +41,20 @@ class DaysOfWeekTask {
     } 
     while ( dayOfWeek == this.dayOfWeek );
 
-    String text = "Which day comes after $dayOfWeek?"; //TODO: add before
+    bool isAfter = rng.nextBool();
 
-    int answerIndex =  dayOfWeekIndex == daysOfWeek.length - 1 ? 0 : dayOfWeekIndex + 1;
+    String afterBeforeText = isAfter ? "after" : "before";
+
+    String text = "Which day comes $afterBeforeText $dayOfWeek?"; //TODO: add before
+
+    int answerIndex = -1;
+
+    if(isAfter){
+      answerIndex =  dayOfWeekIndex == daysOfWeek.length - 1 ? 0 : dayOfWeekIndex + 1;
+    } else {
+      answerIndex =  dayOfWeekIndex == 0 ? daysOfWeek.length - 1 : dayOfWeekIndex - 1;
+    }
+
     String answer = daysOfWeek[answerIndex];
 
     Widget richText = 
@@ -51,7 +62,7 @@ class DaysOfWeekTask {
         text: TextSpan(
           style: const TextStyle(fontSize: 20, color: Colors.black,),
           children: [
-            const TextSpan(text: "Which day comes after "),
+            TextSpan(text: "Which day comes $afterBeforeText "),
             TextSpan(text: dayOfWeek, style: const TextStyle(fontWeight: FontWeight.bold)),
             const TextSpan(text: "?"),
           ],
