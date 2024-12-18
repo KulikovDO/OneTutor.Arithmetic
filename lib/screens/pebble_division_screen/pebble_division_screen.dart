@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/pebble.dart';
 // import 'package:one_tutor_arithmetic/screens/days_of_week_screen/models/days_of_week_task.dart';
 // import 'package:one_tutor_arithmetic/screens/days_of_week_screen/models/widgets/tappable_text_container.dart';
 // import 'package:one_tutor_arithmetic/screens/final_screen.dart';
@@ -133,9 +134,9 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
         title: const Text("Pebble Division"),
       ),
       body:
-        Stack(
+        const Stack(
           children: [
-            const Background( ),
+            Background( ),
 
             // Opacity(
             //   opacity: 0.15,
@@ -148,6 +149,7 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                  Pebble()
 
                 // Expanded(
                 //   child: SizedBox(
