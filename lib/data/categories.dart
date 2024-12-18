@@ -64,4 +64,10 @@ const categories = [
     icon: Icons.calendar_month,
     description: "Days of Week",
   ),
+  TileContent(
+    taskName: TaskName.pebbleDivision,
+    color: Colors.lime,
+    icon: Icons.calendar_month,
+    description: "Pebble Division",
+  ),
 ];

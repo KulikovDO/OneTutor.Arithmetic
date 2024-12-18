@@ -9,4 +9,5 @@ enum TaskName {
   moreLess,
   lollies,
   daysOfWeek,
+  pebbleDivision,
 }
