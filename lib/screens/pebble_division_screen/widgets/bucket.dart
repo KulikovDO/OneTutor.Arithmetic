@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 class Bucket extends StatefulWidget {
 
+  final List<int> colors;
+
   const Bucket({
-    super.key 
+    super.key,
+    required this.colors,
   });
 
   @override

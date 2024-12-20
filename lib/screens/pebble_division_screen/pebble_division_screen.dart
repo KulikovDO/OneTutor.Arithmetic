@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/bucket.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/draggable_pebble.dart';
+import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/droppable_bucket.dart';
 // import 'package:one_tutor_arithmetic/screens/days_of_week_screen/models/days_of_week_task.dart';
 // import 'package:one_tutor_arithmetic/screens/days_of_week_screen/models/widgets/tappable_text_container.dart';
 // import 'package:one_tutor_arithmetic/screens/final_screen.dart';
@@ -201,10 +201,7 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
                         spacing: 10,
                         runSpacing: 10,
                         children: [
-                          Bucket(),
-                          Bucket(),
-                          Bucket(),
-                          Bucket(),
+                          DroppableBucket(),
                         ],
                       ),
                     )

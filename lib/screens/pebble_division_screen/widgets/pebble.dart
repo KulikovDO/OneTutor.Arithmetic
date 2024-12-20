@@ -1,23 +1,12 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
-
-var rng = math.Random();
-List<Color> colors = [
-  Colors.orange[200] as Color, 
-  Colors.red[200] as Color,  
-  Colors.yellow[200] as Color,  
-  Colors.green[200] as Color,  
-  Colors.pink[200] as Color, 
-  Colors.blue[200] as Color, 
-  Colors.purple[200] as Color, 
-  Colors.white
-];
 
 class Pebble extends StatefulWidget {
 
+  final Color color;
+
   const Pebble({
-    super.key 
+    super.key,
+    required this.color,
   });
 
   @override
@@ -26,12 +15,12 @@ class Pebble extends StatefulWidget {
 
 class _PebbleState extends State<Pebble> {
 
-  int colorIndex = 0;
+  
 
   @override
   void initState() {
     super.initState();
-    colorIndex = rng.nextInt(colors.length );
+    
   }
 
   @override
@@ -46,7 +35,7 @@ class _PebbleState extends State<Pebble> {
           child: 
               CustomPaint(
               size: const Size(50, 50),
-              painter: PebblePainter(colors[colorIndex]),
+              painter: PebblePainter(widget.color),
             ),
         ),
       );
