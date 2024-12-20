@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/bucket.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/draggable_pebble.dart';
 
+const int bucketCapacity = 6;
+
 class DroppableBucket extends StatefulWidget {
 
   final Function onAccepted;
@@ -21,9 +23,10 @@ class _DroppableBucketState extends State<DroppableBucket> {
 
   handleOnAccepted(DraggablePebble draggablePebble){
 
-    widget.onAccepted(draggablePebble);
-    draggablePebbles.add(draggablePebble);
-
+    if(draggablePebbles.length < bucketCapacity){
+      widget.onAccepted(draggablePebble);
+      draggablePebbles.add(draggablePebble);
+    }
   }
 
   @override

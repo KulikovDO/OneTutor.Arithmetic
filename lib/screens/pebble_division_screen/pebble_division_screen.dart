@@ -211,6 +211,7 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
                         runSpacing: 10,
                         children: [
                           DroppableBucket(onAccepted: handleOnAccepted),
+                          DroppableBucket(onAccepted: handleOnAccepted),
                         ],
                       ),
                     )
