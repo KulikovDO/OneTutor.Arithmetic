@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/data/pebble_colors.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/pebble.dart';
 
 class Bucket extends StatefulWidget {
 
-  final List<int> colors;
+  final List<Pebble> pebbles;
 
   const Bucket({
     super.key,
-    required this.colors,
+    required this.pebbles,
   });
 
   @override
@@ -17,17 +16,9 @@ class Bucket extends StatefulWidget {
 
 class _BucketState extends State<Bucket> {
 
-  List<Widget> pebbles = [];
-  
   @override
   void initState() {
     super.initState();
-    for(int colorIndex in widget.colors){
-
-      pebbles.add(Pebble(color: pebbleColors[colorIndex]));
-    }
-
-
   }
 
   @override
@@ -63,7 +54,7 @@ class _BucketState extends State<Bucket> {
         child: Wrap(
           spacing: 1,
           runSpacing: 0,
-          children: pebbles,
+          children: widget.pebbles,
         ),
       ),
     );

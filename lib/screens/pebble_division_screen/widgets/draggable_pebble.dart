@@ -14,10 +14,10 @@ class DraggablePebble extends StatefulWidget {
   const DraggablePebble({ super.key, required this.onDragCompleted, });
 
   @override
-  State<DraggablePebble> createState() => _DraggablePebbleState();
+  State<DraggablePebble> createState() => DraggablePebbleState();
 }
 
-class _DraggablePebbleState extends State<DraggablePebble> {
+class DraggablePebbleState extends State<DraggablePebble> {
 
   int colorIndex = 0;
   late Pebble pebble;
@@ -36,12 +36,12 @@ class _DraggablePebbleState extends State<DraggablePebble> {
   Widget build(BuildContext context) {
     
     return 
-      Draggable<int>(
-        data: colorIndex,
+      Draggable<DraggablePebble>(
+        data: widget,
         feedback: pebble,
         childWhenDragging: const SizedBox(width: 0, height: 0),
         onDragCompleted: (){
-          widget.onDragCompleted(key);
+          widget.onDragCompleted(widget.key);
         },
         child: pebble,
       );

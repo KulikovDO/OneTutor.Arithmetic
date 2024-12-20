@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/bucket.dart';
+import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/draggable_pebble.dart';
+import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/pebble.dart';
 
 class DroppableBucket extends StatefulWidget {
 
+  final Function onAccepted;
+
   const DroppableBucket({
-    super.key 
+    super.key,
+    required this.onAccepted,
   });
 
   @override
@@ -13,13 +18,15 @@ class DroppableBucket extends StatefulWidget {
 
 class _DroppableBucketState extends State<DroppableBucket> {
 
-  List<int> colors = [0, 1, 2, 3, 4];
+  List<Pebble> pebbles = [];
 
-  handleOnAccepted(int colorIndex){
+  handleOnAccepted(DraggablePebble draggablePebble){
 
-    setState(() {
-      colors.add(colorIndex);
-    });
+    widget.onAccepted(draggablePebble);
+
+    // setState(() {
+    //   // pebbles.add(pebble);
+    // });
 
   }
 
@@ -31,13 +38,13 @@ class _DroppableBucketState extends State<DroppableBucket> {
   @override
   Widget build(BuildContext context) {
     return 
-      DragTarget<int>(
+      DragTarget<DraggablePebble>(
         builder: (
           BuildContext context,
           List<dynamic> accepted,
           List<dynamic> rejected,
         ) {
-          return Bucket(colors: colors);
+          return Bucket(pebbles: pebbles);
         },
         onAcceptWithDetails: (DragTargetDetails details) {
           // widget.onAccepted(details.data);
