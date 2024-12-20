@@ -26,13 +26,11 @@ class Pebble extends StatefulWidget {
 
 class _PebbleState extends State<Pebble> {
 
-  int imageIndex = 0;
   int colorIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    imageIndex = rng.nextInt( 3 ) + 1;
     colorIndex = rng.nextInt(colors.length );
   }
 
@@ -40,41 +38,19 @@ class _PebbleState extends State<Pebble> {
   Widget build(BuildContext context) {
     
     return 
-      Draggable(
-        feedback: Padding(
-            padding: const EdgeInsets.all(2),
-            child: SizedBox (
-              height: 50.0,
-              width: 50.0,
-              child: 
-                  CustomPaint(
-                  size: const Size(50, 50),
-                  painter: PebblePainter(colors[colorIndex]),
-                ),
-          
-              
+      Padding(
+        padding: const EdgeInsets.all(2),
+        child: SizedBox (
+          height: 50.0,
+          width: 50.0,
+          child: 
+              CustomPaint(
+              size: const Size(50, 50),
+              painter: PebblePainter(colors[colorIndex]),
             ),
-          ),
-        childWhenDragging: const SizedBox (
-              height: 54.0,
-              width: 54.0,
         ),
-        child: 
-          Padding(
-            padding: const EdgeInsets.all(2),
-            child: SizedBox (
-              height: 50.0,
-              width: 50.0,
-              child: 
-                  CustomPaint(
-                  size: const Size(50, 50),
-                  painter: PebblePainter(colors[colorIndex]),
-                ),
-          
-              
-            ),
-          ),
       );
+
   }
 }
 

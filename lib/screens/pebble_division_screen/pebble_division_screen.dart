@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/bucket.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/pebble.dart';
+import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/draggable_pebble.dart';
 // import 'package:one_tutor_arithmetic/screens/days_of_week_screen/models/days_of_week_task.dart';
 // import 'package:one_tutor_arithmetic/screens/days_of_week_screen/models/widgets/tappable_text_container.dart';
 // import 'package:one_tutor_arithmetic/screens/final_screen.dart';
@@ -168,30 +168,29 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
 
                 Expanded(
                   //flex: 4,
-                  child: 
-                    Center(
+                  
                       child: Wrap(
                         spacing: -1,
                         runSpacing: -1,
                         children: [
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
-                          Pebble(),
+                          DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
+                          // DraggablePebble(),
                         ],
                       ),
-                    )
+                    
                 ),
 
                 Expanded(
