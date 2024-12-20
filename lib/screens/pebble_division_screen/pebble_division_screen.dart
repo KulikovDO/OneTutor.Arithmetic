@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/bucket.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/pebble.dart';
 // import 'package:one_tutor_arithmetic/screens/days_of_week_screen/models/days_of_week_task.dart';
 // import 'package:one_tutor_arithmetic/screens/days_of_week_screen/models/widgets/tappable_text_container.dart';
@@ -149,7 +150,7 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                  Pebble()
+                  
 
                 // Expanded(
                 //   child: SizedBox(
@@ -164,6 +165,51 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
                 //       ),
                 //   )
                 // ),
+
+                Expanded(
+                  //flex: 4,
+                  child: 
+                    Center(
+                      child: Wrap(
+                        spacing: -1,
+                        runSpacing: -1,
+                        children: [
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                          Pebble(),
+                        ],
+                      ),
+                    )
+                ),
+
+                Expanded(
+                  //flex: 4,
+                  child: 
+                    Center(
+                      child: Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: [
+                          Bucket(),
+                          Bucket(),
+                          Bucket(),
+                          Bucket(),
+                        ],
+                      ),
+                    )
+                ),
 
                 // Expanded(
                 //   flex: 5,

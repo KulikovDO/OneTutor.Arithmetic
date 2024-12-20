@@ -39,23 +39,42 @@ class _PebbleState extends State<Pebble> {
   @override
   Widget build(BuildContext context) {
     
-    return Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: SizedBox(
-          height: 60.0,
-          width: 60.0,
+    return 
+      Draggable(
+        feedback: Padding(
+            padding: const EdgeInsets.all(2),
+            child: SizedBox (
+              height: 50.0,
+              width: 50.0,
+              child: 
+                  CustomPaint(
+                  size: const Size(50, 50),
+                  painter: PebblePainter(colors[colorIndex]),
+                ),
           
-          child: Center(
-            child: 
-              CustomPaint(
-              size: const Size(80, 80),
-              painter: PebblePainter(colors[colorIndex]),
+              
             ),
-
           ),
+        childWhenDragging: const SizedBox (
+              height: 54.0,
+              width: 54.0,
         ),
+        child: 
+          Padding(
+            padding: const EdgeInsets.all(2),
+            child: SizedBox (
+              height: 50.0,
+              width: 50.0,
+              child: 
+                  CustomPaint(
+                  size: const Size(50, 50),
+                  painter: PebblePainter(colors[colorIndex]),
+                ),
+          
+              
+            ),
+          ),
       );
-
   }
 }
 
