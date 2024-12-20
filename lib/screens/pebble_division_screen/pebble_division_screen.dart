@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/draggable_pebble.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/droppable_bucket.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/pebble.dart';
 // import 'package:one_tutor_arithmetic/screens/days_of_week_screen/models/days_of_week_task.dart';
 // import 'package:one_tutor_arithmetic/screens/days_of_week_screen/models/widgets/tappable_text_container.dart';
 // import 'package:one_tutor_arithmetic/screens/final_screen.dart';
@@ -127,11 +126,11 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
 
     super.initState();
 
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < 6; i++){
       draggableKeys.add(GlobalKey());
     }
 
-    draggablePebbles = List.generate(/*_numbers.length*/5,(index) => 
+    draggablePebbles = List.generate(/*_numbers.length*/6,(index) => 
       DraggablePebble(key: draggableKeys[index], onDragCompleted: handleDragCompleted,)
     ); 
 

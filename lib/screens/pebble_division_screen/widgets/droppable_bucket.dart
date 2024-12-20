@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/bucket.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/draggable_pebble.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/pebble.dart';
 
 class DroppableBucket extends StatefulWidget {
 
@@ -18,15 +17,12 @@ class DroppableBucket extends StatefulWidget {
 
 class _DroppableBucketState extends State<DroppableBucket> {
 
-  List<Pebble> pebbles = [];
+  List<DraggablePebble> draggablePebbles = [];
 
   handleOnAccepted(DraggablePebble draggablePebble){
 
     widget.onAccepted(draggablePebble);
-
-    // setState(() {
-    //   // pebbles.add(pebble);
-    // });
+    draggablePebbles.add(draggablePebble);
 
   }
 
@@ -44,7 +40,7 @@ class _DroppableBucketState extends State<DroppableBucket> {
           List<dynamic> accepted,
           List<dynamic> rejected,
         ) {
-          return Bucket(pebbles: pebbles);
+          return Bucket(draggablePebbles: draggablePebbles);
         },
         onAcceptWithDetails: (DragTargetDetails details) {
           // widget.onAccepted(details.data);
