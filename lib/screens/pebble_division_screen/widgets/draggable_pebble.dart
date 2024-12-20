@@ -9,7 +9,9 @@ var rng = math.Random();
 
 class DraggablePebble extends StatefulWidget {
 
-  const DraggablePebble({ super.key, });
+  final Function onDragCompleted;
+  
+  const DraggablePebble({ super.key, required this.onDragCompleted, });
 
   @override
   State<DraggablePebble> createState() => _DraggablePebbleState();
@@ -38,6 +40,9 @@ class _DraggablePebbleState extends State<DraggablePebble> {
         data: colorIndex,
         feedback: pebble,
         childWhenDragging: const SizedBox(width: 0, height: 0),
+        onDragCompleted: (){
+          widget.onDragCompleted(key);
+        },
         child: pebble,
       );
   }

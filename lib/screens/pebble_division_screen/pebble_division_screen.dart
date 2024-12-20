@@ -106,6 +106,9 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
 
   // asyncInitState() async =>  await _readConfig();
   
+  handleDragCompleted(GlobalKey key){
+    print(key);
+  }
 
   @override
   initState() {
@@ -135,7 +138,7 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
         title: const Text("Pebble Division"),
       ),
       body:
-        const Stack(
+        Stack(
           children: [
             Background( ),
 
@@ -170,24 +173,35 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
                   //flex: 4,
                   
                       child: Wrap(
-                        spacing: -1,
-                        runSpacing: -1,
+                        spacing: 0,
+                        runSpacing: 0,
                         children: [
-                          DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
-                          // DraggablePebble(),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
+                          DraggablePebble(onDragCompleted: handleDragCompleted,),
                         ],
                       ),
                     

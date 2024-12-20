@@ -13,7 +13,7 @@ class DroppableBucket extends StatefulWidget {
 
 class _DroppableBucketState extends State<DroppableBucket> {
 
-  List<int> colors = [];
+  List<int> colors = [0, 1, 2, 3, 4];
 
   handleOnAccepted(int colorIndex){
 

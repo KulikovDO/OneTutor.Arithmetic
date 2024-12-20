@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/screens/pebble_division_screen/data/pebble_colors.dart';
+import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/pebble.dart';
 
 class Bucket extends StatefulWidget {
 
@@ -15,9 +17,17 @@ class Bucket extends StatefulWidget {
 
 class _BucketState extends State<Bucket> {
 
+  List<Widget> pebbles = [];
+  
   @override
   void initState() {
     super.initState();
+    for(int colorIndex in widget.colors){
+
+      pebbles.add(Pebble(color: pebbleColors[colorIndex]));
+    }
+
+
   }
 
   @override
@@ -27,7 +37,7 @@ class _BucketState extends State<Bucket> {
 
     return Container(
       width: size.width / 3,
-      height: size.width / 3,
+      height: size.width / 2.5, // suitable for 6 pebbles
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.07),
         borderRadius: const BorderRadius.only(
@@ -47,9 +57,15 @@ class _BucketState extends State<Bucket> {
             color: Colors.black,
             width: 3.0,
           ),
-          
         )
-      )
+      ),
+      child: Center(
+        child: Wrap(
+          spacing: 1,
+          runSpacing: 0,
+          children: pebbles,
+        ),
+      ),
     );
   }
 }
