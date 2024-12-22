@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:one_tutor_arithmetic/screens/pebble_division_screen/pebbles_provider.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/draggable_pebble.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/droppable_bucket.dart';
 // import 'package:one_tutor_arithmetic/screens/days_of_week_screen/models/days_of_week_task.dart';
@@ -15,116 +17,84 @@ import 'package:one_tutor_arithmetic/widgets/background.dart';
 FlutterTts flutterTts = FlutterTts();
 
 
-class PebbleDivisionScreen extends StatefulWidget {
+class PebbleDivisionScreen extends ConsumerStatefulWidget {
   PebbleDivisionScreen({super.key}) 
   {
     flutterTts.setSpeechRate(0.4);
   }
 
   @override
-  State<PebbleDivisionScreen> createState() => _PebbleDivisionScreenState();
+  ConsumerState<PebbleDivisionScreen> createState() => _PebbleDivisionScreenState();
 }
 
 
-class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
+class _PebbleDivisionScreenState extends ConsumerState<PebbleDivisionScreen> {
 
   List<GlobalKey<DraggablePebbleState>> draggableKeys = [];
   List<DraggablePebble> draggablePebbles = [];
 
-  handleOnAccepted(DraggablePebble draggablePebble){
+  List<GlobalKey<DroppableBucketState>> droppableKeys = [];
+  List<DroppableBucket> droppableBuckets = [];
+
+  // List<DraggablePebble> droppedPebbles = [];
+
+  // List<List<DraggablePebble>> bucketPebbles = [];
+
+  // Map<GlobalKey, List<DraggablePebble>> bucketPebbles = {};
+
+  handleOnAccepted(GlobalKey<DroppableBucketState> droppableBucketKey, DraggablePebble draggablePebble){
+
+    final map = ref.read(pebblesProvider);
+    
+    
+
+    
+    
+    // print("handleOnAccepted");
     
     setState(() {
       draggablePebbles.remove(draggablePebble);
+    //   // bucketPebbles[droppableBucketKey]!.add(draggablePebble);
     });
+
+    
+    GlobalKey? globalKey;
+    bool keyExists = false;
+    for(GlobalKey key in map.keys){
+
+      if(map[key]!.contains(draggablePebble)){
+
+        // map[key]!.remove(draggablePebble);
+        globalKey = key;
+
+        keyExists = true;
+
+      } 
+
+    }
+    
+    if(keyExists){
+      map[globalKey!] = [];
+    }
+    
+    if(!keyExists) {
+      map[droppableBucketKey]!.add(draggablePebble);
+    }
     
   }
 
-  // Future<void> speak(String text) async {
-    
-  //   await flutterTts.awaitSpeakCompletion(true);
-  //   await flutterTts.speak(text);
-    
-  // }
-
-  // late PebbleDivisionTask task;
-
-  // String answer = "";
-  // int _iteration = 0;
-  // int numOfIterations = 10;
-  // double _progress = 0;
-
-
-  // handleSubmit() async{
-
-  //   bool answerIsCorrect = answer == task.answer.toString();
-
-  //    if(answerIsCorrect){
-  //     await speak("That's correct");
-  //   } else {
-  //     await speak("Please try again");
-  //   }
-
-  //   if(answerIsCorrect){
-
-  //     setState(() {
-        
-  //       _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
-  //       _progress = _iteration / numOfIterations;
-  //       answer = "";
-
-  //     });
-
-  //     if( _iteration >= numOfIterations){
-
-  //       await Future.delayed(const Duration(milliseconds: 600));
-
-  //       if (!mounted) return;
-
-  //       Navigator.of(context).push(
-  //         MaterialPageRoute(
-  //           builder: (ctx) => const FinalScreen()
-  //         ),
-  //       );
-          
-  //     } else {
-
-  //       setState(() {
-        
-  //         init();
-
-  //       });
-
-  //       flutterTts.speak(task.text);
-  //     }
-  //   } 
-
-  // }
-
-  // _readConfig() async {
-
-  //   final prefs = await SharedPreferences.getInstance();
-  //   numOfIterations = prefs.getInt('iterations') ?? 10;
-
-  // }
-
-  // onTapped(String dayOfWeek){
-    
-  //   setState(() {
-  //     answer = dayOfWeek;
-  //   });
-
-  // }
-
-  // asyncInitState() async =>  await _readConfig();
+ 
   
   handleDragCompleted(GlobalKey key){
-    print(key);
+    // print(key);
   }
 
   @override
   initState() {
 
     super.initState();
+
+    final map = ref.read(pebblesProvider);
 
     for(int i = 0; i < 6; i++){
       draggableKeys.add(GlobalKey());
@@ -134,6 +104,20 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
       DraggablePebble(key: draggableKeys[index], onDragCompleted: handleDragCompleted,)
     ); 
 
+    for(int i = 0; i < 2; i++){
+      droppableKeys.add(GlobalKey());
+    }
+
+    droppableBuckets = List.generate(/*_numbers.length*/2,(index) => 
+      DroppableBucket(key: droppableKeys[index], onAccepted: handleOnAccepted,)
+    ); 
+
+    map.clear();
+    for(int i = 0; i < 2; i++){
+      // map.update(droppableKeys[i], (m) => []);
+      map[droppableKeys[i]] = [];
+    }
+    
 
 
     // task = PebbleDivisionScreenTask.create();
@@ -153,6 +137,19 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    // ref.listen(pebblesProvider, (prev, now) {
+      
+    //   print("changes");
+
+    // });
+
+    final container = ProviderScope.containerOf(context);
+    container.listen(
+        pebblesProvider,
+        (prev, now) => print("changes")
+      );
+    
   
     return Scaffold(
       appBar: AppBar(
@@ -162,7 +159,7 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
       body:
         Stack(
           children: [
-            Background( ),
+            const Background( ),
 
             // Opacity(
             //   opacity: 0.15,
@@ -191,7 +188,7 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
                 //   )
                 // ),
 
-                Expanded(
+                  Expanded(
                   //flex: 4,
                   
                       child: Wrap(
@@ -200,7 +197,7 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
                         children: draggablePebbles,
                       ),
                     
-                ),
+                  ),
 
                 Expanded(
                   //flex: 4,
@@ -209,10 +206,7 @@ class _PebbleDivisionScreenState extends State<PebbleDivisionScreen> {
                       child: Wrap(
                         spacing: 10,
                         runSpacing: 10,
-                        children: [
-                          DroppableBucket(onAccepted: handleOnAccepted),
-                          DroppableBucket(onAccepted: handleOnAccepted),
-                        ],
+                        children: droppableBuckets,
                       ),
                     )
                 ),
