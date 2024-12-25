@@ -6,46 +6,25 @@ import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/drag
 
 const int bucketCapacity = 6;
 
-class DroppableBucket extends ConsumerStatefulWidget {
+class DroppableBucket extends ConsumerWidget {
 
-  final Function onAccepted;
+  const DroppableBucket({ super.key, });
 
-  const DroppableBucket({
-    super.key,
-    required this.onAccepted,
-  });
+  handleOnAccepted(DraggablePebble draggablePebble, WidgetRef ref){
 
-  @override
-  ConsumerState<DroppableBucket> createState() => DroppableBucketState();
-}
+    final map = ref.read(pebblesProvider);
 
-class DroppableBucketState extends ConsumerState<DroppableBucket> {
+    if(map[key!]!.length < bucketCapacity){
+      
+      ref.watch(pebblesProvider.notifier).movePebble(key as GlobalKey, draggablePebble);
 
-
-
-  List<DraggablePebble> draggablePebbles = [];
-
-  handleOnAccepted(DraggablePebble draggablePebble){
-
-    if(draggablePebbles.length < bucketCapacity){
-      widget.onAccepted(widget.key, draggablePebble);
-      // draggablePebbles.add(draggablePebble);
     }
   }
 
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context, WidgetRef ref) {
 
-    // final map = ref.read(pebblesProvider);
-  }
-
-  
-
-  @override
-  Widget build(BuildContext context) {
-
-    final map = ref.read(pebblesProvider);
+    final map = ref.watch(pebblesProvider);
 
     return 
       DragTarget<DraggablePebble>(
@@ -54,19 +33,10 @@ class DroppableBucketState extends ConsumerState<DroppableBucket> {
           List<dynamic> accepted,
           List<dynamic> rejected,
         ) {
-          return Bucket(draggablePebbles: /*draggablePebbles*/
-            map[widget.key]!
-          );
+          return Bucket(draggablePebbles: map[key] ?? []);
         },
         onAcceptWithDetails: (DragTargetDetails details) {
-          // widget.onAccepted(details.data);
-
-          // final map = ref.read(pebblesProvider);
-          // map[widget.key]!.add(details.data);
-
-          handleOnAccepted(details.data);
-
-
+          handleOnAccepted(details.data, ref);
         },
       );
   }

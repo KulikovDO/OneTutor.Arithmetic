@@ -145,23 +145,23 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
             ),
 
             SizedBox(
-                width: double.infinity,
-                child: 
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10, right: 10, bottom: height / 3),
-                      child: 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text( "${task.firstNumber} ${task.operationSymbol} ${task.secondNumber} = ", style:  const TextStyle( fontSize: 50, fontWeight: FontWeight.w500 )),
-                            textInputContainer,
-                          ]
-                        ),
-                    ),
+              width: double.infinity,
+              child: 
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10, bottom: height / 3),
+                    child: 
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text( "${task.firstNumber} ${task.operationSymbol} ${task.secondNumber} = ", style:  const TextStyle( fontSize: 50, fontWeight: FontWeight.w500 )),
+                          textInputContainer,
+                        ]
+                      ),
                   ),
-              )
+                ),
+            ),
           ],
         ),
       extendBody: true,

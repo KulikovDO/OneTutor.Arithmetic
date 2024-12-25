@@ -27,18 +27,11 @@ class _PebbleState extends State<Pebble> {
   Widget build(BuildContext context) {
     
     return 
-      Padding(
-        padding: const EdgeInsets.all(2),
-        child: SizedBox (
-          height: 50.0,
-          width: 50.0,
-          child: 
-              CustomPaint(
-              size: const Size(50, 50),
-              painter: PebblePainter(widget.color),
-            ),
-        ),
-      );
+
+      CustomPaint(
+      size: const Size(50, 50),
+      painter: PebblePainter(widget.color),
+    );
 
   }
 }

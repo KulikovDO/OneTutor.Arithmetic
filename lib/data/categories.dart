@@ -67,7 +67,7 @@ const categories = [
   TileContent(
     taskName: TaskName.pebbleDivision,
     color: Colors.lime,
-    icon: Icons.calendar_month,
+    icon: Icons.drag_indicator,
     description: "Pebble Division",
   ),
 ];
