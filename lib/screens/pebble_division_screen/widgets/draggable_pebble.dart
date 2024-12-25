@@ -20,19 +20,18 @@ class _DraggablePebbleState extends State<DraggablePebble> {
   int colorIndex = 0;
   late Pebble pebble;
   late GlobalKey key;
-  
 
   @override
   void initState() {
     super.initState();
     key = GlobalKey();
     colorIndex = rng.nextInt(pebbleColors.length );
-    pebble = Pebble(key: key, color: pebbleColors[colorIndex]);
+    pebble = Pebble(key: key, color: pebbleColors[colorIndex], width: 50.0);
   }
 
   @override
   Widget build(BuildContext context) {
-    
+   
     return 
       Draggable<DraggablePebble>(
         data: widget,

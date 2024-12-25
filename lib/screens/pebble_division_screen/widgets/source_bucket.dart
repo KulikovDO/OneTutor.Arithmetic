@@ -46,8 +46,8 @@ class SourceBucketState extends ConsumerState<SourceBucket> {
     final map = ref.watch(pebblesProvider);
     
     return Wrap(
-      spacing: 3,
-      runSpacing: -12,
+      spacing: 1,
+      runSpacing: 1,
       children: map[widget.key] ?? [],
     );
                   

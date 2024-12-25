@@ -29,7 +29,7 @@ class _BucketState extends State<Bucket> {
 
     return Container(
       width: size.width / 3,
-      height: size.width / 2.5, // suitable for 6 pebbles
+      height: size.width / 3, // suitable for 6 pebbles
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.07),
         borderRadius: const BorderRadius.only(
@@ -54,7 +54,7 @@ class _BucketState extends State<Bucket> {
       child: Center(
         child: Wrap(
           spacing: 1,
-          runSpacing: 0,
+          runSpacing: 1,
           children: widget.draggablePebbles,
         ),
       ),
