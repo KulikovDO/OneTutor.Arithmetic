@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:one_tutor_arithmetic/screens/clock_screen/widgets/clock.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 
 
@@ -50,6 +51,8 @@ class _ClockScreenState extends State<ClockScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                
+                Center(child: Clock(width: 200.0))
 
                 // Expanded(
                 //   child: SizedBox(
