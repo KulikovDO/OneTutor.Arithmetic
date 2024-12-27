@@ -1,3 +1,5 @@
+// import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class Clock extends StatelessWidget {
@@ -24,56 +26,79 @@ class Clock extends StatelessWidget {
 
 class ClockPainter extends CustomPainter { 
 
-  // ClockPainter();
-
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
+    final paint1 = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5;
 
-    final path = Path()
-      ..moveTo(size.width * 0.1, size.height * 0.4)
-      ..quadraticBezierTo(
-        size.width * .5,
-        0,
-        size.width * 0.9,
-        size.height * 0.4,
-      )
-      
-      ..quadraticBezierTo(
-        size.width * 1.05,
-        size.height * 0.7,
-        size.width * 0.7,
-        size.height * 0.7,
-      )
-      
-      ..quadraticBezierTo(
-        size.width * .5,
-        size.height * 0.6,
-        size.width * 0.3,
-        size.height * 0.7,
-      )
+    final paint2 = Paint()
+      ..color = Colors.grey.withOpacity(0.2)
+      ..style = PaintingStyle.fill;
 
-      ..quadraticBezierTo(
-        0,
-        size.height * 0.7,
-        size.width * 0.1,
-        size.height * 0.4,
-      )
-      ..close()
-    ;
+    final rect = Rect.fromLTRB(0, 0, size.width, size.height);
+    // final radius = size.width * .4;
 
     canvas
-      .drawPath(path, paint)
+      ..drawRect(rect, paint2)
+      ..drawCircle(Offset(size.width / 2, size.width / 2), size.width / 2, paint1)
+      // ..drawCircle(Offset(size.width / 2, size.width / 2), radius, paint1)
+      
+      // ..drawLine(Offset(0, 0.5*size.width), Offset(size.width, 0.5*size.width), paint1)
+      // ..drawLine(Offset(0.5*size.width, 0), Offset(0.5*size.width, size.width), paint1)
 
+      // ..drawLine(Offset(0.5*size.width - sin(pi/6)*radius , 0.5*size.width - cos(pi/6)*radius), Offset(0.5*size.width + sin(pi/6)*radius, 0.5*size.width + cos(pi/6)*radius ), paint1)
+      // ..drawLine(Offset(0.5*size.width + sin(pi/6)*radius , 0.5*size.width - cos(pi/6)*radius), Offset(0.5*size.width - sin(pi/6)*radius, 0.5*size.width + cos(pi/6)*radius ), paint1)
+
+      // ..drawLine(Offset(0.5*size.width - sin(pi/3)*radius , 0.5*size.width - cos(pi/3)*radius), Offset(0.5*size.width + sin(pi/3)*radius, 0.5*size.width + cos(pi/3)*radius ), paint1)
+      // ..drawLine(Offset(0.5*size.width + sin(pi/3)*radius , 0.5*size.width - cos(pi/3)*radius), Offset(0.5*size.width - sin(pi/3)*radius, 0.5*size.width + cos(pi/3)*radius ), paint1)
     ;
+
+    List<Offset> digitsOffsets = [
+      Offset(size.width / 1.5, size.width / 13), // 1
+      Offset(size.width / 1.25, size.width / 4.5), // 2
+      Offset(size.width / 1.15, size.width / 2.35), // 3
+      Offset(size.width / 1.25, size.width / 1.6), // 4
+      Offset(size.width / 1.5, size.width / 1.3), // 5
+      Offset(size.width / 2.15, size.width / 1.2), // 6
+      Offset(size.width / 3.6, size.width / 1.3), // 7
+      Offset(size.width / 8, size.width / 1.6), // 8
+      Offset(size.width / 15, size.width / 2.35), // 9
+      Offset(size.width / 11, size.width / 4.5), // 10
+      Offset(size.width / 4.3, size.width / 13), // 11
+      Offset(size.width / 2.3, size.width / 35), // 12
+    ];
+
+    int digit = 1;
+    for(Offset digitOffset in digitsOffsets){
+      drawText(digit.toString(), size.width, digitOffset, canvas);
+      digit++;
+    }
+
+
+    // TextPainter textPainter = getTextPainter("11", size.width);
+    // textPainter.paint(canvas, offset);
+
+    // textPainter = getTextPainter("1", size.width);
+        // final center = (size.width - textPainter.width)/2;
+    // textPainter.paint(canvas, Offset(center, center));
+
+  }
+
+  void drawText(String text, double dimension, Offset offset, Canvas canvas){
+
+    final textStyle = TextStyle(color: Colors.black, fontSize: dimension / 8, fontWeight: FontWeight.bold );
+    final textSpan = TextSpan(text: text, style: textStyle);
+
+    final textPainter = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
+    textPainter.layout(minWidth: 0, maxWidth: dimension);
+
+    textPainter.paint(canvas, offset);
 
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
-  }
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
+
 }
