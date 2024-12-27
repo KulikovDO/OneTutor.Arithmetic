@@ -70,4 +70,10 @@ const categories = [
     icon: Icons.drag_indicator,
     description: "Pebble Division",
   ),
+  TileContent(
+    taskName: TaskName.clock,
+    color: Colors.greenAccent,
+    icon: Icons.punch_clock,
+    description: "Clock",
+  ),
 ];

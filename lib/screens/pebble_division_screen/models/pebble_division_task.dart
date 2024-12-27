@@ -38,15 +38,17 @@ class PebbleDivisionTask {
     }
     while( numOfBuckets == this.numOfBuckets && numOfPebbles == this.numOfPebbles );
 
-    String text = "Share the pebbles between $numOfBuckets buckets. how many pebbles in each bucket?";
+    String text = "Share $numOfPebbles pebbles between $numOfBuckets buckets. how many pebbles in each bucket?";
 
     Widget richText = RichText(
       text: TextSpan(
         style: const TextStyle(fontSize: 20, color: Colors.black,),
         children: [
-          const TextSpan(text: "Share the pebbles between "),
+          const TextSpan(text: "Share "),
+          TextSpan(text: numOfPebbles.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
+          const TextSpan(text: " pebbles between "),
           TextSpan(text: numOfBuckets.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
-          const TextSpan(text: " buckets. how many pebbles in each bucket?"),
+          const TextSpan(text: " buckets. How many pebbles in each bucket?"),
         ],
       ),
     );

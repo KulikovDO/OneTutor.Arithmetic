@@ -26,7 +26,7 @@ class _DraggablePebbleState extends State<DraggablePebble> {
     super.initState();
     key = GlobalKey();
     colorIndex = rng.nextInt(pebbleColors.length );
-    pebble = Pebble(key: key, color: pebbleColors[colorIndex], width: 50.0);
+    pebble = Pebble(key: key, color: pebbleColors[colorIndex], width: 60.0);
   }
 
   @override

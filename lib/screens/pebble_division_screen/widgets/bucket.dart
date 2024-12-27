@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/draggable_pebble.dart';
 
 
-class Bucket extends StatefulWidget {
+class Bucket extends StatelessWidget {
 
   final List<DraggablePebble> draggablePebbles;
 
@@ -10,17 +10,6 @@ class Bucket extends StatefulWidget {
     super.key,
     required this.draggablePebbles,
   });
-
-  @override
-  State<Bucket> createState() => _BucketState();
-}
-
-class _BucketState extends State<Bucket> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +44,7 @@ class _BucketState extends State<Bucket> {
         child: Wrap(
           spacing: 1,
           runSpacing: 1,
-          children: widget.draggablePebbles,
+          children: draggablePebbles,
         ),
       ),
     );
