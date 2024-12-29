@@ -40,19 +40,21 @@ class ClockPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final rect = Rect.fromLTRB(0, 0, size.width, size.height);
-    // final radius = size.width * .4;
+    final radius = size.width * .25;
+
+    Offset center = Offset(0.5*size.width, 0.5*size.width);
 
     canvas
       ..drawRect(rect, paint2)
-      ..drawCircle(Offset(size.width / 2, size.width / 2), size.width / 2, paint1)
-      ..drawCircle(Offset(size.width / 2, size.width / 2), 5, paint1)
+      ..drawCircle(center, size.width / 2, paint1)
+      ..drawCircle(center, 5, paint1)
 
-      // ..drawCircle(Offset(size.width / 2, size.width / 2), radius, paint1)
+      // ..drawCircle(center, radius, paint1)
       
       // ..drawLine(Offset(0, 0.5*size.width), Offset(size.width, 0.5*size.width), paint1)
       // ..drawLine(Offset(0.5*size.width, 0), Offset(0.5*size.width, size.width), paint1)
 
-      // ..drawLine(Offset(0.5*size.width - sin(pi/6)*radius , 0.5*size.width - cos(pi/6)*radius), Offset(0.5*size.width + sin(pi/6)*radius, 0.5*size.width + cos(pi/6)*radius ), paint1)
+      //..drawLine(Offset(0.5*size.width - sin(pi/6)*radius , 0.5*size.width - cos(pi/6)*radius), Offset(0.5*size.width + sin(pi/6)*radius, 0.5*size.width + cos(pi/6)*radius ), paint1)
       // ..drawLine(Offset(0.5*size.width + sin(pi/6)*radius , 0.5*size.width - cos(pi/6)*radius), Offset(0.5*size.width - sin(pi/6)*radius, 0.5*size.width + cos(pi/6)*radius ), paint1)
 
       // ..drawLine(Offset(0.5*size.width - sin(pi/3)*radius , 0.5*size.width - cos(pi/3)*radius), Offset(0.5*size.width + sin(pi/3)*radius, 0.5*size.width + cos(pi/3)*radius ), paint1)
@@ -80,15 +82,40 @@ class ClockPainter extends CustomPainter {
       digit++;
     }
 
-    drawArrow(Offset(0.5*size.width, 0.5*size.width), Offset(size.width, 0.5*size.width), canvas, Colors.black);
+    drawArrow(center, getEndOffset(11, radius, size), canvas, Colors.black);
 
+  }
 
-    // TextPainter textPainter = getTextPainter("11", size.width);
-    // textPainter.paint(canvas, offset);
+  Offset getEndOffset(int hour, double radius, Size size){
 
-    // textPainter = getTextPainter("1", size.width);
-        // final center = (size.width - textPainter.width)/2;
-    // textPainter.paint(canvas, Offset(center, center));
+    
+    switch(hour){
+
+      case 1:
+        return Offset(0.5*size.width + sin(pi/6)*radius , 0.5*size.width - cos(pi/6)*radius); // 1
+      case 2:
+        return Offset(0.5*size.width + sin(pi/3)*radius , 0.5*size.width - cos(pi/3)*radius); // 2
+      case 3:
+        return Offset(0.5*size.width + radius, 0.5*size.width); // 3
+      case 4:
+        return Offset(0.5*size.width + sin(pi/3)*radius, 0.5*size.width + cos(pi/3)*radius); // 4
+      case 5:
+        return Offset(0.5*size.width + sin(pi/6)*radius, 0.5*size.width + cos(pi/6)*radius); // 5
+      case 6:
+        return Offset(0.5*size.width, 0.5*size.width + radius); //6
+      case 7:
+        return Offset(0.5*size.width - sin(pi/6)*radius, 0.5*size.width + cos(pi/6)*radius); // 7
+      case 8:
+        return Offset(0.5*size.width - sin(pi/3)*radius, 0.5*size.width + cos(pi/3)*radius); // 8
+      case 9:
+        return Offset(radius, 0.5 * size.width); // 9
+      case 10:
+        return Offset(0.5*size.width - sin(pi/3)*radius , 0.5*size.width - cos(pi/3)*radius); // 10
+      case 11:
+        return Offset(0.5*size.width - sin(pi/6)*radius , 0.5*size.width - cos(pi/6)*radius); // 11
+      default:
+        return Offset(0.5*size.width, radius); // 12
+    }
 
   }
 
