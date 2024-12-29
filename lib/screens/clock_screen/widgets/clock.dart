@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 class Clock extends StatelessWidget {
 
   final double width;
+  final int hour;
 
   const Clock({
     super.key,
     required this.width,
+    required this.hour,
   });
 
   @override
@@ -20,13 +22,17 @@ class Clock extends StatelessWidget {
 
       CustomPaint(
         size: Size(width, width),
-        painter: ClockPainter(),
+        painter: ClockPainter(hour),
       );
 
   }
 }
 
 class ClockPainter extends CustomPainter { 
+
+  final int hour;
+
+  ClockPainter(this.hour);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -39,8 +45,19 @@ class ClockPainter extends CustomPainter {
       ..color = Colors.grey.withOpacity(0.2)
       ..style = PaintingStyle.fill;
 
+    final hourArrowPaint = Paint()
+      ..color = const Color.fromARGB(255, 0, 0, 255)
+      ..strokeWidth = 5
+      ..strokeCap = StrokeCap.round;
+
+    final minuteArrowPaint = Paint()
+      ..color = Colors.green
+      ..strokeWidth = 4
+      ..strokeCap = StrokeCap.round;
+
     final rect = Rect.fromLTRB(0, 0, size.width, size.height);
-    final radius = size.width * .25;
+    final hourArrowLength = size.width * .25;
+    final minuteArrowLength = size.width * 0.17;
 
     Offset center = Offset(0.5*size.width, 0.5*size.width);
 
@@ -82,12 +99,12 @@ class ClockPainter extends CustomPainter {
       digit++;
     }
 
-    drawArrow(center, getEndOffset(11, radius, size), canvas, Colors.black);
+    drawArrow(center, getEndOffset(hour, hourArrowLength, size), canvas, 20, hourArrowPaint);
+    drawArrow(center, Offset(0.5*size.width, minuteArrowLength), canvas, 15, minuteArrowPaint);
 
   }
 
   Offset getEndOffset(int hour, double radius, Size size){
-
     
     switch(hour){
 
@@ -119,6 +136,7 @@ class ClockPainter extends CustomPainter {
 
   }
 
+
   void drawText(String text, double dimension, Offset offset, Canvas canvas){
 
     final textStyle = TextStyle(color: Colors.black, fontSize: dimension / 8, fontWeight: FontWeight.bold );
@@ -131,13 +149,9 @@ class ClockPainter extends CustomPainter {
 
   }
 
-  void drawArrow(Offset a, Offset b, Canvas canvas, Color color) {
-    final paint = Paint()
-      ..color = color
-      ..strokeWidth = 5
-      ..strokeCap = StrokeCap.round;
 
-    const arrowSize = 20;
+  void drawArrow(Offset a, Offset b, Canvas canvas, int arrowSize, Paint paint) {
+
     const arrowAngle = pi / 6;
 
     final dX = b.dx - a.dx;

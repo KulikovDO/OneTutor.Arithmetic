@@ -52,7 +52,7 @@ class _ClockScreenState extends State<ClockScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 
-                Center(child: Clock(width: 300.0))
+                Center(child: Clock(width: 300.0, hour: 8))
 
                 // Expanded(
                 //   child: SizedBox(
