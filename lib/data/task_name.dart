@@ -11,4 +11,5 @@ enum TaskName {
   daysOfWeek,
   pebbleDivision,
   clock,
+  grouping,
 }

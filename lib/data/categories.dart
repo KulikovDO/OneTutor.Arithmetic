@@ -76,4 +76,10 @@ const categories = [
     icon: Icons.punch_clock,
     description: "Clock",
   ),
+    TileContent(
+    taskName: TaskName.grouping,
+    color: Colors.brown,
+    icon: Icons.ac_unit,
+    description: "Grouping",
+  ),
 ];

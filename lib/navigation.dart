@@ -6,6 +6,7 @@ import 'package:one_tutor_arithmetic/screens/arithmetic_screen/arithmetic_screen
 import 'package:one_tutor_arithmetic/screens/clock_screen/clock_screen.dart';
 import 'package:one_tutor_arithmetic/screens/days_of_week_screen/days_of_week_screen.dart';
 import 'package:one_tutor_arithmetic/screens/even_odd_screen/even_odd_screen.dart';
+import 'package:one_tutor_arithmetic/screens/grouping_screen/grouping_screen.dart';
 import 'package:one_tutor_arithmetic/screens/lollies_screen/lollies_screen.dart';
 import 'package:one_tutor_arithmetic/screens/more_less_screen/more_less_screen.dart';
 import 'package:one_tutor_arithmetic/screens/ordering_screen.dart';
@@ -95,6 +96,14 @@ class Navigation {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) => ClockScreen(),
+        ),
+      );
+
+    } else if( tileContent.taskName == TaskName.grouping ){
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => GroupingScreen(),
         ),
       );
 
