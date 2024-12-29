@@ -36,14 +36,14 @@ class ClockPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint1 = Paint()
+    final dialPaint = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5;
 
-    final paint2 = Paint()
-      ..color = Colors.grey.withOpacity(0.2)
-      ..style = PaintingStyle.fill;
+    // final paint2 = Paint()
+    //   ..color = Colors.grey.withOpacity(0.2)
+    //   ..style = PaintingStyle.fill;
 
     final hourArrowPaint = Paint()
       ..color = const Color.fromARGB(255, 0, 0, 255)
@@ -55,16 +55,16 @@ class ClockPainter extends CustomPainter {
       ..strokeWidth = 4
       ..strokeCap = StrokeCap.round;
 
-    final rect = Rect.fromLTRB(0, 0, size.width, size.height);
+    // final rect = Rect.fromLTRB(0, 0, size.width, size.height);
     final hourArrowLength = size.width * .25;
     final minuteArrowLength = size.width * 0.17;
 
     Offset center = Offset(0.5*size.width, 0.5*size.width);
 
     canvas
-      ..drawRect(rect, paint2)
-      ..drawCircle(center, size.width / 2, paint1)
-      ..drawCircle(center, 5, paint1)
+      // ..drawRect(rect, paint2)
+      ..drawCircle(center, size.width / 2, dialPaint)
+      ..drawCircle(center, 5, dialPaint)
 
       // ..drawCircle(center, radius, paint1)
       

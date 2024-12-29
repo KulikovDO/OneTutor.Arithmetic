@@ -98,7 +98,7 @@ class LolliesTask {
     int sum = firstNumber + secondNumber;
     int nameIndex = rng.nextInt(names.length );
     String lolliesText = firstNumber == 1 ? "lolly" : "lollies";
-    String text = "${names[nameIndex]} eats $firstNumber $lolliesText. How many lollies does ${names[nameIndex]} have left?";;
+    String text = "${names[nameIndex]} eats $firstNumber $lolliesText. How many lollies does ${names[nameIndex]} have left?";
 
     int answer = sum - firstNumber;
 
