@@ -1,5 +1,7 @@
 // import 'dart:math';
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class Clock extends StatelessWidget {
@@ -43,6 +45,8 @@ class ClockPainter extends CustomPainter {
     canvas
       ..drawRect(rect, paint2)
       ..drawCircle(Offset(size.width / 2, size.width / 2), size.width / 2, paint1)
+      ..drawCircle(Offset(size.width / 2, size.width / 2), 5, paint1)
+
       // ..drawCircle(Offset(size.width / 2, size.width / 2), radius, paint1)
       
       // ..drawLine(Offset(0, 0.5*size.width), Offset(size.width, 0.5*size.width), paint1)
@@ -76,6 +80,8 @@ class ClockPainter extends CustomPainter {
       digit++;
     }
 
+    drawArrow(Offset(0.5*size.width, 0.5*size.width), Offset(size.width, 0.5*size.width), canvas, Colors.black);
+
 
     // TextPainter textPainter = getTextPainter("11", size.width);
     // textPainter.paint(canvas, offset);
@@ -96,6 +102,37 @@ class ClockPainter extends CustomPainter {
 
     textPainter.paint(canvas, offset);
 
+  }
+
+  void drawArrow(Offset a, Offset b, Canvas canvas, Color color) {
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = 5
+      ..strokeCap = StrokeCap.round;
+
+    const arrowSize = 20;
+    const arrowAngle = pi / 6;
+
+    final dX = b.dx - a.dx;
+    final dY = b.dy - a.dy;
+    final angle = atan2(dY, dX);
+
+    // Recalculate b such that it's the end of the line minus the arrow.
+    final Offset subtractedB = Offset(
+      b.dx - (arrowSize - 2) * cos(angle),
+      b.dy - (arrowSize - 2) * sin(angle),
+    );
+
+    canvas.drawLine(a, subtractedB, paint);
+    final path = Path();
+
+    path.moveTo(b.dx - arrowSize * cos(angle - arrowAngle),
+        b.dy - arrowSize * sin(angle - arrowAngle));
+    path.lineTo(b.dx, b.dy);
+    path.lineTo(b.dx - arrowSize * cos(angle + arrowAngle),
+        b.dy - arrowSize * sin(angle + arrowAngle));
+    path.close();
+    canvas.drawPath(path, paint);
   }
 
   @override
