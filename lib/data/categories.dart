@@ -82,4 +82,16 @@ const categories = [
     icon: Icons.ac_unit,
     description: "Grouping",
   ),
+    TileContent(
+    taskName: TaskName.coins,
+    color: Colors.indigo,
+    icon: Icons.toll,
+    description: "Coins",
+  ),
+    TileContent(
+    taskName: TaskName.fractions,
+    color: Colors.amber,
+    icon: Icons.pie_chart,
+    description: "Fractions",
+  ),
 ];

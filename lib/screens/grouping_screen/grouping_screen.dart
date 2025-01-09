@@ -1,6 +1,10 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
+import 'package:one_tutor_arithmetic/screens/grouping_screen/models/grouping_task.dart';
+import 'package:one_tutor_arithmetic/screens/grouping_screen/widgets/text_input_container.dart';
+import 'package:one_tutor_arithmetic/screens/grouping_screen/widgets/touch_control.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,101 +27,108 @@ class GroupingScreen extends StatefulWidget {
 
 class _GroupingScreenState extends State<GroupingScreen> {
 
-  // late GroupingTask task;
+  late GroupingTask task;
+  late Widget textInputContainer;
+  late TouchControl touchControl;
+  int answer = 0;
+  int _iteration = 0;
+  int numOfIterations = 10;
+  double _progress = 0;
 
-  // String answer = "";
-  // int _iteration = 0;
-  // int numOfIterations = 10;
-  // double _progress = 0;
-
-  // Future<void> speak(String text) async {
+  Future<void> speak(String text) async {
     
-  //   await flutterTts.awaitSpeakCompletion(true);
-  //   await flutterTts.speak(text);
+    await flutterTts.awaitSpeakCompletion(true);
+    await flutterTts.speak(text);
     
-  // }
+  }
 
-  // _readConfig() async {
+  _readConfig() async {
 
-  //   final prefs = await SharedPreferences.getInstance();
-  //   numOfIterations = prefs.getInt('iterations') ?? 10;
+    final prefs = await SharedPreferences.getInstance();
+    numOfIterations = prefs.getInt('iterations') ?? 10;
 
-  // }
+  }
 
-  // asyncInitState() async =>  await _readConfig();
+  asyncInitState() async =>  await _readConfig();
 
   @override
   initState() {
 
     super.initState();
-    // task = GroupingTask.create();
+    task = GroupingTask.create();
 
-    // asyncInitState();
-    // init();
+    asyncInitState();
+    init();
 
   }
 
-  // init(){
+  init(){
 
-  //   answer = "";
-  //   task = task.prepareTask();
-  //   flutterTts.speak(task.text);
+    answer = 0;
+    textInputContainer = TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: handleValueEntered,);
 
-  // }
+    FlutterView view = PlatformDispatcher.instance.views.first;
+    double screenWidth = view.physicalSize.width / view.devicePixelRatio;
 
-  // onTapped(String number){
-    
-  //   setState(() {
-  //     answer = number;
-  //   });
+    task = task.prepareTask(screenWidth);
+    touchControl = TouchControl(key: GlobalKey(), task: task,);
+    flutterTts.speak(task.text);
 
-  // }
+  }
 
-  // handleSubmit() async{
+  void handleValueEntered(int value) {
 
-  //   bool answerIsCorrect = answer == task.answer.toString();
+    setState(() {
+      answer = value;
+    });
 
-  //    if(answerIsCorrect){
-  //     await speak("That's correct");
-  //   } else {
-  //     await speak("Please try again");
-  //   }
+  }
 
-  //   if(answerIsCorrect){
+  handleSubmit() async{
 
-  //     setState(() {
+    bool answerIsCorrect = answer == task.answer;
+
+     if(answerIsCorrect){
+      await speak("That's correct");
+    } else {
+      await speak("Please try again");
+    }
+
+    if(answerIsCorrect){
+
+      setState(() {
         
-  //       _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
-  //       _progress = _iteration / numOfIterations;
-  //       answer = "";
+        _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
+        _progress = _iteration / numOfIterations;
+        answer = 0;
 
-  //     });
+      });
 
-  //     if( _iteration >= numOfIterations){
+      if( _iteration >= numOfIterations){
 
-  //       await Future.delayed(const Duration(milliseconds: 600));
+        await Future.delayed(const Duration(milliseconds: 600));
 
-  //       if (!mounted) return;
+        if (!mounted) return;
 
-  //       Navigator.of(context).push(
-  //         MaterialPageRoute(
-  //           builder: (ctx) => const FinalScreen()
-  //         ),
-  //       );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (ctx) => const FinalScreen()
+          ),
+        );
           
-  //     } else {
+      } else {
 
-  //       setState(() {
+        setState(() {
         
-  //         init();
+          init();
 
-  //       });
+        });
 
-  //       flutterTts.speak(task.text);
-  //     }
-  //   } 
+        flutterTts.speak(task.text);
+      }
+    } 
 
-  // }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,42 +141,51 @@ class _GroupingScreenState extends State<GroupingScreen> {
       body:
         Stack(
           children: [
-            Background( ),
+            const Background(),
 
-            // Opacity(
-            //   opacity: 0.15,
-            //   child: Center(
-            //     child: pi.ProgressIndicator(progress: _progress)
-            //   ),
-            // ),
+            Opacity(
+              opacity: 0.15,
+              child: Center(
+                child: pi.ProgressIndicator(progress: _progress)
+              ),
+            ),
 
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
 
-                // Expanded(
-                //   child: SizedBox(
-                //     width: double.infinity,
-                //     child: 
-                //       Center(
-                //         child: Padding(
-                //          padding: const EdgeInsets.only(left: 10, right: 10),
-                //          child:
-                //             task.richText
-                //         ),
-                //       ),
-                //   )
-                // ),
-                
-                
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child:
+                        task.richText
+                    ),
+                  ),
+                ),
+
+                // TouchControl(task: task, ),
+                touchControl,
+
+                const SizedBox(height: 30,),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text( "Number of groups: ", style: TextStyle( fontSize: 25, fontWeight: FontWeight.w500 )),
+                    textInputContainer,
+                  ]
+                ),
               ]
             )
           ],
         ),
       extendBody: true,
       resizeToAvoidBottomInset : false,
-      // bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: answer == ""),
+      bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: answer == ""),
     );
   }
 

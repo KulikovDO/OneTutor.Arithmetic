@@ -12,4 +12,6 @@ enum TaskName {
   pebbleDivision,
   clock,
   grouping,
+  coins,
+  fractions,
 }
