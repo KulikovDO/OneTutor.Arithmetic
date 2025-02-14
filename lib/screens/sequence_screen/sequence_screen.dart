@@ -80,6 +80,8 @@ class _SequenceScreenState extends State<SequenceScreen> {
           init();
 
         });
+
+        flutterTts.speak(description);
       }
     } 
   }
