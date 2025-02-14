@@ -33,8 +33,11 @@ class SequenceTask {
       }
 
     }
+
+    bool isReverse = rng.nextBool();
+
     return SequenceTask(
-      options: options,
+      options: isReverse ? options.reversed.toList() : options,
       answer: answer,
       text: "What is the missing number?"
     );
