@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 
 Random rng = Random();
 Function eq = const ListEquality().equals;
-const numOfOptions = 3; // 1 dollar, 50 cents, 20 cents
+const numOfOptions = 2; // 1 dollar, 50 cents, 20 cents
 
 class CoinsTask {
 
@@ -132,25 +132,29 @@ class CoinsTask {
 
     List<double> answerOptions = [answer];
     List<String> answerTextOptions = [];
+
+    // TODO: +- smallest coin
+    answerOptions.add(answer - 0.5);
+    answerOptions.add(answer + 0.5);
     
-    int optionToGenerateAnswers = rng.nextInt(3);
+    // int optionToGenerateAnswers = rng.nextInt(3);
 
-    if(optionToGenerateAnswers == 0){
+    // if(optionToGenerateAnswers == 0){
 
-      answerOptions.add(answer - 0.1);
-      answerOptions.add(answer + 0.1);
+    //   answerOptions.add(answer - 0.1);
+    //   answerOptions.add(answer + 0.1);
 
-    } else if(optionToGenerateAnswers == 1){
+    // } else if(optionToGenerateAnswers == 1){
 
-      answerOptions.add(answer + 0.1);
-      answerOptions.add(answer + 0.2);
+    //   answerOptions.add(answer + 0.1);
+    //   answerOptions.add(answer + 0.2);
 
-    } else {
+    // } else {
 
-      answerOptions.add(answer - 0.1);
-      answerOptions.add(answer - 0.2);
+    //   answerOptions.add(answer - 0.1);
+    //   answerOptions.add(answer - 0.2);
 
-    } 
+    // } 
 
     for(double answerOption in answerOptions){
       answerTextOptions.add( answerToText(answerOption) );
