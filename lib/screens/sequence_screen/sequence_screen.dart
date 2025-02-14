@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
+import 'package:one_tutor_arithmetic/screens/sequence_screen/models/sequence_task.dart';
 import 'package:one_tutor_arithmetic/screens/sequence_screen/widgets/text_container.dart';
 import 'package:one_tutor_arithmetic/screens/sequence_screen/widgets/text_input_container.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
@@ -26,6 +27,8 @@ class SequenceScreen extends StatefulWidget {
 
 
 class _SequenceScreenState extends State<SequenceScreen> {
+
+  late SequenceTask task;
 
   Future<void> speak(String text) async {
     
@@ -101,6 +104,10 @@ class _SequenceScreenState extends State<SequenceScreen> {
 
   init(){
 
+    task = task.prepareTask();
+    flutterTts.speak(task.text);
+
+
     enteredValue = -1;
     int start = rng.nextInt( 20 -  6 );
     int missingNumberIndex = rng.nextInt( 4 ) + 1;
@@ -128,10 +135,11 @@ class _SequenceScreenState extends State<SequenceScreen> {
   initState() {
 
     super.initState();
+
+    task = SequenceTask.create();
+
     init();
     asyncInitState();
-
-    flutterTts.speak(description);
 
   }
 
