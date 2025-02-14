@@ -57,10 +57,8 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
 
     if(answerIsCorrect){
       await speak("That's correct");
-      // flutterTts.speak("That's correct");
     } else {
       await speak("Please try again");
-      // flutterTts.speak("Please try again");
     }
 
     if(answerIsCorrect){
@@ -103,11 +101,10 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
   @override
   initState() {
     super.initState();
-    
     task = ArithmeticTask.create(widget.arithmeticOperation);
-    
     asyncInitState();
     init();
+    
   }
 
   init(){
@@ -119,7 +116,7 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
 
     prevFirstNumber = task.firstNumber;
     prevSecondNumber = task.secondNumber;
-    _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
+    // _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
 
   }
 
