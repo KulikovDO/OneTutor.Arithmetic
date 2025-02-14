@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/material.dart';
 
 var rng = Random();
 
@@ -7,13 +8,15 @@ class SequenceTask {
     required this.options,
     required this.answer,
     required this.text,
+    required this.richText,
   });
 
   final String text;
   final int answer;
   final List<int> options;
+  final Widget richText;
 
-  static SequenceTask create() => const SequenceTask( options: [], answer: -1, text: "" );
+  static SequenceTask create() => const SequenceTask( options: [], answer: -1, text: "", richText: Text("") );
 
   SequenceTask prepareTask() {
 
@@ -21,6 +24,7 @@ class SequenceTask {
     int missingNumberIndex = rng.nextInt( 4 ) + 1;
     int answer = -1;
     List<int> options = [];
+    const text = "What is the missing number?";
     
 
     for(var i = 0; i < 6; i++){
@@ -39,7 +43,8 @@ class SequenceTask {
     return SequenceTask(
       options: isReverse ? options.reversed.toList() : options,
       answer: answer,
-      text: "What is the missing number?"
+      text: text,
+      richText: const Text( text, style: TextStyle( fontSize: 20, fontWeight: FontWeight.w500 ))
     );
   }
 

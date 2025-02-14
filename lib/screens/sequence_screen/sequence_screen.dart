@@ -35,7 +35,6 @@ class _SequenceScreenState extends State<SequenceScreen> {
   }
 
   int enteredValue = -1;
-  String description = "What is the missing number?";
   List<Widget> textContainerList = [];
   int _iteration = 0;
   int numOfIterations = 10;
@@ -80,7 +79,7 @@ class _SequenceScreenState extends State<SequenceScreen> {
 
         });
 
-        flutterTts.speak(description);
+        flutterTts.speak(task.text);
       }
     } 
   }
@@ -122,9 +121,7 @@ class _SequenceScreenState extends State<SequenceScreen> {
   initState() {
 
     super.initState();
-
     task = SequenceTask.create();
-
     init();
     asyncInitState();
 
@@ -161,7 +158,7 @@ class _SequenceScreenState extends State<SequenceScreen> {
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: Text( description, style: const TextStyle( fontSize: 20, fontWeight: FontWeight.w500 ))
+                            child: task.richText
                           ),
                         ),
                     ),
