@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
@@ -12,8 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 FlutterTts flutterTts = FlutterTts();
-var rng = Random();
-
 
 class SequenceScreen extends StatefulWidget {
   SequenceScreen({super.key}) 
@@ -37,7 +34,6 @@ class _SequenceScreenState extends State<SequenceScreen> {
     
   }
 
-  int missingValue = -1;
   int enteredValue = -1;
   String description = "What is the missing number?";
   List<Widget> textContainerList = [];
@@ -47,7 +43,7 @@ class _SequenceScreenState extends State<SequenceScreen> {
 
   handleSubmit() async{
 
-    bool answerIsCorrect = missingValue == enteredValue;
+    bool answerIsCorrect = task.checkAnswer(enteredValue);
 
     if(answerIsCorrect){
       await speak("That's correct");
@@ -106,25 +102,16 @@ class _SequenceScreenState extends State<SequenceScreen> {
 
     task = task.prepareTask();
     flutterTts.speak(task.text);
-
-
     enteredValue = -1;
-    int start = rng.nextInt( 20 -  6 );
-    int missingNumberIndex = rng.nextInt( 4 ) + 1;
 
     textContainerList.clear();
-
-    for(var i = 0; i < 6; i++){
-
-      if(i == missingNumberIndex){
+    for(int option in task.options){
+      if(option == -1){
         textContainerList.add(TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: onValueEntered,));
-        missingValue = start + i;
       } else {
-        textContainerList.add(TextContainer(key: GlobalKey(), text: (start + i).toString()));
+        textContainerList.add(TextContainer(key: GlobalKey(), text: option.toString()));
       }
-
     }
-
   }
 
   asyncInitState() async {
