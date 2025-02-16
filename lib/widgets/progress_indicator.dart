@@ -96,13 +96,13 @@ class ProgressIndicatorPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
 
     final rect = Rect.fromLTRB(0, 0, size.width, size.height);
-    const startAngle = 0.0;
-    final sweepAngle = - math.pi * progress * 2;
+    const double startAngle = 1.5 * math.pi;
+    final sweepAngle = math.pi * progress * 2;
     const useCenter = false;
     final paint = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 50;
+      ..strokeWidth = 30;
     canvas.drawArc(rect, startAngle, sweepAngle, useCenter, paint);
   }
 
