@@ -1,16 +1,14 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
+import 'package:one_tutor_arithmetic/screens/ordering_screen/models/ordering_task.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/drag_and_droppable_text_container.dart';
-import 'package:flutter/foundation.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
 import 'package:shared_preferences/shared_preferences.dart';
 
 FlutterTts flutterTts = FlutterTts();
-var rng = Random();
 
 
 class OrderingScreen extends StatefulWidget {
@@ -26,14 +24,13 @@ class OrderingScreen extends StatefulWidget {
 
 class _OrderingScreenState extends State<OrderingScreen> {
 
-  final List<String> description = ["Put these numbers in order from highest to lowest", "Put these numbers in order from lowest to highest"];
-
   int? _acceptedData;
-  final List<String> _numbers = [];
-  int _order = 0;
+  
   int _iteration = 0;
   int numOfIterations = 10;
   double _progress = 0;
+
+  late OrderingTask task;
   
   List<GlobalKey<DragAndDroppableTextContainerState>> draggableKeys = [];
   List<GlobalKey<DragAndDroppableTextContainerState>> droppableKeys = [];
@@ -63,7 +60,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
   
   }
 
-  checkAnswerIsGiven(){
+  checkAnswerIsGiven( ) {
 
     bool answerNotNull = true;    
     
@@ -84,7 +81,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
   }
 
 
-  Future<bool> checkAnswer() async{
+  bool checkAnswer( ) {
 
     List<int> answers = [];
     
@@ -100,34 +97,16 @@ class _OrderingScreenState extends State<OrderingScreen> {
       answers.add(int.parse(droppableKey.currentState!.text!));
     }
 
-    List<int> correctAnswers = [...answers];
-
-    if(_order == 0) {
-      correctAnswers.sort((b, a) => a.compareTo(b)); // descending
-    } else {
-      correctAnswers.sort((a, b) => a.compareTo(b)); // ascending
-    }
-
-    bool answerIsCorrect =  listEquals(answers, correctAnswers);
-
-    if(answerIsCorrect){
-      await speak("That's correct");
-    } else {
-      await speak("Please try again");
-    }
-
-    return answerIsCorrect;
-
+    return task.checkAnswer(answers);
   }
 
   
   init(){
 
-      _acceptedData = null; 
+      task = task.prepareTask();
+      flutterTts.speak(task.text);
 
-      _numbers.clear();
-      _numbers.addAll(_generateNumbers());
-      _order = rng.nextInt( 2 );
+      _acceptedData = null; 
       
       draggableKeys.clear();
       draggableList.clear();
@@ -140,43 +119,26 @@ class _OrderingScreenState extends State<OrderingScreen> {
         droppableKeys.add(GlobalKey());
       }
 
-      draggableList = List.generate(_numbers.length,(index) => 
-        DragAndDroppableTextContainer(key: draggableKeys[index], acceptedData: _acceptedData, text: _numbers[index], isDraggable: true, onAccepted: onAccepted,)
+      draggableList = List.generate( task.numbers.length,(index) => 
+        DragAndDroppableTextContainer(key: draggableKeys[index], acceptedData: _acceptedData, text: task.numbers[index], isDraggable: true, onAccepted: onAccepted,)
       );    
 
-      droppableList = List.generate( _numbers.length, (index) => 
+      droppableList = List.generate( task.numbers.length, (index) => 
         DragAndDroppableTextContainer(key: droppableKeys[index], acceptedData: _acceptedData, text: null, isDraggable: false, onAccepted: onAccepted,)
       );
-
-  }
-
-  List<String> _generateNumbers(){
-
-    List<String> numbers = [];
-    
-    int number = 0;
-
-    for(int i = 0; i < 3; i++)
-    {
-
-      do
-      {
-        number = rng.nextInt( 10 ) + 1;
-      }
-      while(numbers.contains(number.toString()));
-
-      numbers.add(number.toString());
-
-    }
-
-    return numbers;
 
   }
 
 
   _handleSubmit() async{
 
-    bool answerIsCorrect = await checkAnswer();
+    bool answerIsCorrect = checkAnswer();
+
+    if(answerIsCorrect){
+      await speak("That's correct");
+    } else {
+      await speak("Please try again");
+    }
 
     if(answerIsCorrect){
 
@@ -189,9 +151,9 @@ class _OrderingScreenState extends State<OrderingScreen> {
 
       if( _iteration >= numOfIterations){
 
-    await Future.delayed(const Duration(milliseconds: 600));
+      await Future.delayed(const Duration(milliseconds: 600));
 
-    if (!mounted) return;
+      if (!mounted) return;
 
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -206,26 +168,26 @@ class _OrderingScreenState extends State<OrderingScreen> {
           init();
 
         });
-
-        flutterTts.speak(description[_order]);
       }
     } 
 
   }
 
-  asyncInitState() async {
-    await _readConfig();
-  }
+
+  asyncInitState() async => await _readConfig();
+  
 
   @override
   initState() {
 
     super.initState();
 
+    task = OrderingTask.create();
+
     asyncInitState();
 
     init();
-    flutterTts.speak(description[_order]);
+    flutterTts.speak(task.text);
 
   }
 
@@ -261,7 +223,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: Text( description[_order], style:  const TextStyle( fontSize: 20, fontWeight: FontWeight.w500 ))
+                            child: task.richText
                           ),
                         ),
                     )

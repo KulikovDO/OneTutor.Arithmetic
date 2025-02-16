@@ -23,6 +23,7 @@ class MoreLessTask {
 
   static MoreLessTask create() => const MoreLessTask( firstNumber: -1, secondNumber: -1, answerOptions: [], answer: -1, text: "", richText: Text(""));
 
+
   MoreLessTask prepareTask() {
 
     bool isAddition = rng.nextBool();
@@ -141,6 +142,7 @@ class MoreLessTask {
 
 
   }
+
 
   List<int> generateAnswerOptions(int answer){
     List<int> answerOptions = [];

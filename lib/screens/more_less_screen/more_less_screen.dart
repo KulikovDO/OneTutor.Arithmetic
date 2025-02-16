@@ -117,7 +117,8 @@ class _MoreLessScreenState extends State<MoreLessScreen> {
 
   }
 
-  init(){
+
+  init() {
 
     task = task.prepareTask();
     tappableTextContainerList.clear();
