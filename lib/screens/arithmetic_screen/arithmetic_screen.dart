@@ -1,6 +1,6 @@
 import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
 import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/arithmetic_task.dart';
-import 'package:one_tutor_arithmetic/screens/arithmetic_screen/widgets/text_input_container.dart';
+import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:flutter/material.dart';

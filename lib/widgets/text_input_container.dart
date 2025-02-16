@@ -50,30 +50,27 @@ class _TextInputContainerState extends State<TextInputContainer> {
             ),
             height: 80.0,
             width: 80.0,
-            
-            child: Center(
-              child: 
-                TextField(
-                  focusNode: focusNode,
-                  cursorHeight: 50,
-                  autofocus: true,
-                  onSubmitted: onSubmitted,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                    LengthLimitingTextInputFormatter(2),
-                  ],
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    errorBorder: InputBorder.none,
-                    disabledBorder: InputBorder.none,
-                  ),
-                  style: const TextStyle(fontSize: 45),
-                  textAlign: TextAlign.center,
-                )
-            ),
+            child: 
+              TextField(
+                focusNode: focusNode,
+                cursorHeight: 50,
+                autofocus: true,
+                onSubmitted: onSubmitted,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                  LengthLimitingTextInputFormatter(2),
+                ],
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                ),
+                style: const TextStyle(fontSize: 45, height: 1.4),
+                textAlign: TextAlign.center,
+              )
           ),
         ),
       );
