@@ -1,5 +1,6 @@
 import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
 import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/arithmetic_task.dart';
+import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
@@ -35,6 +36,7 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
   bool displayMainScreenIntro = true;
   late ArithmeticTask task;
   late Widget textInputContainer;
+  int enteredValue = -1;
 
   Future<void> speak(String text) async {
     
@@ -50,10 +52,18 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
 
   }
 
+  handleValueEntered(int value){
 
-  void handleValueEntered(int value) async{
+    setState(() {
+      enteredValue = value;
+    });
 
-    bool answerIsCorrect = task.checkAnswer(value);
+  }
+
+
+  void handleSubmit( ) async{
+
+    bool answerIsCorrect = task.checkAnswer(enteredValue);
 
     if(answerIsCorrect){
       await speak("That's correct");
@@ -112,11 +122,11 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
     task = task.prepareTask();
     flutterTts.speak(task.text);
 
-    textInputContainer = TextInputContainer(key: GlobalKey(), onValueEntered: handleValueEntered,);
+    textInputContainer = TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: handleValueEntered,);
 
     prevFirstNumber = task.firstNumber;
     prevSecondNumber = task.secondNumber;
-    // _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
+    enteredValue = -1;
 
   }
 
@@ -163,6 +173,7 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
         ),
       extendBody: true,
       resizeToAvoidBottomInset : false,
+      bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: enteredValue == -1),
     );
   }
 }
