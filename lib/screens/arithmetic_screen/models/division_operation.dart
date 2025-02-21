@@ -1,5 +1,4 @@
 import 'dart:math';
-//import 'package:one_tutor_arithmetic/model/task.dart';
 import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
 import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/arithmetic_task.dart';
 
