@@ -35,8 +35,9 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
   double _progress = 0;
   bool displayMainScreenIntro = true;
   late ArithmeticTask task;
-  late Widget textInputContainer;
+  // late Widget textInputContainer;
   int enteredValue = -1;
+  bool isError = false;
 
   Future<void> speak(String text) async {
     
@@ -67,8 +68,14 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
 
     if(answerIsCorrect){
       await speak("That's correct");
+      setState(() {
+        isError = false;
+      });
     } else {
       await speak("Please try again");
+      setState(() {
+        isError = true;
+      });
     }
 
     if(answerIsCorrect){
@@ -122,11 +129,12 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
     task = task.prepareTask();
     flutterTts.speak(task.text);
 
-    textInputContainer = TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: handleValueEntered,);
+    // textInputContainer = TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: handleValueEntered, isError: false,);
 
     prevFirstNumber = task.firstNumber;
     prevSecondNumber = task.secondNumber;
     enteredValue = -1;
+    isError = false;
 
   }
 
@@ -163,7 +171,8 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text( "${task.firstNumber} ${task.operationSymbol} ${task.secondNumber} = ", style:  const TextStyle( fontSize: 50, fontWeight: FontWeight.w500 )),
-                          textInputContainer,
+                          // textInputContainer,
+                          TextInputContainer(key: GlobalKey(), text: enteredValue == -1 ? "?" : enteredValue.toString(), onValueEntered: handleValueEntered, isError: isError,)
                         ]
                       ),
                   ),

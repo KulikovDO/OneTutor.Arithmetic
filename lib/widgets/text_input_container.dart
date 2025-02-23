@@ -4,11 +4,13 @@ import 'package:flutter/services.dart';
 class TextInputContainer extends StatefulWidget {
   final String text;
   final Function onValueEntered;
+  final bool isError;
 
   const TextInputContainer({
     super.key,
     required this.text,
-    required this.onValueEntered
+    required this.onValueEntered,
+    required this.isError,
   });
 
   @override
@@ -76,7 +78,11 @@ class _TextInputContainerState extends State<TextInputContainer> {
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
                   ),
-                  style: const TextStyle(fontSize: 45, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 45, 
+                    height: 1.4,
+                    color: widget.isError ? Colors.red : Colors.black,
+                  ),
                   textAlign: TextAlign.center,
                 )
             ),
