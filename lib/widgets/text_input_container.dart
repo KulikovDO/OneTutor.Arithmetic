@@ -49,8 +49,12 @@ class _TextInputContainerState extends State<TextInputContainer> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(width: 2),
-              color: Colors.lightBlue[50] as Color,
+              border: Border.all(
+                width: 2, 
+                color: widget.isError ? Colors.red : Colors.black,
+              ),
+              color: widget.isError ? Colors.red.withOpacity(0.1) : Colors.lightBlue[50] as Color,
+
             ),
             height: 80.0,
             width: 80.0,
@@ -78,10 +82,11 @@ class _TextInputContainerState extends State<TextInputContainer> {
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
                   ),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 45, 
                     height: 1.4,
-                    color: widget.isError ? Colors.red : Colors.black,
+                    //color: widget.isError ? Colors.red : Colors.black,
+                    color: Colors.black,
                   ),
                   textAlign: TextAlign.center,
                 )
