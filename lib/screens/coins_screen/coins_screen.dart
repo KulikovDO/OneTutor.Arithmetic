@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/coins_screen/models/coins_task.dart';
 import 'package:one_tutor_arithmetic/screens/coins_screen/widgets/fifty_cents.dart';
@@ -17,18 +16,18 @@ import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
 FlutterTts flutterTts = FlutterTts();
 
 
-class CoinsScreen extends ConsumerStatefulWidget {
+class CoinsScreen extends StatefulWidget {
   CoinsScreen({super.key}) 
   {
     flutterTts.setSpeechRate(0.4);
   }
 
   @override
-  ConsumerState<CoinsScreen> createState() => _CoinsScreenState();
+  State<CoinsScreen> createState() => _CoinsScreenState();
 }
 
 
-class _CoinsScreenState extends ConsumerState<CoinsScreen> {
+class _CoinsScreenState extends State<CoinsScreen> {
 
   List<DroppableBucket> droppableBuckets = [];
   late CoinsTask task;
