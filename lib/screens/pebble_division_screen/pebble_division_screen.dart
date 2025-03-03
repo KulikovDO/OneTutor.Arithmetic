@@ -6,7 +6,7 @@ import 'package:one_tutor_arithmetic/screens/pebble_division_screen/models/pebbl
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/pebbles_provider.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/droppable_bucket.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/source_bucket.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/text_input_container.dart';
+import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,12 +32,12 @@ class _PebbleDivisionScreenState extends ConsumerState<PebbleDivisionScreen> {
 
   List<DroppableBucket> droppableBuckets = [];
   late PebbleDivisionTask task;
-  int answer = -1;
+  int enteredValue = -1;
   int _iteration = 0;
   int numOfIterations = 10;
   double _progress = 0;
-  late TextInputContainer textInputContainer;
   late SourceBucket sourceBucket;
+  bool isError = false;
 
   Future<void> speak(String text) async {
     
@@ -68,8 +68,8 @@ class _PebbleDivisionScreenState extends ConsumerState<PebbleDivisionScreen> {
 
   init(){
 
-    answer = -1;
-    textInputContainer = TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: handleValueEntered,);
+    enteredValue = -1;
+    isError = false;
     droppableBuckets.clear();
 
     task = task.prepareTask();
@@ -94,17 +94,23 @@ class _PebbleDivisionScreenState extends ConsumerState<PebbleDivisionScreen> {
 
   void handleValueEntered(int value){
     setState(() {
-      answer = value;
+      enteredValue = value;
     });
   }
 
   void handleSubmit() async {
 
-    bool answerIsCorrect = task.checkAnswer(answer);
+    bool answerIsCorrect = task.checkAnswer(enteredValue);
 
-     if(answerIsCorrect){
+    if(answerIsCorrect){
+      setState(() {
+        isError = false;
+      });
       await speak("That's correct");
     } else {
+      setState(() {
+        isError = true;
+      });
       await speak("Please try again");
     }
 
@@ -114,7 +120,7 @@ class _PebbleDivisionScreenState extends ConsumerState<PebbleDivisionScreen> {
         
         _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
         _progress = _iteration / numOfIterations;
-        answer = -1;
+        enteredValue = -1;
 
       });
 
@@ -202,7 +208,7 @@ class _PebbleDivisionScreenState extends ConsumerState<PebbleDivisionScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text( "${task.numOfPebbles} : ${task.numOfBuckets} = ", style:  const TextStyle( fontSize: 50, fontWeight: FontWeight.w500 )),
-                      textInputContainer
+                      TextInputContainer(key: GlobalKey(), text: enteredValue == -1 ? "?" : enteredValue.toString(), onValueEntered: handleValueEntered, isError: isError,),
                     ]
                   ),
                 ),
@@ -214,7 +220,7 @@ class _PebbleDivisionScreenState extends ConsumerState<PebbleDivisionScreen> {
         ),
       extendBody: true,
       resizeToAvoidBottomInset : false,
-      bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: answer == -1),
+      bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: enteredValue == -1),
     );
   }
 }
