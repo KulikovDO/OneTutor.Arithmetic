@@ -35,7 +35,10 @@ class _SequenceScreenState extends State<SequenceScreen> {
   }
 
   int enteredValue = -1;
-  List<Widget> textContainerList = [];
+
+  List<Widget> firstTextContainerList = [];
+  List<Widget> secondTextContainerList = [];
+
   int _iteration = 0;
   int numOfIterations = 10;
   double _progress = 0;
@@ -111,15 +114,26 @@ class _SequenceScreenState extends State<SequenceScreen> {
     enteredValue = -1;
     isError = false;
 
-    textContainerList.clear();
+    // textContainerList.clear();
+    firstTextContainerList.clear();
+    secondTextContainerList.clear();
+
+    bool isPopulatingFirstList = true;
     for(int option in task.options){
+
       if(option == -1){
-        //TODO: update a list element state
-        textContainerList.add(TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: onValueEntered, isError: isError,));
-      } else {
-        textContainerList.add(TextContainer(key: GlobalKey(), text: option.toString()));
+        isPopulatingFirstList = false;
+        continue;
       }
+
+      if(isPopulatingFirstList){
+        firstTextContainerList.add(TextContainer(key: GlobalKey(), text: option.toString()));
+      } else {
+        secondTextContainerList.add(TextContainer(key: GlobalKey(), text: option.toString()));
+      }
+
     }
+
   }
 
   asyncInitState() async {
@@ -171,7 +185,9 @@ class _SequenceScreenState extends State<SequenceScreen> {
                           ),
                         ),
                     ),
-                    ...textContainerList,
+                    ...firstTextContainerList,
+                    TextInputContainer(key: GlobalKey(), text: enteredValue == -1 ? "?" : enteredValue.toString(), onValueEntered: onValueEntered, isError: isError,),
+                    ...secondTextContainerList,
                   ]
               ),
             ),
