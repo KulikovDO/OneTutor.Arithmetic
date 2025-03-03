@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/screens/grouping_screen/models/grouping_task.dart';
-import 'package:one_tutor_arithmetic/screens/grouping_screen/widgets/text_input_container.dart';
+import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 import 'package:one_tutor_arithmetic/screens/grouping_screen/widgets/touch_control.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
@@ -28,12 +28,12 @@ class GroupingScreen extends StatefulWidget {
 class _GroupingScreenState extends State<GroupingScreen> {
 
   late GroupingTask task;
-  late Widget textInputContainer;
   late TouchControl touchControl;
-  int answer = 0;
+  int enteredValue = 0;
   int _iteration = 0;
   int numOfIterations = 10;
   double _progress = 0;
+  bool isError = false;
 
   Future<void> speak(String text) async {
     
@@ -64,8 +64,8 @@ class _GroupingScreenState extends State<GroupingScreen> {
 
   init(){
 
-    answer = 0;
-    textInputContainer = TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: handleValueEntered,);
+    enteredValue = -1;
+    isError = false;
 
     FlutterView view = PlatformDispatcher.instance.views.first;
     double screenWidth = view.physicalSize.width / view.devicePixelRatio;
@@ -79,18 +79,24 @@ class _GroupingScreenState extends State<GroupingScreen> {
   void handleValueEntered(int value) {
 
     setState(() {
-      answer = value;
+      enteredValue = value;
     });
 
   }
 
   handleSubmit() async{
 
-    bool answerIsCorrect = answer == task.answer;
+    bool answerIsCorrect = enteredValue == task.answer;
 
-     if(answerIsCorrect){
+    if(answerIsCorrect){
+      setState(() {
+        isError = false;
+      });
       await speak("That's correct");
     } else {
+      setState(() {
+        isError = true;
+      });
       await speak("Please try again");
     }
 
@@ -100,7 +106,7 @@ class _GroupingScreenState extends State<GroupingScreen> {
         
         _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
         _progress = _iteration / numOfIterations;
-        answer = 0;
+        enteredValue = 0;
 
       });
 
@@ -151,7 +157,6 @@ class _GroupingScreenState extends State<GroupingScreen> {
             ),
 
             Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
 
@@ -166,7 +171,6 @@ class _GroupingScreenState extends State<GroupingScreen> {
                   ),
                 ),
 
-                // TouchControl(task: task, ),
                 touchControl,
 
                 const SizedBox(height: 30,),
@@ -176,7 +180,7 @@ class _GroupingScreenState extends State<GroupingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text( "Number of groups: ", style: TextStyle( fontSize: 25, fontWeight: FontWeight.w500 )),
-                    textInputContainer,
+                    TextInputContainer(key: GlobalKey(), text: enteredValue == -1 ? "?" : enteredValue.toString(), onValueEntered: handleValueEntered,isError: isError),
                   ]
                 ),
               ]
@@ -185,7 +189,7 @@ class _GroupingScreenState extends State<GroupingScreen> {
         ),
       extendBody: true,
       resizeToAvoidBottomInset : false,
-      bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: answer == ""),
+      bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: enteredValue == ""),
     );
   }
 
