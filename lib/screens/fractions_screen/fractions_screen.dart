@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/fractions_screen/widgets/text_input_container.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
@@ -17,18 +16,18 @@ import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
 FlutterTts flutterTts = FlutterTts();
 
 
-class FractionsScreen extends ConsumerStatefulWidget {
+class FractionsScreen extends StatefulWidget {
   FractionsScreen({super.key}) 
   {
     flutterTts.setSpeechRate(0.4);
   }
 
   @override
-  ConsumerState<FractionsScreen> createState() => _FractionsScreenState();
+  State<FractionsScreen> createState() => _FractionsScreenState();
 }
 
 
-class _FractionsScreenState extends ConsumerState<FractionsScreen> {
+class _FractionsScreenState extends State<FractionsScreen> {
 
   late Widget fractionsWidget;
   late Widget textInputContainerNominator;
