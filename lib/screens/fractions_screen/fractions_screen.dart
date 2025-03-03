@@ -1,14 +1,13 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:one_tutor_arithmetic/screens/fractions_screen/widgets/text_input_container.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/screens/fractions_screen/models/fractions_task.dart';
 import 'package:one_tutor_arithmetic/screens/fractions_screen/widgets/box.dart';
 import 'package:one_tutor_arithmetic/screens/fractions_screen/widgets/pie.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
+import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
 
@@ -30,14 +29,13 @@ class FractionsScreen extends StatefulWidget {
 class _FractionsScreenState extends State<FractionsScreen> {
 
   late Widget fractionsWidget;
-  late Widget textInputContainerNominator;
-  late Widget textInputContainerDenominator;
   late FractionsTask task;
   int nominator = -1;
   int denominator = -1;
   int _iteration = 0;
   int numOfIterations = 10;
   double _progress = 0;
+  bool isError = false;
   
   Future<void> speak(String text) async {
     
@@ -82,11 +80,9 @@ class _FractionsScreenState extends State<FractionsScreen> {
 
     nominator = -1;
     denominator = -1;
+    isError = false;
 
     task = task.prepareTask();
-
-    textInputContainerNominator = TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: handleNominatorEntered);
-    textInputContainerDenominator = TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: handleDenominatorEntered);
 
     FlutterView view = PlatformDispatcher.instance.views.first;
     double screenWidth = view.physicalSize.width / view.devicePixelRatio;
@@ -109,9 +105,15 @@ class _FractionsScreenState extends State<FractionsScreen> {
 
     bool answerIsCorrect = task.checkAnswer(nominator, denominator);
 
-     if(answerIsCorrect){
+    if(answerIsCorrect){
+      setState(() {
+        isError = false;
+      });
       await speak("That's correct");
     } else {
+      setState(() {
+        isError = true;
+      });
       await speak("Please try again");
     }
 
@@ -199,9 +201,9 @@ class _FractionsScreenState extends State<FractionsScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:[
-                        textInputContainerNominator,
+                        TextInputContainer(key: GlobalKey(), text: nominator == -1 ? "?": nominator.toString(), onValueEntered: handleNominatorEntered, isError: isError,),
                         const Text("/", style: TextStyle(fontSize: 45),),
-                        textInputContainerDenominator,
+                        TextInputContainer(key: GlobalKey(), text: denominator == -1 ? "?": denominator.toString(), onValueEntered: handleDenominatorEntered, isError: isError,),
                       ]
                     ),
                 ),
