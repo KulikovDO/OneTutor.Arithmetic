@@ -3,7 +3,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/screens/sequence_screen/models/sequence_task.dart';
 import 'package:one_tutor_arithmetic/screens/sequence_screen/widgets/text_container.dart';
-import 'package:one_tutor_arithmetic/screens/sequence_screen/widgets/text_input_container.dart';
+import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
@@ -39,14 +39,21 @@ class _SequenceScreenState extends State<SequenceScreen> {
   int _iteration = 0;
   int numOfIterations = 10;
   double _progress = 0;
+  bool isError = false;
 
   handleSubmit() async{
 
     bool answerIsCorrect = task.checkAnswer(enteredValue);
 
     if(answerIsCorrect){
+      setState(() {
+        isError = false;
+      });
       await speak("That's correct");
     } else {
+      setState(() {
+        isError = true;
+      });
       await speak("Please try again");
     }
 
@@ -102,11 +109,13 @@ class _SequenceScreenState extends State<SequenceScreen> {
     task = task.prepareTask();
     flutterTts.speak(task.text);
     enteredValue = -1;
+    isError = false;
 
     textContainerList.clear();
     for(int option in task.options){
       if(option == -1){
-        textContainerList.add(TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: onValueEntered,));
+        //TODO: update a list element state
+        textContainerList.add(TextInputContainer(key: GlobalKey(), text: "?", onValueEntered: onValueEntered, isError: isError,));
       } else {
         textContainerList.add(TextContainer(key: GlobalKey(), text: option.toString()));
       }
