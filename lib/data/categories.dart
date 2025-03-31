@@ -94,4 +94,18 @@ const categories = [
     icon: Icons.pie_chart,
     description: "Fractions",
   ),
+    TileContent(
+    taskName: TaskName.memory,
+    color: Colors.redAccent,
+    icon: Icons.psychology,
+    description: "Memory",
+  ),
+  TileContent(
+    taskName: TaskName.memory,
+    color: Colors.lightGreenAccent,
+    icon: Icons.settings_ethernet,
+    description: "Decomposition",
+  ),
 ];
+
+// color: Colors.blueAccent,

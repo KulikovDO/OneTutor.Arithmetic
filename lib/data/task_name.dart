@@ -14,4 +14,6 @@ enum TaskName {
   grouping,
   coins,
   fractions,
+  memory,
+  decomposition,
 }
