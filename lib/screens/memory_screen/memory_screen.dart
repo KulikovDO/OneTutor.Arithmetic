@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/screens/memory_screen/models/memory_task.dart';
+import 'package:one_tutor_arithmetic/screens/memory_screen/widgets/delay_indicator.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -97,6 +98,19 @@ class _MemoryScreenState extends State<MemoryScreen> {
                          padding: const EdgeInsets.only(left: 10, right: 10),
                          child:
                             task.richText
+                        ),
+                      ),
+                  )
+                ),
+                const Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: 
+                      Center(
+                        child: Padding(
+                         padding: const EdgeInsets.only(left: 10, right: 10),
+                         child:
+                            DelayIndicator()
                         ),
                       ),
                   )
