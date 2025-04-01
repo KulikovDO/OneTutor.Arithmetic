@@ -121,8 +121,8 @@ class _OrderingScreenState extends State<OrderingScreen> {
 
       draggableList = List.generate( task.numbers.length,(index) => 
         DragAndDroppableTextContainer(key: draggableKeys[index], acceptedData: _acceptedData, text: task.numbers[index], isDraggable: true, onAccepted: onAccepted,)
-      );    
-
+      );
+       
       droppableList = List.generate( task.numbers.length, (index) => 
         DragAndDroppableTextContainer(key: droppableKeys[index], acceptedData: _acceptedData, text: null, isDraggable: false, onAccepted: onAccepted,)
       );

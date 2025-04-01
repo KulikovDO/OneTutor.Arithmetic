@@ -42,7 +42,7 @@ const categories = [
   ),
   TileContent(
     taskName: TaskName.evenOdd,
-    color: Colors.lightGreen,
+    color: Colors.blueAccent,
     icon: Icons.switch_left,
     description: "Even And Odd",
   ),
@@ -54,7 +54,7 @@ const categories = [
   ),
   TileContent(
     taskName: TaskName.lollies,
-    color: Colors.lightBlue,
+    color: Colors.lightGreen,
     icon: Icons.leak_add,
     description: "Lollies",
   ),
@@ -66,7 +66,8 @@ const categories = [
   ),
   TileContent(
     taskName: TaskName.pebbleDivision,
-    color: Colors.lime,
+    
+    color: Colors.lightBlue,
     icon: Icons.drag_indicator,
     description: "Pebble Division",
   ),
@@ -108,4 +109,4 @@ const categories = [
   ),
 ];
 
-// color: Colors.blueAccent,
+// color: Colors.lime,
