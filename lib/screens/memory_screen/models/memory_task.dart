@@ -36,10 +36,6 @@ class MemoryTask {
 
         numbers.add(number);
 
-        // while(numbers[numbers.length - 1] != number){
-        //   number = rng.nextInt( 10 ) + 1;
-        //   numbers.add(number);
-        // }
       }
 
     } while(numbers.length < 3);
