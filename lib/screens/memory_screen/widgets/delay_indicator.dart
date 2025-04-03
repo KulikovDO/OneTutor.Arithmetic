@@ -3,13 +3,13 @@ import 'dart:math' as math;
 
 class DelayIndicator extends StatefulWidget {
 
-  const DelayIndicator({super.key});
+  final Function onCompleted;
 
-  /*
-  TODO:
-  1. Color
-  2. Size
-  */
+  const DelayIndicator({
+    super.key, 
+    required this.onCompleted,
+  });
+
   @override
   State<DelayIndicator> createState() => _DelayIndicatorState();
 
@@ -29,12 +29,7 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
     controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1500),
-    )
-    // ..repeatEx(times: 5)
-    // ..forward()
-    ;
-
-
+    );
 
     Tween<double> progressTween = Tween(begin: 0.0, end: 1.0);
     animation = progressTween.animate(controller)
@@ -53,6 +48,8 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
         
         controller.reset();
         controller.forward();
+      } else {
+        widget.onCompleted(); // call the onCompleted function
       }
     } else if (status == AnimationStatus.dismissed) {
       controller.forward();
@@ -79,7 +76,6 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
               painter: DelayIndicatorPainter(animation.value),
             ),
           ),
-          if(iteration < repeatTimes) // show iteration only if less than 3
           Center(
             child: Text(
               (repeatTimes - iteration).toString(), 

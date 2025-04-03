@@ -42,7 +42,23 @@ class MemoryTask {
 
     String text = "Enter the following numbers: ${numbers.join(", ")}";
 
-    Widget richText = const Text("Enter the numbers", style: TextStyle(fontSize: 20, color: Colors.black,));
+    List<TextSpan> textSpans = [const TextSpan(text: "Enter the numbers")];
+    for(int i = 0; i < numbers.length; i++){
+      textSpans.add(TextSpan(text: " ${numbers[i]}", style: const TextStyle(fontWeight: FontWeight.bold),));
+      if(i != numbers.length - 1){
+        textSpans.add(const TextSpan(text: ","));
+      }
+    }
+
+    Widget richText = 
+      RichText(
+        text: TextSpan(
+          style: const TextStyle(fontSize: 20, color: Colors.black,),
+          children: [
+            ...textSpans,
+          ],
+        ),
+      );
 
 
     return MemoryTask( numbers: numbers, text: text, richText: richText);

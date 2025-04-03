@@ -28,6 +28,14 @@ class _MemoryScreenState extends State<MemoryScreen> {
   int _iteration = 0;
   int numOfIterations = 10;
   double _progress = 0;
+  bool displayRichText = false;
+  bool displayAnimation = false;
+
+  handleAnimationCompleted() {
+    setState(() {
+      displayAnimation = false;
+    });
+  }
 
   handleSubmit(){
     setState(() {
@@ -40,13 +48,17 @@ class _MemoryScreenState extends State<MemoryScreen> {
   init(){
 
     task = task.prepareTask();
+
+    setState(() { 
+      displayRichText = true;
+    });
+
     flutterTts.speak(task.text);
     flutterTts.completionHandler = () {
-      print("Completed!!!");
-      // setState(() {
-      //   _iteration++;
-      //   _progress = (_iteration / numOfIterations);
-      // });
+      setState(() { 
+        displayRichText = false; 
+        displayAnimation = true;
+      });
     };
   }
 
@@ -90,39 +102,50 @@ class _MemoryScreenState extends State<MemoryScreen> {
               ),
             ),
 
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+            if(displayRichText)
+              Center(
+                child: task.richText
+              ),
 
-                Expanded(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: 
-                      Center(
-                        child: Padding(
-                         padding: const EdgeInsets.only(left: 10, right: 10),
-                         child:
-                            task.richText
-                        ),
-                      ),
-                  )
-                ),
-                const Expanded(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: 
-                      Center(
-                        child: Padding(
-                         padding: const EdgeInsets.only(left: 10, right: 10),
-                         child:
-                            DelayIndicator()
-                        ),
-                      ),
-                  )
-                ),
-              ]
-            )
+            if(displayAnimation)
+              Center(
+                child: DelayIndicator( onCompleted: handleAnimationCompleted,)
+              ),
+            
+
+            // Column(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+
+            //     Expanded(
+            //       child: SizedBox(
+            //         width: double.infinity,
+            //         child: 
+            //           Center(
+            //             child: Padding(
+            //              padding: const EdgeInsets.only(left: 10, right: 10),
+            //              child:
+            //                 task.richText
+            //             ),
+            //           ),
+            //       )
+            //     ),
+            //     const Expanded(
+            //       child: SizedBox(
+            //         width: double.infinity,
+            //         child: 
+            //           Center(
+            //             child: Padding(
+            //              padding: const EdgeInsets.only(left: 10, right: 10),
+            //              child:
+            //                 DelayIndicator()
+            //             ),
+            //           ),
+            //       )
+            //     ),
+            //   ]
+            // )
 
             
           ],
@@ -132,4 +155,6 @@ class _MemoryScreenState extends State<MemoryScreen> {
       bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: false),
     );
   }
+
+  
 }
