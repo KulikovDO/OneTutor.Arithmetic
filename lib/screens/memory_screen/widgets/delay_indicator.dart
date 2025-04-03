@@ -20,6 +20,7 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
   late Animation<double> animation;
   late AnimationController controller;
   int iteration = 0;
+  int repeatTimes = 5; // how many times you want to repeat animation
 
   @override
   void initState() {
@@ -27,11 +28,15 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
 
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    );
+      duration: const Duration(milliseconds: 1500),
+    )
+    // ..repeatEx(times: 5)
+    // ..forward()
+    ;
+
+
 
     Tween<double> progressTween = Tween(begin: 0.0, end: 1.0);
-
     animation = progressTween.animate(controller)
       ..addListener(() {
         setState(() {});
@@ -39,16 +44,20 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
 
     controller.forward();
 
-    controller.addListener(() {
-
-        if (controller.isCompleted && iteration < 3) {
-          controller.repeat();
-          setState(() {
-            print(iteration);
-            iteration++;
-          });
-        }
-    });
+    controller.addStatusListener((status) {
+    if (status == AnimationStatus.completed) {
+      setState(() {
+        iteration++;
+      });
+      if (iteration < repeatTimes) {
+        
+        controller.reset();
+        controller.forward();
+      }
+    } else if (status == AnimationStatus.dismissed) {
+      controller.forward();
+    }
+  });
 
   }
 
@@ -61,12 +70,28 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
 
-    return Center(
-      child: CustomPaint(
-        size: const Size(200, 200),
-        painter: DelayIndicatorPainter(animation.value),
-      ),
-    );
+    return 
+      Stack(
+        children: [
+          Center(
+            child: CustomPaint(
+              size: const Size(200, 200),
+              painter: DelayIndicatorPainter(animation.value),
+            ),
+          ),
+          if(iteration < repeatTimes) // show iteration only if less than 3
+          Center(
+            child: Text(
+              (repeatTimes - iteration).toString(), 
+              style: const TextStyle(fontSize: 100, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      );
+    
+    
+    
+    
   }
 
 }
@@ -86,7 +111,7 @@ class DelayIndicatorPainter extends CustomPainter {
     final paint = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 20;
+      ..strokeWidth = 15;
     canvas.drawArc(rect, startAngle, sweepAngle, useCenter, paint);
   }
 

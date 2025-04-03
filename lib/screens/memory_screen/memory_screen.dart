@@ -41,7 +41,13 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
     task = task.prepareTask();
     flutterTts.speak(task.text);
-
+    flutterTts.completionHandler = () {
+      print("Completed!!!");
+      // setState(() {
+      //   _iteration++;
+      //   _progress = (_iteration / numOfIterations);
+      // });
+    };
   }
 
   _readConfig() async {
