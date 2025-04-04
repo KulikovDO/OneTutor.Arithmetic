@@ -20,7 +20,7 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
   late Animation<double> animation;
   late AnimationController controller;
   int iteration = 0;
-  int repeatTimes = 5; // how many times you want to repeat animation
+  int repeatTimes = 1; // how many times you want to repeat animation
 
   @override
   void initState() {

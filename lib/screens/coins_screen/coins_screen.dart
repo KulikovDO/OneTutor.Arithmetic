@@ -107,7 +107,7 @@ class _CoinsScreenState extends State<CoinsScreen> {
 
     bool answerIsCorrect = task.checkAnswer(answer);
 
-     if(answerIsCorrect){
+    if(answerIsCorrect){
       await speak("That's correct");
     } else {
       await speak("Please try again");

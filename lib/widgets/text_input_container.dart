@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// TODO: text input lost focus
 class TextInputContainer extends StatefulWidget {
   final String text;
   final Function onValueEntered;
@@ -14,10 +15,10 @@ class TextInputContainer extends StatefulWidget {
   });
 
   @override
-  State<TextInputContainer> createState() => _TextInputContainerState();
+  State<TextInputContainer> createState() => TextInputContainerState();
 }
 
-class _TextInputContainerState extends State<TextInputContainer> {
+class TextInputContainerState extends State<TextInputContainer> {
 
   bool isTapped = false;
   FocusNode focusNode = FocusNode();

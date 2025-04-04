@@ -1,7 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 
 Random rng = Random();
+Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
 
 class MemoryTask {
   const MemoryTask({
@@ -63,6 +65,10 @@ class MemoryTask {
 
     return MemoryTask( numbers: numbers, text: text, richText: richText);
 
+  }
+
+  bool checkAnswer(List<int> enteredValues) {
+    return unOrdDeepEq(enteredValues, numbers);
   }
 
 }
