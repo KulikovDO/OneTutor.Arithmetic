@@ -22,6 +22,7 @@ class TextInputContainerState extends State<TextInputContainer> {
 
   bool isTapped = false;
   FocusNode focusNode = FocusNode();
+  final TextEditingController valueController = TextEditingController();
 
   onSubmitted(String value){
 
@@ -33,10 +34,25 @@ class TextInputContainerState extends State<TextInputContainer> {
     widget.onValueEntered(int.parse(value));
   }
 
+  onTapOutside(){
+    FocusScope.of(context).unfocus();
+    onSubmitted(valueController.text);
+  }
+
   onTapInside() {
+
+    FocusScope.of(context).requestFocus(focusNode);
+    
     setState(() {
       isTapped = true;
     });
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    valueController.dispose();
+    super.dispose();
   }
 
   @override
@@ -47,6 +63,7 @@ class TextInputContainerState extends State<TextInputContainer> {
         padding: const EdgeInsets.all(4.0),
         child: TapRegion(
           onTapInside: (event) => onTapInside(),
+          onTapOutside: (event) => onTapOutside(),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -67,6 +84,7 @@ class TextInputContainerState extends State<TextInputContainer> {
                 Text( widget.text, style: const TextStyle(fontSize: 45, decoration: TextDecoration.none ))
                   :
                 TextField(
+                  controller: valueController,
                   focusNode: focusNode,
                   autofocus: true,
                   cursorHeight: 50,

@@ -34,6 +34,21 @@ class _MemoryScreenState extends State<MemoryScreen> {
   bool displayTextInputs = false;
   bool isSubmitDisabled = true;
   List<int> enteredValues = [];
+  bool speakingAnswerCorrectness = false;
+
+  // Future<void> speak(String text) async {
+    
+  //   flutterTts.completionHandler = () {
+  //     setState(() { 
+  //       displayRichText = true; 
+  //       displayAnimation = false;
+  //     });
+  //   };
+  //   await flutterTts.awaitSpeakCompletion(true);
+  //   await flutterTts.speak(text);
+    
+    
+  // }
 
   handleAnimationCompleted() {
     setState(() {
@@ -46,22 +61,21 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
     bool answerIsCorrect = task.checkAnswer(enteredValues);
 
-    if(answerIsCorrect){
-      flutterTts.speak("That's correct");
-      flutterTts.completionHandler = () {
-        setState(() { });
-      };
-    } else {
-      flutterTts.speak("Please try again");
-      flutterTts.completionHandler = () {
-        setState(() { });
-      };
-    }
+    flutterTts.speak("Testing");
+    flutterTts.awaitSpeakCompletion(true);
+
+    // if(answerIsCorrect){
+    //   await speak("That's correct");
+      
+    // } else {
+    //   await speak("Please try again");
+    // }
+    
 
     if(answerIsCorrect){
 
       setState(() {
-        
+
         _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
         _progress = _iteration / numOfIterations;
 
@@ -69,7 +83,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
       if( _iteration >= numOfIterations){
 
-        await Future.delayed(const Duration(milliseconds: 600));
+        // await Future.delayed(const Duration(milliseconds: 600));
 
         if (!mounted) return;
 
@@ -81,13 +95,11 @@ class _MemoryScreenState extends State<MemoryScreen> {
           
       } else {
 
-        setState(() {
+        // setState(() {
         
-          init();
+        init();
 
-        });
-
-        flutterTts.speak(task.text);
+        // });
       }
     } 
   }
@@ -113,8 +125,10 @@ class _MemoryScreenState extends State<MemoryScreen> {
     flutterTts.speak(task.text);
     flutterTts.completionHandler = () {
       setState(() { 
+
         displayRichText = false; 
         displayAnimation = true;
+
       });
     };
   }
