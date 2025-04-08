@@ -42,7 +42,7 @@ class MemoryTask {
 
     } while(numbers.length < 3);
 
-    String text = "Enter the following numbers: ${numbers.join(", ")}";
+    String text = "Enter the numbers: ${numbers.join(", ")}";
 
     List<TextSpan> textSpans = [const TextSpan(text: "Enter the numbers")];
     for(int i = 0; i < numbers.length; i++){

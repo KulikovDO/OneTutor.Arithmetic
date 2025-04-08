@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// TODO: text input lost focus
 class TextInputContainer extends StatefulWidget {
-  // final String text;
   final Function onValueEntered;
   final bool isError;
 
   const TextInputContainer({
     super.key,
-    // required this.text,
     required this.onValueEntered,
     required this.isError,
   });
@@ -39,9 +36,14 @@ class TextInputContainerState extends State<TextInputContainer> {
     setState(() {
       isTapped = hasFocus;
     });
+
+    if(!hasFocus){
+      FocusManager.instance.primaryFocus?.unfocus();
+      handleSubmitted(valueController.text);
+    }
   }
 
-  handleTapOutside(event) {
+  handleTapOutside() {
     FocusManager.instance.primaryFocus?.unfocus();
     handleSubmitted(valueController.text);
   }
@@ -78,7 +80,7 @@ class TextInputContainerState extends State<TextInputContainer> {
                   onFocusChange: handleFocusChange,
                   child: TextField(
                     controller: valueController,
-                    onTapOutside: handleTapOutside,
+                    onTapOutside: (event) => handleTapOutside(),
                     cursorHeight: 50,
                     onSubmitted: handleSubmitted,
                     keyboardType: TextInputType.number,

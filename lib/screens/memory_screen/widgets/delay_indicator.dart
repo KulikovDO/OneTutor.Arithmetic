@@ -20,7 +20,7 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
   late Animation<double> animation;
   late AnimationController controller;
   int iteration = 0;
-  int repeatTimes = 1; // how many times you want to repeat animation
+  int repeatTimes = 3; // how many times you want to repeat animation
 
   @override
   void initState() {
@@ -67,12 +67,23 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
 
+    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery.sizeOf(context).height;
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
+    // indicator size depending on screen orientation
+    double size = isPortrait
+      ?
+    (width / 100).floor() * 100 - 100
+      :
+    (height / 100).floor() * 100 - 100;
+
     return 
       Stack(
         children: [
           Center(
             child: CustomPaint(
-              size: const Size(200, 200),
+              size: Size(size, size),
               painter: DelayIndicatorPainter(animation.value),
             ),
           ),

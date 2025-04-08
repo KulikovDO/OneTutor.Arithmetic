@@ -35,20 +35,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
   bool isSubmitDisabled = true;
   List<int> enteredValues = [];
   bool speakingAnswerCorrectness = false;
-
-  // Future<void> speak(String text) async {
-    
-  //   flutterTts.completionHandler = () {
-  //     setState(() { 
-  //       displayRichText = true; 
-  //       displayAnimation = false;
-  //     });
-  //   };
-  //   await flutterTts.awaitSpeakCompletion(true);
-  //   await flutterTts.speak(text);
-    
-    
-  // }
+  bool isError = false;
 
   handleAnimationCompleted() {
     setState(() {
@@ -57,23 +44,43 @@ class _MemoryScreenState extends State<MemoryScreen> {
     });
   }
 
-  handleSubmit() async {
+  handleSubmit() {
+
+    setState(() {
+      isSubmitDisabled = true;
+    }); 
 
     bool answerIsCorrect = task.checkAnswer(enteredValues);
 
-    flutterTts.speak("Testing");
-    flutterTts.awaitSpeakCompletion(true);
-
-    // if(answerIsCorrect){
-    //   await speak("That's correct");
-      
-    // } else {
-    //   await speak("Please try again");
-    // }
-    
-
     if(answerIsCorrect){
 
+      flutterTts.speak("That's correct");
+      flutterTts.completionHandler = () {
+
+        completeIteration();
+
+      };
+    } else{
+      flutterTts.speak("Please try again");
+      flutterTts.completionHandler = () {
+
+          setState(() {
+            isError = true;
+            isSubmitDisabled = false;
+          });
+
+        };
+    }
+  }
+
+  handleValuesEntered(List<int> values) {
+    setState(() {
+      enteredValues = [...values];
+      isSubmitDisabled = false;
+    });
+  }
+
+  completeIteration(){
       setState(() {
 
         _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
@@ -82,8 +89,6 @@ class _MemoryScreenState extends State<MemoryScreen> {
       });
 
       if( _iteration >= numOfIterations){
-
-        // await Future.delayed(const Duration(milliseconds: 600));
 
         if (!mounted) return;
 
@@ -94,25 +99,11 @@ class _MemoryScreenState extends State<MemoryScreen> {
         );
           
       } else {
-
-        // setState(() {
-        
         init();
-
-        // });
       }
-    } 
-  }
-
-  handleValuesEntered(List<int> values) {
-    setState(() {
-      enteredValues = [...values];
-      isSubmitDisabled = false;
-    });
   }
 
   init(){
-
     task = task.prepareTask();
 
     setState(() { 
@@ -120,6 +111,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
       displayTextInputs = false;
       enteredValues.clear();
       isSubmitDisabled = true;
+      isError = false;
     });
 
     flutterTts.speak(task.text);
@@ -185,7 +177,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
             
             if(displayTextInputs)
               Center(
-                child: TextInputRow(numberOfTextInputs: task.numbers.length, onCompleted: handleValuesEntered,),
+                child: TextInputRow(numberOfTextInputs: task.numbers.length, onCompleted: handleValuesEntered, isError: isError,),
               ),
           ],
         ),
