@@ -37,6 +37,7 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
   late ArithmeticTask task;
   int enteredValue = -1;
   bool isError = false;
+  late GlobalKey textInputContainerKey;
 
   Future<void> speak(String text) async {
     
@@ -131,7 +132,8 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
     prevSecondNumber = task.secondNumber;
     enteredValue = -1;
     isError = false;
-
+    textInputContainerKey = GlobalKey();
+    
   }
 
   @override
@@ -167,7 +169,7 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text( "${task.firstNumber} ${task.operationSymbol} ${task.secondNumber} = ", style:  const TextStyle( fontSize: 50, fontWeight: FontWeight.w500 )),
-                          TextInputContainer(key: GlobalKey(), text: enteredValue == -1 ? "?" : enteredValue.toString(), onValueEntered: handleValueEntered, isError: isError,)
+                          TextInputContainer(key: textInputContainerKey, onValueEntered: handleValueEntered, isError: isError,)
                         ]
                       ),
                   ),

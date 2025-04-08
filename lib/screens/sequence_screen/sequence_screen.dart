@@ -26,6 +26,7 @@ class SequenceScreen extends StatefulWidget {
 class _SequenceScreenState extends State<SequenceScreen> {
 
   late SequenceTask task;
+  late GlobalKey textInputContainerKey;
 
   Future<void> speak(String text) async {
     
@@ -113,6 +114,7 @@ class _SequenceScreenState extends State<SequenceScreen> {
     flutterTts.speak(task.text);
     enteredValue = -1;
     isError = false;
+    textInputContainerKey = GlobalKey();
 
     // textContainerList.clear();
     firstTextContainerList.clear();
@@ -186,7 +188,7 @@ class _SequenceScreenState extends State<SequenceScreen> {
                         ),
                     ),
                     ...firstTextContainerList,
-                    TextInputContainer(key: GlobalKey(), text: enteredValue == -1 ? "?" : enteredValue.toString(), onValueEntered: onValueEntered, isError: isError,),
+                    TextInputContainer(key: textInputContainerKey, onValueEntered: onValueEntered, isError: isError,),
                     ...secondTextContainerList,
                   ]
               ),

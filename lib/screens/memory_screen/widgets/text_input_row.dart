@@ -53,7 +53,7 @@ class _TextInputRowState extends State<TextInputRow> with SingleTickerProviderSt
     }
 
     textInputContainers = List.generate( widget.numberOfTextInputs,(index) => 
-      TextInputContainer(key: textInputKeys[index], isError: false, text: "?", onValueEntered: (value) { handleValueEntered(value, index); } )
+      TextInputContainer(key: textInputKeys[index], isError: false, onValueEntered: (value) { handleValueEntered(value, index); } )
     );
   }
 

@@ -38,6 +38,7 @@ class _PebbleDivisionScreenState extends ConsumerState<PebbleDivisionScreen> {
   double _progress = 0;
   late SourceBucket sourceBucket;
   bool isError = false;
+  late GlobalKey textInputContainerKey;
 
   Future<void> speak(String text) async {
     
@@ -71,6 +72,7 @@ class _PebbleDivisionScreenState extends ConsumerState<PebbleDivisionScreen> {
     enteredValue = -1;
     isError = false;
     droppableBuckets.clear();
+    textInputContainerKey = GlobalKey();
 
     task = task.prepareTask();
 
@@ -208,7 +210,7 @@ class _PebbleDivisionScreenState extends ConsumerState<PebbleDivisionScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text( "${task.numOfPebbles} : ${task.numOfBuckets} = ", style:  const TextStyle( fontSize: 50, fontWeight: FontWeight.w500 )),
-                      TextInputContainer(key: GlobalKey(), text: enteredValue == -1 ? "?" : enteredValue.toString(), onValueEntered: handleValueEntered, isError: isError,),
+                      TextInputContainer(key: textInputContainerKey, onValueEntered: handleValueEntered, isError: isError,),
                     ]
                   ),
                 ),

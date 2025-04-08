@@ -34,6 +34,7 @@ class _GroupingScreenState extends State<GroupingScreen> {
   int numOfIterations = 10;
   double _progress = 0;
   bool isError = false;
+  late GlobalKey textInputContainerKey;
 
   Future<void> speak(String text) async {
     
@@ -66,6 +67,7 @@ class _GroupingScreenState extends State<GroupingScreen> {
 
     enteredValue = -1;
     isError = false;
+    textInputContainerKey = GlobalKey();
 
     FlutterView view = PlatformDispatcher.instance.views.first;
     double screenWidth = view.physicalSize.width / view.devicePixelRatio;
@@ -180,7 +182,7 @@ class _GroupingScreenState extends State<GroupingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text( "Number of groups: ", style: TextStyle( fontSize: 25, fontWeight: FontWeight.w500 )),
-                    TextInputContainer(key: GlobalKey(), text: enteredValue == -1 ? "?" : enteredValue.toString(), onValueEntered: handleValueEntered,isError: isError),
+                    TextInputContainer(key: textInputContainerKey, onValueEntered: handleValueEntered,isError: isError),
                   ]
                 ),
               ]

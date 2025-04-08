@@ -36,6 +36,8 @@ class _FractionsScreenState extends State<FractionsScreen> {
   int numOfIterations = 10;
   double _progress = 0;
   bool isError = false;
+  late GlobalKey nominatorTextInputContainerKey;
+  late GlobalKey denominatorTextInputContainerKey;
   
   Future<void> speak(String text) async {
     
@@ -81,6 +83,8 @@ class _FractionsScreenState extends State<FractionsScreen> {
     nominator = -1;
     denominator = -1;
     isError = false;
+    nominatorTextInputContainerKey = GlobalKey();
+    denominatorTextInputContainerKey = GlobalKey();
 
     task = task.prepareTask();
 
@@ -201,9 +205,9 @@ class _FractionsScreenState extends State<FractionsScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:[
-                        TextInputContainer(key: GlobalKey(), text: nominator == -1 ? "?": nominator.toString(), onValueEntered: handleNominatorEntered, isError: isError,),
+                        TextInputContainer(key: nominatorTextInputContainerKey, onValueEntered: handleNominatorEntered, isError: isError,),
                         const Text("/", style: TextStyle(fontSize: 45),),
-                        TextInputContainer(key: GlobalKey(), text: denominator == -1 ? "?": denominator.toString(), onValueEntered: handleDenominatorEntered, isError: isError,),
+                        TextInputContainer(key: denominatorTextInputContainerKey, onValueEntered: handleDenominatorEntered, isError: isError,),
                       ]
                     ),
                 ),

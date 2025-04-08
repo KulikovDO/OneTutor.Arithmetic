@@ -3,13 +3,13 @@ import 'package:flutter/services.dart';
 
 // TODO: text input lost focus
 class TextInputContainer extends StatefulWidget {
-  final String text;
+  // final String text;
   final Function onValueEntered;
   final bool isError;
 
   const TextInputContainer({
     super.key,
-    required this.text,
+    // required this.text,
     required this.onValueEntered,
     required this.isError,
   });
@@ -21,31 +21,29 @@ class TextInputContainer extends StatefulWidget {
 class TextInputContainerState extends State<TextInputContainer> {
 
   bool isTapped = false;
-  FocusNode focusNode = FocusNode();
+  //FocusNode focusNode = FocusNode();
   final TextEditingController valueController = TextEditingController();
 
-  onSubmitted(String value){
+  handleSubmitted(String value){
 
     if(value == ""){
-      FocusScope.of(context).requestFocus(focusNode);
+      // FocusScope.of(context).requestFocus(focusNode);
       return;
     }
 
     widget.onValueEntered(int.parse(value));
+
   }
 
-  onTapOutside(){
-    FocusScope.of(context).unfocus();
-    onSubmitted(valueController.text);
-  }
-
-  onTapInside() {
-
-    FocusScope.of(context).requestFocus(focusNode);
-    
+  handleFocusChange(bool hasFocus) {
     setState(() {
-      isTapped = true;
+      isTapped = hasFocus;
     });
+  }
+
+  handleTapOutside(event) {
+    FocusManager.instance.primaryFocus?.unfocus();
+    handleSubmitted(valueController.text);
   }
 
   @override
@@ -61,9 +59,6 @@ class TextInputContainerState extends State<TextInputContainer> {
     return
       Padding(
         padding: const EdgeInsets.all(4.0),
-        child: TapRegion(
-          onTapInside: (event) => onTapInside(),
-          onTapOutside: (event) => onTapOutside(),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -79,38 +74,40 @@ class TextInputContainerState extends State<TextInputContainer> {
             
             child: Center(
               child: 
-                !isTapped
-                  ?
-                Text( widget.text, style: const TextStyle(fontSize: 45, decoration: TextDecoration.none ))
-                  :
-                TextField(
-                  controller: valueController,
-                  focusNode: focusNode,
-                  autofocus: true,
-                  cursorHeight: 50,
-                  onSubmitted: onSubmitted,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                    LengthLimitingTextInputFormatter(2),
-                  ],
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    errorBorder: InputBorder.none,
-                    disabledBorder: InputBorder.none,
+                Focus(
+                  onFocusChange: handleFocusChange,
+                  child: TextField(
+                    controller: valueController,
+                    onTapOutside: handleTapOutside,
+                    cursorHeight: 50,
+                    onSubmitted: handleSubmitted,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                      LengthLimitingTextInputFormatter(2),
+                    ],
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      hintText: "?",
+                      hintStyle: TextStyle(
+                        fontSize: 45,
+                        color: isTapped ? Colors.grey.withOpacity(0) : Colors.black.withOpacity(0.7),
+                      ),
+                    ),
+                    style: const TextStyle(
+                      fontSize: 45, 
+                      height: 1.4,
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  style: const TextStyle(
-                    fontSize: 45, 
-                    height: 1.4,
-                    color: Colors.black,
-                  ),
-                  textAlign: TextAlign.center,
                 )
             ),
           ),
-        ),
       );
   }
 }
