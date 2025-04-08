@@ -6,6 +6,7 @@ import 'package:one_tutor_arithmetic/screens/memory_screen/widgets/delay_indicat
 import 'package:one_tutor_arithmetic/screens/memory_screen/widgets/text_input_row.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
+import 'package:one_tutor_arithmetic/widgets/custom_floating_action_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
 
@@ -64,12 +65,12 @@ class _MemoryScreenState extends State<MemoryScreen> {
       flutterTts.speak("Please try again");
       flutterTts.completionHandler = () {
 
-          setState(() {
-            isError = true;
-            isSubmitDisabled = false;
-          });
+        setState(() {
+          isError = true;
+          isSubmitDisabled = false;
+        });
 
-        };
+      };
     }
   }
 
@@ -78,6 +79,22 @@ class _MemoryScreenState extends State<MemoryScreen> {
       enteredValues = [...values];
       isSubmitDisabled = false;
     });
+  }
+
+  handleRepeatTextButtonPressed() {
+    
+    setState(() {
+      isSubmitDisabled = true;
+    });
+    
+    flutterTts.speak(task.text);
+    flutterTts.completionHandler = () {
+
+      setState(() {
+        isSubmitDisabled = false;
+      });
+
+    };
   }
 
   completeIteration(){
@@ -170,6 +187,26 @@ class _MemoryScreenState extends State<MemoryScreen> {
                 child: task.richText
               ),
 
+            if(displayTextInputs)
+              Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: 
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomFloatingActionButton(
+                      isDisabled: false,
+                      onPressed: handleRepeatTextButtonPressed,
+                      child: const Icon(
+                        Icons.replay,
+                        color: Colors.black,
+                        size: 40,
+                      ),   
+                    ),
+                  ],
+                ),
+              ),
+
             if(displayAnimation)
               Center(
                 child: DelayIndicator( onCompleted: handleAnimationCompleted,)
@@ -186,4 +223,6 @@ class _MemoryScreenState extends State<MemoryScreen> {
       bottomNavigationBar: BottomNavigationBarContainer(onPress: handleSubmit, isDisabled: isSubmitDisabled),
     );
   }
+
+  
 }
