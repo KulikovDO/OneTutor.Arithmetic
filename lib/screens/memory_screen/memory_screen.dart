@@ -37,6 +37,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
   List<int> enteredValues = [];
   bool speakingAnswerCorrectness = false;
   bool isError = false;
+  late TextInputRow textInputRow;
 
   handleAnimationCompleted() {
     setState(() {
@@ -65,6 +66,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
       flutterTts.speak("Please try again");
       flutterTts.completionHandler = () {
 
+        textInputRow.reset.value = true;
         setState(() {
           isError = true;
           isSubmitDisabled = false;
@@ -98,30 +100,33 @@ class _MemoryScreenState extends State<MemoryScreen> {
   }
 
   completeIteration(){
-      setState(() {
 
-        _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
-        _progress = _iteration / numOfIterations;
+    textInputRow.reset.value = true;
+    setState(() {
 
-      });
+      _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
+      _progress = _iteration / numOfIterations;
 
-      if( _iteration >= numOfIterations){
+    });
 
-        if (!mounted) return;
+    if( _iteration >= numOfIterations){
 
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (ctx) => const FinalScreen()
-          ),
-        );
-          
-      } else {
-        init();
-      }
+      if (!mounted) return;
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => const FinalScreen()
+        ),
+      );
+        
+    } else {
+      init();
+    }
   }
 
   init(){
     task = task.prepareTask();
+    textInputRow = TextInputRow(numberOfTextInputs: task.numbers.length, onCompleted: handleValuesEntered);
 
     setState(() { 
       displayRichText = true;
@@ -161,6 +166,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
     init();
 
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +220,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
             
             if(displayTextInputs)
               Center(
-                child: TextInputRow(numberOfTextInputs: task.numbers.length, onCompleted: handleValuesEntered, isError: isError,),
+                child: textInputRow,//TextInputRow(numberOfTextInputs: task.numbers.length, onCompleted: handleValuesEntered/*, isError: isError,*/),
               ),
           ],
         ),

@@ -5,14 +5,14 @@ class TextInputRow extends StatefulWidget {
   
   final int numberOfTextInputs;
   final Function onCompleted;
-  final bool isError;
 
-  const TextInputRow({
+  TextInputRow({
     super.key, 
     required this.numberOfTextInputs,
     required this.onCompleted,
-    required this.isError,
   });
+
+  final ValueNotifier reset = ValueNotifier(false);
 
   @override
   State<TextInputRow> createState() => _TextInputRowState();
@@ -22,7 +22,6 @@ class TextInputRow extends StatefulWidget {
 class _TextInputRowState extends State<TextInputRow> with SingleTickerProviderStateMixin {
 
   List<TextInputContainer> textInputContainers = [];
-  List<GlobalKey<TextInputContainerState>> textInputKeys = [];
   List<int> enteredValues = [];
 
   handleValueEntered(int value, int index) {
@@ -35,19 +34,27 @@ class _TextInputRowState extends State<TextInputRow> with SingleTickerProviderSt
 
   @override
   void initState() {
+
+    widget.reset.addListener(() {
+     
+      setState(() {
+        textInputContainers = List.generate( widget.numberOfTextInputs,(index) => 
+          TextInputContainer(isError: true, onValueEntered: (value) { handleValueEntered(value, index); } )
+        );  
+      });
+
+    });
+
     super.initState();
 
     enteredValues.clear();
 
-    textInputKeys.clear();
-
     for(int i = 0; i < widget.numberOfTextInputs; i++){
-      textInputKeys.add(GlobalKey());
       enteredValues.add(-1);
     }
 
     textInputContainers = List.generate( widget.numberOfTextInputs,(index) => 
-      TextInputContainer(key: textInputKeys[index], isError: widget.isError, onValueEntered: (value) { handleValueEntered(value, index); } )
+      TextInputContainer(isError: false, onValueEntered: (value) { handleValueEntered(value, index); } )
     );
   }
 
