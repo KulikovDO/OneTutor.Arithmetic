@@ -102,7 +102,7 @@ const categories = [
     description: "Memory",
   ),
   TileContent(
-    taskName: TaskName.memory,
+    taskName: TaskName.decomposition,
     color: Colors.lightGreenAccent,
     icon: Icons.settings_ethernet,
     description: "Decomposition",

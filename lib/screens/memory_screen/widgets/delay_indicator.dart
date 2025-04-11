@@ -4,10 +4,12 @@ import 'dart:math' as math;
 class DelayIndicator extends StatefulWidget {
 
   final Function onCompleted;
+  final int repeatTimes; // how many times you want to repeat animation
 
   const DelayIndicator({
     super.key, 
     required this.onCompleted,
+    required this.repeatTimes,
   });
 
   @override
@@ -20,7 +22,6 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
   late Animation<double> animation;
   late AnimationController controller;
   int iteration = 0;
-  int repeatTimes = 3; // how many times you want to repeat animation
 
   @override
   void initState() {
@@ -44,7 +45,7 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
       setState(() {
         iteration++;
       });
-      if (iteration < repeatTimes) {
+      if (iteration < widget.repeatTimes) {
         
         controller.reset();
         controller.forward();
@@ -89,7 +90,7 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
           ),
           Center(
             child: Text(
-              (repeatTimes - iteration).toString(), 
+              (widget.repeatTimes - iteration).toString(), 
               style: const TextStyle(fontSize: 100, fontWeight: FontWeight.bold),
             ),
           ),

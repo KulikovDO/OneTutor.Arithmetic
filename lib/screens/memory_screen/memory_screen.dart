@@ -215,12 +215,12 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
             if(displayAnimation)
               Center(
-                child: DelayIndicator( onCompleted: handleAnimationCompleted,)
+                child: DelayIndicator( onCompleted: handleAnimationCompleted, repeatTimes: 5, )
               ),
             
             if(displayTextInputs)
               Center(
-                child: textInputRow,//TextInputRow(numberOfTextInputs: task.numbers.length, onCompleted: handleValuesEntered/*, isError: isError,*/),
+                child: textInputRow,
               ),
           ],
         ),

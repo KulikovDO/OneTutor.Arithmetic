@@ -40,7 +40,7 @@ class MemoryTask {
 
       }
 
-    } while(numbers.length < 3);
+    } while(numbers.length < 4);
 
     String text = "Enter the numbers: ${numbers.join(", ")}";
 
