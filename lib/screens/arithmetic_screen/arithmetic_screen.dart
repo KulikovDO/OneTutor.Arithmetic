@@ -111,9 +111,8 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
 
   }
 
-  asyncInitState() async {
-    await _readConfig();
-  }
+  asyncInitState() async => await _readConfig();
+  
   
   @override
   initState() {
@@ -121,7 +120,6 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
     task = ArithmeticTask.create(widget.arithmeticOperation);
     asyncInitState();
     init();
-    
   }
 
   init(){
