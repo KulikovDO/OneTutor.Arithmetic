@@ -14,6 +14,13 @@ import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
 
 FlutterTts flutterTts = FlutterTts();
 
+Future<void> speak(String text) async {
+    
+  await flutterTts.awaitSpeakCompletion(true);
+  await flutterTts.speak(text);
+  
+}
+
 class MemoryScreen extends StatefulWidget {
   MemoryScreen({super.key}) 
   {
@@ -46,7 +53,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
     });
   }
 
-  handleSubmit() {
+  handleSubmit() async {
 
     setState(() {
       isSubmitDisabled = true;
@@ -56,23 +63,36 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
     if(answerIsCorrect){
 
-      flutterTts.speak("That's correct");
-      flutterTts.completionHandler = () {
+      // flutterTts.speak("That's correct");
+      // flutterTts.completionHandler = () {
 
-        completeIteration();
+      //   completeIteration();
 
-      };
+      // };
+
+      await speak("That's correct");
+      completeIteration();
+
+      
+
     } else{
-      flutterTts.speak("Please try again");
-      flutterTts.completionHandler = () {
+      // flutterTts.speak("Please try again");
+      // flutterTts.completionHandler = () {
 
-        textInputRow.reset.value = true;
-        setState(() {
-          isError = true;
-          isSubmitDisabled = false;
-        });
+      //   textInputRow.reset.value = true;
+      //   setState(() {
+      //     isError = true;
+      //     isSubmitDisabled = false;
+      //   });
 
-      };
+      // };
+
+      await speak("Please try again");
+      textInputRow.reset.value = true;
+      setState(() {
+        isError = true;
+        isSubmitDisabled = false;
+      });
     }
   }
 
@@ -83,20 +103,29 @@ class _MemoryScreenState extends State<MemoryScreen> {
     });
   }
 
-  handleRepeatTextButtonPressed() {
+  handleRepeatTextButtonPressed() async {
     
     setState(() {
       isSubmitDisabled = true;
     });
     
-    flutterTts.speak(task.text);
-    flutterTts.completionHandler = () {
 
-      setState(() {
-        isSubmitDisabled = false;
-      });
+    // flutterTts.speak(task.text);
+    // flutterTts.completionHandler = () {
 
-    };
+    //   setState(() {
+    //     isSubmitDisabled = false;
+    //   });
+
+    // };
+
+    await speak(task.text);
+    
+    setState(() {
+      isSubmitDisabled = false;
+    });
+
+    
   }
 
   completeIteration(){
@@ -124,7 +153,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
     }
   }
 
-  init(){
+  init() async {
     task = task.prepareTask();
     textInputRow = TextInputRow(numberOfTextInputs: task.numbers.length, onCompleted: handleValuesEntered);
 
@@ -136,15 +165,25 @@ class _MemoryScreenState extends State<MemoryScreen> {
       isError = false;
     });
 
-    flutterTts.speak(task.text);
-    flutterTts.completionHandler = () {
-      setState(() { 
+    // flutterTts.speak(task.text);
+    // flutterTts.completionHandler = () {
+    //   setState(() { 
 
-        displayRichText = false; 
-        displayAnimation = true;
+    //     displayRichText = false; 
+    //     displayAnimation = true;
 
-      });
-    };
+    //   });
+    // };
+
+    await speak(task.text);
+    if (!mounted) return;
+    setState(() { 
+
+      displayRichText = false; 
+      displayAnimation = true;
+
+    });
+
   }
 
   _readConfig() async {

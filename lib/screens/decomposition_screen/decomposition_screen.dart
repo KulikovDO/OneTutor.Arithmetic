@@ -11,13 +11,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 FlutterTts flutterTts = FlutterTts();
 
+Future<void> speak(String text) async {
+    
+  await flutterTts.awaitSpeakCompletion(true);
+  await flutterTts.speak(text);
+  
+}
+
 
 class DecompositionScreen extends StatefulWidget {
   DecompositionScreen({super.key}) 
   {
     flutterTts.setSpeechRate(0.4);
   }
-
   @override
   State<DecompositionScreen> createState() => _DecompositionScreenState();
 }
@@ -41,7 +47,7 @@ class _DecompositionScreenState extends State<DecompositionScreen> {
     });
   }
 
-  handleSubmit(){
+  handleSubmit() async {
 
     setState(() {
       isSubmitDisabled = true;
@@ -51,26 +57,40 @@ class _DecompositionScreenState extends State<DecompositionScreen> {
 
     if(answerIsCorrect){
 
-      flutterTts.speak("That's correct");
-      flutterTts.completionHandler = () {
+      await speak("That's correct");
+      completeIteration( );
 
-        completeIteration();
+      // flutterTts.speak("That's correct");
+      // flutterTts.completionHandler = () {
 
-      };
+      //   completeIteration();
+
+      // };
+
     } else{
-      flutterTts.speak("Please try again");
-      flutterTts.completionHandler = () {
-        setState(() {
-          isError = true;
-          isSubmitDisabled = false;
-        });
 
-      };
+      await speak("Please try again");
+      setState(() {
+        isError = true;
+        isSubmitDisabled = false;
+      });
+
+
+      // flutterTts.speak("Please try again");
+      // flutterTts.completionHandler = () {
+      //   setState(() {
+      //     isError = true;
+      //     isSubmitDisabled = false;
+      //   });
+
+      // };
     }
 
   }
 
   completeIteration(){
+
+    if (!mounted) return;
 
     setState(() {
 
@@ -81,7 +101,7 @@ class _DecompositionScreenState extends State<DecompositionScreen> {
 
     if( _iteration >= numOfIterations){
 
-      // if (!mounted) return;
+      if (!mounted) return;
 
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -105,22 +125,22 @@ class _DecompositionScreenState extends State<DecompositionScreen> {
 
   }
 
-  init(){
+  init() async {
     task = task.prepareTask();
     setState(() {
+      enteredValue = -1;
+      isError = false;
+      textInputContainerKey = GlobalKey();
+      isSubmitDisabled = true;
+    });
+    
+    await speak(task.text);
 
-        enteredValue = -1;
-        isError = false;
-        textInputContainerKey = GlobalKey();
-        isSubmitDisabled = true;
-
-      });
-
-    flutterTts.speak(task.text);
-    flutterTts.completionHandler = () {
-      setState(() {
-      });
-    };
+    // flutterTts.speak(task.text);
+    // flutterTts.completionHandler = () {
+    //   setState(() {
+    //   });
+    // };
   }
 
   @override
