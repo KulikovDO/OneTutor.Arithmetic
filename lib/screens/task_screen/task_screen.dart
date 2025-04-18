@@ -37,9 +37,13 @@ class _TaskScreenState extends State<TaskScreen> {
   int numOfIterations = 10;
   double progress = 0;
   bool isSubmitDisabled = true;
-  GlobalKey<DecompositionTaskState> globalKey = GlobalKey<DecompositionTaskState>();
+  late Widget task;
+  
+  // GlobalKey<DecompositionTaskState> globalKey = GlobalKey<DecompositionTaskState>();
+  dynamic globalKey = GlobalKey();
 
   // Widget task = DecompositionTask(onValueEntered: handleValueEntered);
+
   
   handleSpeakText(String text) async => await speak(text);
 
@@ -49,7 +53,6 @@ class _TaskScreenState extends State<TaskScreen> {
       isSubmitDisabled = false;
     });
   }
-
 
 
   handleSubmit() async {
@@ -122,6 +125,10 @@ class _TaskScreenState extends State<TaskScreen> {
   void initState() {
     super.initState();
     readConfig();
+
+    task = DecompositionTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+
+
   }
 
   @override
@@ -143,7 +150,7 @@ class _TaskScreenState extends State<TaskScreen> {
               ),
             ),
 
-            DecompositionTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,)
+            task
             
           ],
         ),
