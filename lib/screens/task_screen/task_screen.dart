@@ -4,6 +4,7 @@ import 'package:one_tutor_arithmetic/data/task_name.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/tasks/decomposition_task/decomposition_task.dart';
+import 'package:one_tutor_arithmetic/tasks/memory_task/memory_task.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
@@ -39,16 +40,12 @@ class _TaskScreenState extends State<TaskScreen> {
   bool isSubmitDisabled = true;
   late Widget task;
   
-  // GlobalKey<DecompositionTaskState> globalKey = GlobalKey<DecompositionTaskState>();
   dynamic globalKey = GlobalKey();
-
-  // Widget task = DecompositionTask(onValueEntered: handleValueEntered);
-
   
   handleSpeakText(String text) async => await speak(text);
 
   
-  handleValueEntered(int value){
+  handleValueEntered(){
     setState(() {
       isSubmitDisabled = false;
     });
@@ -126,8 +123,14 @@ class _TaskScreenState extends State<TaskScreen> {
     super.initState();
     readConfig();
 
-    task = DecompositionTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
-
+    if(widget.taskName == TaskName.decomposition){
+      task = DecompositionTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    } else if(widget.taskName == TaskName.memory){
+      task = MemoryTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+   
+    } else {
+      throw Exception("Task not implemented yet");
+    }
 
   }
 

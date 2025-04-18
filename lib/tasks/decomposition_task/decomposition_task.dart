@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/tasks/models/decomposition_assignment.dart';
+import 'package:one_tutor_arithmetic/tasks/decomposition_task/models/decomposition_assignment.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
 class DecompositionTask extends StatefulWidget {
@@ -25,7 +25,7 @@ class DecompositionTaskState extends State<DecompositionTask> {
     setState(() {
       enteredValue = value;
     });
-    widget.onValueEntered(value);
+    widget.onValueEntered();
   }
 
   bool checkAnswer() { 
@@ -51,7 +51,6 @@ class DecompositionTaskState extends State<DecompositionTask> {
       enteredValue = -1;
       isError = false;
       textInputContainerKey = GlobalKey();
-      // isSubmitDisabled = true;
     });
     
     widget.speakText(assignment.text);
