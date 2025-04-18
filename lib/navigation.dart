@@ -6,7 +6,7 @@ import 'package:one_tutor_arithmetic/screens/arithmetic_screen/arithmetic_screen
 import 'package:one_tutor_arithmetic/screens/clock_screen/clock_screen.dart';
 import 'package:one_tutor_arithmetic/screens/coins_screen/coins_screen.dart';
 import 'package:one_tutor_arithmetic/screens/days_of_week_screen/days_of_week_screen.dart';
-import 'package:one_tutor_arithmetic/screens/decomposition_screen/decomposition_screen.dart';
+// import 'package:one_tutor_arithmetic/screens/decomposition_screen/decomposition_screen.dart';
 import 'package:one_tutor_arithmetic/screens/even_odd_screen/even_odd_screen.dart';
 import 'package:one_tutor_arithmetic/screens/fractions_screen/fractions_screen.dart';
 import 'package:one_tutor_arithmetic/screens/grouping_screen/grouping_screen.dart';
@@ -16,6 +16,7 @@ import 'package:one_tutor_arithmetic/screens/more_less_screen/more_less_screen.d
 import 'package:one_tutor_arithmetic/screens/ordering_screen/ordering_screen.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/pebble_division_screen.dart';
 import 'package:one_tutor_arithmetic/screens/sequence_screen/sequence_screen.dart';
+import 'package:one_tutor_arithmetic/screens/task_screen/task_screen.dart';
 
 class Navigation {
 
@@ -146,7 +147,9 @@ class Navigation {
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (ctx) => DecompositionScreen(),
+          // builder: (ctx) => DecompositionScreen(),
+          builder: (ctx) => TaskScreen(taskName: tileContent.taskName),
+          
         ),
       );
 

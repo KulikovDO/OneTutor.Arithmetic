@@ -3,41 +3,70 @@ import 'package:one_tutor_arithmetic/tasks/models/decomposition_assignment.dart'
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
 class DecompositionTask extends StatefulWidget {
-  const DecompositionTask({super.key});
+  
+  final Function onValueEntered;
+  final Function speakText;
+  
+  const DecompositionTask({super.key, required this.onValueEntered, required this.speakText});
   
   @override
-  State<DecompositionTask> createState() => _DecompositionTaskState();
+  State<DecompositionTask> createState() => DecompositionTaskState();
 }
 
 
-class _DecompositionTaskState extends State<DecompositionTask> {
+class DecompositionTaskState extends State<DecompositionTask> {
 
   late DecompositionAssignment assignment;
   int enteredValue = -1;
   bool isError = false;
-  bool isSubmitDisabled = true;
   late GlobalKey textInputContainerKey;
 
   handleValueEntered(int value){
     setState(() {
       enteredValue = value;
-      isSubmitDisabled = false;
     });
+    widget.onValueEntered(value);
   }
 
-  handleSubmit() async {
+  bool checkAnswer() { 
+    bool isAnswerCorrect = assignment.checkAnswer(enteredValue); 
 
+    if(!isAnswerCorrect){
+      setState(() {
+        isError = true;
+      });
+    } else {
+      setState(() {
+        isError = false;
+      });
+    }
+
+    return isAnswerCorrect;
+  }
+
+  
+  void initAssignment() {
+    assignment = assignment.prepareTask();
+    setState(() {
+      enteredValue = -1;
+      isError = false;
+      textInputContainerKey = GlobalKey();
+      // isSubmitDisabled = true;
+    });
     
-
+    widget.speakText(assignment.text);
   }
-
-
   
   @override
   void initState() {
     super.initState();
     assignment = DecompositionAssignment.create().prepareTask();
-    // init();
+
+    setState(() {
+      textInputContainerKey = GlobalKey();
+    });
+    
+    widget.speakText(assignment.text);
   }
 
   @override
@@ -77,4 +106,5 @@ class _DecompositionTaskState extends State<DecompositionTask> {
       ]
     );
   }
+  
 }

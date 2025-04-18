@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/data/task_name.dart';
+import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
+import 'package:one_tutor_arithmetic/tasks/decomposition_task/decomposition_task.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
@@ -34,36 +36,50 @@ class _TaskScreenState extends State<TaskScreen> {
   int iteration = 0;
   int numOfIterations = 10;
   double progress = 0;
-  bool isError = false;
   bool isSubmitDisabled = true;
-  // Widget task;
-  // Assignment assignment TODO: base abstract class
+  GlobalKey<DecompositionTaskState> globalKey = GlobalKey<DecompositionTaskState>();
 
-  handleSubmit(){}
+  // Widget task = DecompositionTask(onValueEntered: handleValueEntered);
+  
+  handleSpeakText(String text) async => await speak(text);
 
-  submitAssignment() async {
-    // setState(() {
-    //   isSubmitDisabled = true;
-    // }); 
-
-    // bool answerIsCorrect = assignment.checkAnswer(enteredValue);
-
-    // if(answerIsCorrect){
-
-    //   await speak("That's correct");
-    //   completeAssignment( );
-
-    // } else{
-
-    //   await speak("Please try again");
-    //   setState(() {
-    //     isError = true;
-    //     isSubmitDisabled = false;
-    //   });
-    // }
+  
+  handleValueEntered(int value){
+    setState(() {
+      isSubmitDisabled = false;
+    });
   }
 
-  completeAssignment(){
+
+
+  handleSubmit() async {
+
+    setState(() {
+      isSubmitDisabled = true;
+    }); 
+
+    bool answerIsCorrect = globalKey.currentState!.checkAnswer();
+
+    if(answerIsCorrect){
+
+      await speak("That's correct");
+      if (!mounted) return;
+      completeIteration( );
+
+    } else{
+
+      await speak("Please try again");
+      if (!mounted) return;
+      setState(() {
+        isSubmitDisabled = false;
+      });
+
+    }
+
+  }
+
+
+  completeIteration(){
 
     if (!mounted) return;
 
@@ -74,7 +90,7 @@ class _TaskScreenState extends State<TaskScreen> {
 
     });
 
-    if( iteration >= numOfIterations){
+    if(iteration >= numOfIterations){
 
       if (!mounted) return;
 
@@ -86,24 +102,12 @@ class _TaskScreenState extends State<TaskScreen> {
         
     } else {
 
-      initAssignment( );
+      globalKey.currentState!.initAssignment( );
+      setState(() {
+        isSubmitDisabled = true;
+      });
 
     }
-  }
-
-  initAssignment() async {
-    
-    // assignment = assignment.prepareTask();
-
-    // setState(() {
-    //   enteredValue = -1;
-    //   isError = false;
-    //   textInputContainerKey = GlobalKey();
-    //   isSubmitDisabled = true;
-    // });
-    
-    // await speak(assignment.text);
-
   }
 
 
@@ -125,7 +129,7 @@ class _TaskScreenState extends State<TaskScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text( "Task name" ),
+        title: Text( widget.taskName.name.capitalize() ),
       ),
       body:
         Stack(
@@ -139,7 +143,7 @@ class _TaskScreenState extends State<TaskScreen> {
               ),
             ),
 
-            // task
+            DecompositionTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,)
             
           ],
         ),

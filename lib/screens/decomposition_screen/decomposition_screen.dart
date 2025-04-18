@@ -60,13 +60,6 @@ class _DecompositionScreenState extends State<DecompositionScreen> {
       await speak("That's correct");
       completeIteration( );
 
-      // flutterTts.speak("That's correct");
-      // flutterTts.completionHandler = () {
-
-      //   completeIteration();
-
-      // };
-
     } else{
 
       await speak("Please try again");
@@ -75,15 +68,6 @@ class _DecompositionScreenState extends State<DecompositionScreen> {
         isSubmitDisabled = false;
       });
 
-
-      // flutterTts.speak("Please try again");
-      // flutterTts.completionHandler = () {
-      //   setState(() {
-      //     isError = true;
-      //     isSubmitDisabled = false;
-      //   });
-
-      // };
     }
 
   }
