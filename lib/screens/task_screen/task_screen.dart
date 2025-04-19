@@ -6,6 +6,7 @@ import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/coins_task.dart';
 import 'package:one_tutor_arithmetic/tasks/decomposition_task/decomposition_task.dart';
 import 'package:one_tutor_arithmetic/tasks/fractions_task/fractions_task.dart';
+import 'package:one_tutor_arithmetic/tasks/grouping_task/grouping_task.dart';
 import 'package:one_tutor_arithmetic/tasks/memory_task/memory_task.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
@@ -125,7 +126,9 @@ class _TaskScreenState extends State<TaskScreen> {
     super.initState();
     readConfig();
 
-    if(widget.taskName == TaskName.coins){
+    if(widget.taskName == TaskName.grouping){
+      task = GroupingTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    } else if(widget.taskName == TaskName.coins){
       task = CoinsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.fractions){
       task = FractionsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);

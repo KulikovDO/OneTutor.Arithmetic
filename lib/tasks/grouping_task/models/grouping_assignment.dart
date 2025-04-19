@@ -9,9 +9,9 @@ const groupSize = 2;
 const icons = [Icons.egg, Icons.star, Icons.ac_unit, Icons.local_florist, Icons.park, Icons.toys];
 const objectNames = ["eggs", "stars", "snowflakes", "flowers", "trees", "cars"];
 
-class GroupingTask {
+class GroupingAssignment {
 
-  const GroupingTask({
+  const GroupingAssignment({
       
       required this.rows,
       required this.cols,
@@ -35,9 +35,9 @@ class GroupingTask {
   final String text;
   final Widget richText;
 
-  static GroupingTask create() => GroupingTask( rows: 0, cols: 0, fontSize: 0, centres: [], selectedCentres: [], icon: icons[0], answer: 0, text: "", richText: const Text(""));
+  static GroupingAssignment create() => GroupingAssignment( rows: 0, cols: 0, fontSize: 0, centres: [], selectedCentres: [], icon: icons[0], answer: 0, text: "", richText: const Text(""));
 
-  GroupingTask prepareTask(double screenWidth){
+  GroupingAssignment prepareTask(double screenWidth){
 
     int cols = rng.nextInt(5 - 3 + 1) + 3;
     int rows = rng.nextInt(5 - 3 + 1) + 3;
@@ -103,7 +103,7 @@ class GroupingTask {
       ),
     );
 
-    return GroupingTask(
+    return GroupingAssignment(
       rows: rows, 
       cols: cols, 
       fontSize: fontSize, 
@@ -180,4 +180,6 @@ class GroupingTask {
     return inside;
 
   }
+
+  bool checkAnswer(int enteredValue) => answer == enteredValue;
 }

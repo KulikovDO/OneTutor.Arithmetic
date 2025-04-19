@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/screens/grouping_screen/models/grouping_task.dart';
+import 'package:one_tutor_arithmetic/tasks/grouping_task/models/grouping_assignment.dart';
 
 class TouchControl extends StatefulWidget {
 
@@ -7,9 +7,9 @@ class TouchControl extends StatefulWidget {
   // final double fontSize;
   // final int cols;
   // final int rows;
-  final GroupingTask task;
+  final GroupingAssignment assignment;
   
-  const TouchControl({ super.key, /*required this.cols, required this.rows, required this.centres, required this.fontSize*/required this.task });
+  const TouchControl({ super.key, /*required this.cols, required this.rows, required this.centres, required this.fontSize*/required this.assignment });
 
   @override
   State<TouchControl> createState() => _TouchControlState();
@@ -42,7 +42,7 @@ class _TouchControlState extends State<TouchControl> {
   void _handlePanEnd(DragEndDetails details) {
     setState((){
       paths[currentPath].add(paths[currentPath][0]);
-      bool isGroupAdded = widget.task.hitTest(paths[currentPath]);
+      bool isGroupAdded = widget.assignment.hitTest(paths[currentPath]);
       if(!isGroupAdded){
 
         paths.remove(paths[currentPath]);
@@ -57,7 +57,7 @@ class _TouchControlState extends State<TouchControl> {
   Widget build(BuildContext context) {
 
     Size size = MediaQuery.of(context).size;
-    double height = size.width + widget.task.fontSize;
+    double height = size.width + widget.assignment.fontSize;
 
     return SizedBox(
       width: size.width,
@@ -69,7 +69,7 @@ class _TouchControlState extends State<TouchControl> {
         onPanEnd: _handlePanEnd,
         child: CustomPaint(
           size: Size(size.width, height),
-          painter: TouchControlPainter( widget.task.cols, widget.task.rows, widget.task.centres, widget.task.selectedCentres, widget.task.fontSize, widget.task.icon, paths,),
+          painter: TouchControlPainter( widget.assignment.cols, widget.assignment.rows, widget.assignment.centres, widget.assignment.selectedCentres, widget.assignment.fontSize, widget.assignment.icon, paths,),
         ),
       ),
     );
