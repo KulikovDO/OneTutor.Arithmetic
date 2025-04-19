@@ -7,9 +7,9 @@ Random rng = Random();
 Function eq = const ListEquality().equals;
 const numOfOptions = 2; // 1 dollar, 50 cents, 20 cents
 
-class CoinsTask {
+class CoinsAssignment {
 
-  const CoinsTask({
+  const CoinsAssignment({
       required this.coins,
       required this.answer,
       required this.answerOptions,
@@ -23,9 +23,9 @@ class CoinsTask {
   final String text;
   final Widget richText;
 
-  static CoinsTask create() => const CoinsTask( coins: [], answer: "", answerOptions: [], text: "", richText: Text(""));
+  static CoinsAssignment create() => const CoinsAssignment( coins: [], answer: "", answerOptions: [], text: "", richText: Text(""));
 
-  CoinsTask prepareTask(){
+  CoinsAssignment prepareTask(){
 
     List<int> coins = [];
     
@@ -58,7 +58,7 @@ class CoinsTask {
     );
 
 
-    return CoinsTask(coins: coins, answer: answerText, answerOptions: answerOptions, text: text, richText: richText);
+    return CoinsAssignment(coins: coins, answer: answerText, answerOptions: answerOptions, text: text, richText: richText);
 
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/data/task_name.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
+import 'package:one_tutor_arithmetic/tasks/coins_task/coins_task.dart';
 import 'package:one_tutor_arithmetic/tasks/decomposition_task/decomposition_task.dart';
 import 'package:one_tutor_arithmetic/tasks/fractions_task/fractions_task.dart';
 import 'package:one_tutor_arithmetic/tasks/memory_task/memory_task.dart';
@@ -124,7 +125,9 @@ class _TaskScreenState extends State<TaskScreen> {
     super.initState();
     readConfig();
 
-    if(widget.taskName == TaskName.fractions){
+    if(widget.taskName == TaskName.coins){
+      task = CoinsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    } else if(widget.taskName == TaskName.fractions){
       task = FractionsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.memory){
       task = MemoryTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);

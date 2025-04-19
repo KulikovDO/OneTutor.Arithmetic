@@ -4,14 +4,10 @@ import 'package:one_tutor_arithmetic/data/task_name.dart';
 import 'package:one_tutor_arithmetic/model/tile_content.dart';
 import 'package:one_tutor_arithmetic/screens/arithmetic_screen/arithmetic_screen.dart';
 import 'package:one_tutor_arithmetic/screens/clock_screen/clock_screen.dart';
-import 'package:one_tutor_arithmetic/screens/coins_screen/coins_screen.dart';
 import 'package:one_tutor_arithmetic/screens/days_of_week_screen/days_of_week_screen.dart';
-// import 'package:one_tutor_arithmetic/screens/decomposition_screen/decomposition_screen.dart';
 import 'package:one_tutor_arithmetic/screens/even_odd_screen/even_odd_screen.dart';
-// import 'package:one_tutor_arithmetic/screens/fractions_screen/fractions_screen.dart';
 import 'package:one_tutor_arithmetic/screens/grouping_screen/grouping_screen.dart';
 import 'package:one_tutor_arithmetic/screens/lollies_screen/lollies_screen.dart';
-// import 'package:one_tutor_arithmetic/screens/memory_screen/memory_screen.dart';
 import 'package:one_tutor_arithmetic/screens/more_less_screen/more_less_screen.dart';
 import 'package:one_tutor_arithmetic/screens/ordering_screen/ordering_screen.dart';
 import 'package:one_tutor_arithmetic/screens/pebble_division_screen/pebble_division_screen.dart';
@@ -112,49 +108,14 @@ class Navigation {
         ),
       );
 
-    } else if( tileContent.taskName == TaskName.coins ){
+    } else {
 
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (ctx) => CoinsScreen(),
-        ),
-      );
-
-
-    } else if( tileContent.taskName == TaskName.fractions ){
-
-
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          // builder: (ctx) => FractionsScreen(),
           builder: (ctx) => TaskScreen(taskName: tileContent.taskName),
         ),
       );
-
-
-    } else if( tileContent.taskName == TaskName.memory ){
-
-
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          // builder: (ctx) => MemoryScreen(),
-          builder: (ctx) => TaskScreen(taskName: tileContent.taskName),
-        ),
-      );
-
-
-    } else if( tileContent.taskName == TaskName.decomposition ){
-
-
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          // builder: (ctx) => DecompositionScreen(),
-          builder: (ctx) => TaskScreen(taskName: tileContent.taskName),
-          
-        ),
-      );
-
 
     }
 
