@@ -4,8 +4,6 @@ import 'package:one_tutor_arithmetic/tasks/coins_task/widgets/fifty_cents.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/widgets/one_dollar.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/widgets/tappable_text_container.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/widgets/twenty_cents.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/droppable_bucket.dart';
-
 
 
 class CoinsTask extends StatefulWidget {
@@ -22,7 +20,6 @@ class CoinsTask extends StatefulWidget {
 
 class _CoinsTaskState extends State<CoinsTask> {
 
-  List<DroppableBucket> droppableBuckets = [];
   late CoinsAssignment assignment;
   String enteredValue = "";
   List<Widget> coins = [];
