@@ -8,7 +8,7 @@ import 'package:one_tutor_arithmetic/screens/coins_screen/coins_screen.dart';
 import 'package:one_tutor_arithmetic/screens/days_of_week_screen/days_of_week_screen.dart';
 // import 'package:one_tutor_arithmetic/screens/decomposition_screen/decomposition_screen.dart';
 import 'package:one_tutor_arithmetic/screens/even_odd_screen/even_odd_screen.dart';
-import 'package:one_tutor_arithmetic/screens/fractions_screen/fractions_screen.dart';
+// import 'package:one_tutor_arithmetic/screens/fractions_screen/fractions_screen.dart';
 import 'package:one_tutor_arithmetic/screens/grouping_screen/grouping_screen.dart';
 import 'package:one_tutor_arithmetic/screens/lollies_screen/lollies_screen.dart';
 // import 'package:one_tutor_arithmetic/screens/memory_screen/memory_screen.dart';
@@ -127,7 +127,8 @@ class Navigation {
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (ctx) => FractionsScreen(),
+          // builder: (ctx) => FractionsScreen(),
+          builder: (ctx) => TaskScreen(taskName: tileContent.taskName),
         ),
       );
 

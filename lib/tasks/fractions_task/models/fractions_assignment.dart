@@ -1,12 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/screens/fractions_screen/data/sector_colors.dart';
+import 'package:one_tutor_arithmetic/tasks/fractions_task/data/sector_colors.dart';
 
 Random rng = Random();
 const int maxNumOfFractions = 8;
 
-class FractionsTask {
-  const FractionsTask({
+class FractionsAssignment {
+  const FractionsAssignment({
     required this.overallFractions,
     required this.coloredFractions,
     required this.isCircle,
@@ -22,9 +22,9 @@ class FractionsTask {
   final Widget richText;
   final Color color;
 
-  static FractionsTask create() => const FractionsTask( overallFractions: 0, coloredFractions:0, isCircle: false, text: "", richText: Text(""), color: Colors.white);
+  static FractionsAssignment create() => const FractionsAssignment( overallFractions: 0, coloredFractions:0, isCircle: false, text: "", richText: Text(""), color: Colors.white);
 
-  FractionsTask prepareTask() {
+  FractionsAssignment prepareTask() {
 
     int overallFractions = 0;
     int coloredFractions = 0;
@@ -55,7 +55,7 @@ class FractionsTask {
     Color color = sectorColors[colorIndex];
 
 
-    return FractionsTask( 
+    return FractionsAssignment( 
       overallFractions: overallFractions, 
       coloredFractions: coloredFractions,
       isCircle: isCircle,
