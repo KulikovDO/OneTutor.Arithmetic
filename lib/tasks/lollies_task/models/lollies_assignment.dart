@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 Random rng = Random();
 List<String> names = ["Alex", "John", "Mary", "Sophie", "Olivia"];
 
-class LolliesTask {
-  const LolliesTask({
+class LolliesAssignment {
+  const LolliesAssignment({
     required this.firstNumber,
     required this.secondNumber,
     required this.lolliesAmount,
@@ -24,9 +24,9 @@ class LolliesTask {
   final String text;
   final Widget richText;
 
-  static LolliesTask create() => const LolliesTask( firstNumber: -1, secondNumber: -1, lolliesAmount: 0, answerOptions: [], answer: -1, text: "", richText: Text(""));
+  static LolliesAssignment create() => const LolliesAssignment( firstNumber: -1, secondNumber: -1, lolliesAmount: 0, answerOptions: [], answer: -1, text: "", richText: Text(""));
 
-  LolliesTask prepareTask() {
+  LolliesAssignment prepareTask() {
 
     bool isAddition = rng.nextBool();
 
@@ -38,7 +38,7 @@ class LolliesTask {
     
   }
 
-  LolliesTask prepareAdditionTask(){
+  LolliesAssignment prepareAdditionTask(){
     int firstNumber = 0;
     int secondNumber = 0;
 
@@ -69,7 +69,7 @@ class LolliesTask {
         ),
       );
 
-    return LolliesTask( 
+    return LolliesAssignment( 
       firstNumber: firstNumber, 
       secondNumber: secondNumber,
       lolliesAmount: firstNumber,
@@ -81,7 +81,7 @@ class LolliesTask {
 
   }
 
-  LolliesTask prepareSubtractionTask(){
+  LolliesAssignment prepareSubtractionTask(){
     
     int firstNumber = 0;
     int secondNumber = 0;
@@ -113,7 +113,7 @@ class LolliesTask {
         ),
       );
 
-    return LolliesTask(
+    return LolliesAssignment(
       firstNumber: firstNumber,
       secondNumber: secondNumber, 
       lolliesAmount: firstNumber + secondNumber,
@@ -158,8 +158,7 @@ class LolliesTask {
   }
 
 
-  bool checkAnswer(int value) {
-    return true;
-  }
+  bool checkAnswer(String enteredValue) => enteredValue == answer.toString();
+
 
 }
