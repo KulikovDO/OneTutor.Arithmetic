@@ -3,7 +3,6 @@ import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
 import 'package:one_tutor_arithmetic/data/task_name.dart';
 import 'package:one_tutor_arithmetic/model/tile_content.dart';
 import 'package:one_tutor_arithmetic/screens/arithmetic_screen/arithmetic_screen.dart';
-import 'package:one_tutor_arithmetic/screens/even_odd_screen/even_odd_screen.dart';
 import 'package:one_tutor_arithmetic/screens/ordering_screen/ordering_screen.dart';
 import 'package:one_tutor_arithmetic/screens/sequence_screen/sequence_screen.dart';
 import 'package:one_tutor_arithmetic/screens/task_screen/task_screen.dart';
@@ -43,14 +42,6 @@ class Navigation {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) => SequenceScreen(),
-        ),
-      );
-
-    } else if ( tileContent.taskName == TaskName.evenOdd ){
-      
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => EvenOddScreen(),
         ),
       );
 

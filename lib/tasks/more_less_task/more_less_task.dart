@@ -20,7 +20,7 @@ class _MoreLessTaskState extends State<MoreLessTask> {
   String enteredValue = "";
   bool isError = false;
   
-   bool checkAnswer() { 
+  bool checkAnswer() { 
     bool isAnswerCorrect = assignment.checkAnswer(enteredValue); 
 
     setState(() {
@@ -59,7 +59,6 @@ class _MoreLessTaskState extends State<MoreLessTask> {
     
 
     assignment = assignment.prepareTask();
-    
     widget.speakText(assignment.text);
 
   }
