@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 Random rng = Random();
 
-class PebbleDivisionTask {
+class PebbleDivisionAssignment {
 
-  const PebbleDivisionTask({
+  const PebbleDivisionAssignment({
       required this.numOfPebbles,
       required this.numOfBuckets,
       required this.answer,
@@ -20,9 +20,9 @@ class PebbleDivisionTask {
   final String text;
   final Widget richText;
 
-  static PebbleDivisionTask create() => const PebbleDivisionTask( numOfPebbles: 0, numOfBuckets: 0, answer: 0, text: "", richText: Text(""));
+  static PebbleDivisionAssignment create() => const PebbleDivisionAssignment( numOfPebbles: 0, numOfBuckets: 0, answer: 0, text: "", richText: Text(""));
 
-  PebbleDivisionTask prepareTask(){
+  PebbleDivisionAssignment prepareTask(){
 
     int numOfBuckets = 0;
     int pebblesPerBucket = 0;
@@ -54,7 +54,7 @@ class PebbleDivisionTask {
     );
 
 
-    return PebbleDivisionTask( numOfPebbles: numOfPebbles, numOfBuckets: numOfBuckets, answer: pebblesPerBucket, text: text, richText: richText);
+    return PebbleDivisionAssignment( numOfPebbles: numOfPebbles, numOfBuckets: numOfBuckets, answer: pebblesPerBucket, text: text, richText: richText);
 
   }
 

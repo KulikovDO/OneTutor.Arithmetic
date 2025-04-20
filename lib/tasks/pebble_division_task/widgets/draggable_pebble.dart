@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/data/pebble_colors.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/pebble.dart';
+import 'package:one_tutor_arithmetic/tasks/pebble_division_task/data/pebble_colors.dart';
+import 'package:one_tutor_arithmetic/tasks/pebble_division_task/widgets/pebble.dart';
 import 'dart:math' as math;
 
 

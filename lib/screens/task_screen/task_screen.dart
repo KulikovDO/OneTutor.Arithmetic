@@ -8,6 +8,7 @@ import 'package:one_tutor_arithmetic/tasks/decomposition_task/decomposition_task
 import 'package:one_tutor_arithmetic/tasks/fractions_task/fractions_task.dart';
 import 'package:one_tutor_arithmetic/tasks/grouping_task/grouping_task.dart';
 import 'package:one_tutor_arithmetic/tasks/memory_task/memory_task.dart';
+import 'package:one_tutor_arithmetic/tasks/pebble_division_task/pebble_division_task.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
@@ -126,9 +127,12 @@ class _TaskScreenState extends State<TaskScreen> {
     super.initState();
     readConfig();
 
-    if(widget.taskName == TaskName.coins){
+
+    if(widget.taskName == TaskName.pebbleDivision){
+      task = PebbleDivisionTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    } else if(widget.taskName == TaskName.coins){
       task = CoinsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
-    }else if(widget.taskName == TaskName.grouping){
+    } else if(widget.taskName == TaskName.grouping){
       task = GroupingTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.coins){
       task = CoinsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);

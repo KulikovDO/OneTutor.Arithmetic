@@ -8,7 +8,6 @@ import 'package:one_tutor_arithmetic/screens/even_odd_screen/even_odd_screen.dar
 import 'package:one_tutor_arithmetic/screens/lollies_screen/lollies_screen.dart';
 import 'package:one_tutor_arithmetic/screens/more_less_screen/more_less_screen.dart';
 import 'package:one_tutor_arithmetic/screens/ordering_screen/ordering_screen.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/pebble_division_screen.dart';
 import 'package:one_tutor_arithmetic/screens/sequence_screen/sequence_screen.dart';
 import 'package:one_tutor_arithmetic/screens/task_screen/task_screen.dart';
 
@@ -82,16 +81,7 @@ class Navigation {
         ),
       );
 
-    } else if( tileContent.taskName == TaskName.pebbleDivision ){
-
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => PebbleDivisionScreen(),
-        ),
-      );
-
     } else {
-
 
       Navigator.of(context).push(
         MaterialPageRoute(

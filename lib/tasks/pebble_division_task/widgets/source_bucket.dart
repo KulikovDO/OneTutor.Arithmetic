@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/pebbles_provider.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/draggable_pebble.dart';
+import 'package:one_tutor_arithmetic/tasks/pebble_division_task/pebbles_provider.dart';
+import 'package:one_tutor_arithmetic/tasks/pebble_division_task/widgets/draggable_pebble.dart';
 
 
 class SourceBucket extends ConsumerStatefulWidget {

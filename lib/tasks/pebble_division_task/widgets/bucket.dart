@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/screens/pebble_division_screen/widgets/draggable_pebble.dart';
+import 'package:one_tutor_arithmetic/tasks/pebble_division_task/widgets/draggable_pebble.dart';
 
 
 class Bucket extends StatelessWidget {
