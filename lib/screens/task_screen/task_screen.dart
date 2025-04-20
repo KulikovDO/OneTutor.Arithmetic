@@ -126,7 +126,9 @@ class _TaskScreenState extends State<TaskScreen> {
     super.initState();
     readConfig();
 
-    if(widget.taskName == TaskName.grouping){
+    if(widget.taskName == TaskName.coins){
+      task = CoinsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    }else if(widget.taskName == TaskName.grouping){
       task = GroupingTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.coins){
       task = CoinsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);

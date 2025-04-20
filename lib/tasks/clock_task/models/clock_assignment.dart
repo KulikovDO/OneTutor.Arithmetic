@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/screens/clock_screen/data/hour_option.dart';
+import 'package:one_tutor_arithmetic/tasks/clock_task/data/hour_option.dart';
+
 
 
 Random rng = Random();
