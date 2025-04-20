@@ -8,7 +8,6 @@ import 'package:one_tutor_arithmetic/tasks/grouping_task/widgets/touch_control.d
 class GroupingTask extends StatefulWidget {
   final Function onValueEntered;
   final Function speakText;
-  
   const GroupingTask({super.key, required this.onValueEntered, required this.speakText});
 
   @override

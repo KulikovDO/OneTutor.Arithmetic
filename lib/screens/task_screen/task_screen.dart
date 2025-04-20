@@ -10,6 +10,7 @@ import 'package:one_tutor_arithmetic/tasks/fractions_task/fractions_task.dart';
 import 'package:one_tutor_arithmetic/tasks/grouping_task/grouping_task.dart';
 import 'package:one_tutor_arithmetic/tasks/lollies_task/lollies_task.dart';
 import 'package:one_tutor_arithmetic/tasks/memory_task/memory_task.dart';
+import 'package:one_tutor_arithmetic/tasks/more_less_task/more_less_task.dart';
 import 'package:one_tutor_arithmetic/tasks/pebble_division_task/pebble_division_task.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
@@ -130,8 +131,10 @@ class _TaskScreenState extends State<TaskScreen> {
     super.initState();
     readConfig();
 
-    if(widget.taskName == TaskName.lollies){
-          task = LolliesTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    if(widget.taskName == TaskName.moreLess){
+      task = MoreLessTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    } else if(widget.taskName == TaskName.lollies){
+      task = LolliesTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.daysOfWeek){
       task = DaysOfWeekTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.pebbleDivision){

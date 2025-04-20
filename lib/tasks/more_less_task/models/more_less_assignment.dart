@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 Random rng = Random();
 
-class MoreLessTask {
-  const MoreLessTask({
+class MoreLessAssignment {
+  const MoreLessAssignment({
     required this.firstNumber,
     required this.secondNumber,
     required this.answerOptions,
@@ -21,10 +21,10 @@ class MoreLessTask {
   final String text;
   final Widget richText;
 
-  static MoreLessTask create() => const MoreLessTask( firstNumber: -1, secondNumber: -1, answerOptions: [], answer: -1, text: "", richText: Text(""));
+  static MoreLessAssignment create() => const MoreLessAssignment( firstNumber: -1, secondNumber: -1, answerOptions: [], answer: -1, text: "", richText: Text(""));
 
 
-  MoreLessTask prepareTask() {
+  MoreLessAssignment prepareTask() {
 
     bool isAddition = rng.nextBool();
 
@@ -36,7 +36,7 @@ class MoreLessTask {
     
   }
 
-  MoreLessTask prepareAdditionTask(){
+  MoreLessAssignment prepareAdditionTask(){
     int firstNumber = 0;
     int secondNumber = 0;
 
@@ -82,11 +82,11 @@ class MoreLessTask {
       )
     ];
 
-    return MoreLessTask( firstNumber: firstNumber, secondNumber: secondNumber, answerOptions: generateAnswerOptions(answer), answer: answer, text: textOptions[option], richText: richTextOptions[option] );
+    return MoreLessAssignment( firstNumber: firstNumber, secondNumber: secondNumber, answerOptions: generateAnswerOptions(answer), answer: answer, text: textOptions[option], richText: richTextOptions[option] );
 
   }
 
-  MoreLessTask prepareSubtractionTask(){
+  MoreLessAssignment prepareSubtractionTask(){
     
     int firstNumber = 0;
     int secondNumber = 0;
@@ -138,7 +138,7 @@ class MoreLessTask {
       )
     ];
 
-    return MoreLessTask( firstNumber: firstNumber, secondNumber: secondNumber, answerOptions: generateAnswerOptions(answerOptions[option]), answer: answerOptions[option], text: textOptions[option], richText: richTextOptions[option] );
+    return MoreLessAssignment( firstNumber: firstNumber, secondNumber: secondNumber, answerOptions: generateAnswerOptions(answerOptions[option]), answer: answerOptions[option], text: textOptions[option], richText: richTextOptions[option] );
 
 
   }
@@ -176,9 +176,6 @@ class MoreLessTask {
 
   }
 
-
-  bool checkAnswer(int value) {
-    return true;
-  }
+  bool checkAnswer(String enteredValue) => enteredValue == answer.toString();
 
 }
