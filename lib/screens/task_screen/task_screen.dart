@@ -13,6 +13,7 @@ import 'package:one_tutor_arithmetic/tasks/lollies_task/lollies_task.dart';
 import 'package:one_tutor_arithmetic/tasks/memory_task/memory_task.dart';
 import 'package:one_tutor_arithmetic/tasks/more_less_task/more_less_task.dart';
 import 'package:one_tutor_arithmetic/tasks/pebble_division_task/pebble_division_task.dart';
+import 'package:one_tutor_arithmetic/tasks/sequence_task/sequence_task.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
@@ -132,7 +133,9 @@ class _TaskScreenState extends State<TaskScreen> {
     super.initState();
     readConfig();
 
-    if(widget.taskName == TaskName.evenOdd){
+    if(widget.taskName == TaskName.sequence){
+      task = SequenceTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    } else if(widget.taskName == TaskName.evenOdd){
       task = EvenOddTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.moreLess){
       task = MoreLessTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);

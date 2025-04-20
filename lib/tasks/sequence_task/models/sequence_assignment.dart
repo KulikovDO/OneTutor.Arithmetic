@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 var rng = Random();
 
-class SequenceTask {
-  const SequenceTask({
+class SequenceAssignment {
+  const SequenceAssignment({
     required this.options,
     required this.answer,
     required this.text,
@@ -16,9 +16,9 @@ class SequenceTask {
   final List<int> options;
   final Widget richText;
 
-  static SequenceTask create() => const SequenceTask( options: [], answer: -1, text: "", richText: Text("") );
+  static SequenceAssignment create() => const SequenceAssignment( options: [], answer: -1, text: "", richText: Text("") );
 
-  SequenceTask prepareTask() {
+  SequenceAssignment prepareTask() {
 
     int start = rng.nextInt( 20 -  6 );
     int missingNumberIndex = rng.nextInt( 4 ) + 1;
@@ -40,7 +40,7 @@ class SequenceTask {
 
     bool isReverse = rng.nextBool();
 
-    return SequenceTask(
+    return SequenceAssignment(
       options: isReverse ? options.reversed.toList() : options,
       answer: answer,
       text: text,
