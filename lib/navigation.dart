@@ -3,7 +3,6 @@ import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
 import 'package:one_tutor_arithmetic/data/task_name.dart';
 import 'package:one_tutor_arithmetic/model/tile_content.dart';
 import 'package:one_tutor_arithmetic/screens/arithmetic_screen/arithmetic_screen.dart';
-import 'package:one_tutor_arithmetic/screens/days_of_week_screen/days_of_week_screen.dart';
 import 'package:one_tutor_arithmetic/screens/even_odd_screen/even_odd_screen.dart';
 import 'package:one_tutor_arithmetic/screens/lollies_screen/lollies_screen.dart';
 import 'package:one_tutor_arithmetic/screens/more_less_screen/more_less_screen.dart';
@@ -70,14 +69,6 @@ class Navigation {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) => LolliesScreen(),
-        ),
-      );
-
-    } else if( tileContent.taskName == TaskName.daysOfWeek){
-
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => DaysOfWeekScreen(),
         ),
       );
 

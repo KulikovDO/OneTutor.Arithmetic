@@ -9,7 +9,6 @@ import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 class FractionsTask extends StatefulWidget {
   final Function onValueEntered;
   final Function speakText;
-
   const FractionsTask({super.key, required this.onValueEntered, required this.speakText});
 
   @override
@@ -52,7 +51,6 @@ class _FractionsTaskState extends State<FractionsTask> {
 
     super.initState();
     assignment = FractionsAssignment.create();
-
     initAssignment();
 
   }

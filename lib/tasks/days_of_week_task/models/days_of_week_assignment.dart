@@ -13,8 +13,8 @@ List<String> daysOfWeek = [
   "Sunday"
 ];
 
-class DaysOfWeekTask {
-  const DaysOfWeekTask({
+class DaysOfWeekAssignment {
+  const DaysOfWeekAssignment({
     required this.dayOfWeek,
     required this.answerOptions,
     required this.answer,
@@ -28,9 +28,9 @@ class DaysOfWeekTask {
   final Widget richText;
 
 
-  static DaysOfWeekTask create() => const DaysOfWeekTask( dayOfWeek: "", answerOptions: [], answer: "", text: "", richText: Text(""));
+  static DaysOfWeekAssignment create() => const DaysOfWeekAssignment( dayOfWeek: "", answerOptions: [], answer: "", text: "", richText: Text(""));
 
-  DaysOfWeekTask prepareTask() {
+  DaysOfWeekAssignment prepareTask() {
 
     int dayOfWeekIndex = -1;
     String dayOfWeek = "";
@@ -71,7 +71,7 @@ class DaysOfWeekTask {
 
     List<String> answerOptions = generateAnswerOptions(answerIndex, dayOfWeekIndex);
 
-    return DaysOfWeekTask( dayOfWeek: dayOfWeek, answerOptions: answerOptions, answer: answer, text: text, richText: richText );
+    return DaysOfWeekAssignment( dayOfWeek: dayOfWeek, answerOptions: answerOptions, answer: answer, text: text, richText: richText );
 
   }
 
@@ -91,5 +91,7 @@ class DaysOfWeekTask {
 
     return answerOptions;
   }
+
+  bool checkAnswer(String enteredValue) => enteredValue == answer;
 
 }

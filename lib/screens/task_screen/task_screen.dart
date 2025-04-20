@@ -4,6 +4,7 @@ import 'package:one_tutor_arithmetic/data/task_name.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/coins_task.dart';
+import 'package:one_tutor_arithmetic/tasks/days_of_week_task/days_of_week_task.dart';
 import 'package:one_tutor_arithmetic/tasks/decomposition_task/decomposition_task.dart';
 import 'package:one_tutor_arithmetic/tasks/fractions_task/fractions_task.dart';
 import 'package:one_tutor_arithmetic/tasks/grouping_task/grouping_task.dart';
@@ -128,7 +129,9 @@ class _TaskScreenState extends State<TaskScreen> {
     readConfig();
 
 
-    if(widget.taskName == TaskName.pebbleDivision){
+    if(widget.taskName == TaskName.daysOfWeek){
+      task = DaysOfWeekTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    } else if(widget.taskName == TaskName.pebbleDivision){
       task = PebbleDivisionTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.coins){
       task = CoinsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
