@@ -74,13 +74,13 @@ class _PebbleDivisionTaskState extends ConsumerState<PebbleDivisionTask> {
   }
 
   bool checkAnswer() { 
-    bool answerIsCorrect = task.checkAnswer(enteredValue);
+    bool isAnswerCorrect = task.checkAnswer(enteredValue);
 
     setState(() {
-      isError = !answerIsCorrect;
+      isError = !isAnswerCorrect;
     });
 
-    return answerIsCorrect;
+    return isAnswerCorrect;
   }
 
   @override

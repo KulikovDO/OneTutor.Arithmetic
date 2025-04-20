@@ -88,15 +88,9 @@ class _FractionsTaskState extends State<FractionsTask> {
   bool checkAnswer() { 
     bool isAnswerCorrect = assignment.checkAnswer(nominator, denominator); 
 
-    if(!isAnswerCorrect){
-      setState(() {
-        isError = true;
-      });
-    } else {
-      setState(() {
-        isError = false;
-      });
-    }
+    setState(() {
+      isError = !isAnswerCorrect;
+    });
 
     return isAnswerCorrect;
   }

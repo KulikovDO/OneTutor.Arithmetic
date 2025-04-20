@@ -30,17 +30,13 @@ class _MemoryTaskState extends State<MemoryTask> {
   bool checkAnswer() { 
     bool isAnswerCorrect = assignment.checkAnswer(enteredValues); 
 
-    if(!isAnswerCorrect){
-      setState(() {
-        isError = true;
-      });
-      textInputRow.reset.value = true;
-    } else {
-      setState(() {
-        isError = false;
-      });
-    }
+    setState(() {
+      isError = !isAnswerCorrect;
+    });
 
+    if(!isAnswerCorrect){
+      textInputRow.reset.value = true;
+    }
     return isAnswerCorrect;
   }
   

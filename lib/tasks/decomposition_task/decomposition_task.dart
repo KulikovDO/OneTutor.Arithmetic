@@ -31,15 +31,9 @@ class DecompositionTaskState extends State<DecompositionTask> {
   bool checkAnswer() { 
     bool isAnswerCorrect = assignment.checkAnswer(enteredValue); 
 
-    if(!isAnswerCorrect){
-      setState(() {
-        isError = true;
-      });
-    } else {
-      setState(() {
-        isError = false;
-      });
-    }
+    setState(() {
+      isError = !isAnswerCorrect;
+    });
 
     return isAnswerCorrect;
   }
