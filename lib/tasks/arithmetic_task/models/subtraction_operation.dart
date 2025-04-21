@@ -1,13 +1,13 @@
 import 'dart:math';
 import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
-import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/arithmetic_task.dart';
+import 'package:one_tutor_arithmetic/tasks/arithmetic_task/models/arithmetic_assignment.dart';
 
 
 Random rng = Random();
 
 class SubtractionOperation{
 
-  static ArithmeticTask prepareTask(int prevFirstNumber, int prevSecondNumber){
+  static ArithmeticAssignment prepareTask(int prevFirstNumber, int prevSecondNumber){
       
     int firstNumber = 0;
     int secondNumber = 0;
@@ -22,7 +22,7 @@ class SubtractionOperation{
 
     final text = 'How much is $firstNumber minus $secondNumber?';
 
-    return ArithmeticTask(
+    return ArithmeticAssignment(
       firstNumber: firstNumber,
       secondNumber: secondNumber,
       text: text,
@@ -32,6 +32,6 @@ class SubtractionOperation{
 
   }
 
-  static bool checkAnswer(ArithmeticTask task, int enteredValue) => task.firstNumber - task.secondNumber == enteredValue;
+  static bool checkAnswer(ArithmeticAssignment task, int enteredValue) => task.firstNumber - task.secondNumber == enteredValue;
 
 }

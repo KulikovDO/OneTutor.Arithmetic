@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
 import 'package:one_tutor_arithmetic/data/task_name.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
+import 'package:one_tutor_arithmetic/tasks/arithmetic_task/arithmetic_task.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/coins_task.dart';
 import 'package:one_tutor_arithmetic/tasks/days_of_week_task/days_of_week_task.dart';
 import 'package:one_tutor_arithmetic/tasks/decomposition_task/decomposition_task.dart';
@@ -90,7 +92,7 @@ class _TaskScreenState extends State<TaskScreen> {
   }
 
 
-  completeIteration(){
+  completeIteration() async{
 
     if (!mounted) return;
 
@@ -102,6 +104,8 @@ class _TaskScreenState extends State<TaskScreen> {
     });
 
     if(iteration >= numOfIterations){
+
+      await Future.delayed(const Duration(milliseconds: 600));
 
       if (!mounted) return;
 
@@ -134,7 +138,10 @@ class _TaskScreenState extends State<TaskScreen> {
     super.initState();
     readConfig();
 
-  if(widget.taskName == TaskName.ordering){
+    if([TaskName.addition, TaskName.subtraction, TaskName.multiplication, TaskName.division].contains(widget.taskName)){
+      ArithmeticOperation arithmeticOperation = taskNameToArithmeticOperation(widget.taskName);
+      task = ArithmeticTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText, arithmeticOperation: arithmeticOperation);
+    } else if(widget.taskName == TaskName.ordering){
       task = OrderingTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.sequence){
       task = SequenceTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
@@ -163,6 +170,29 @@ class _TaskScreenState extends State<TaskScreen> {
     } else {
       throw Exception("Task not implemented yet");
     }
+
+  }
+
+  ArithmeticOperation taskNameToArithmeticOperation(TaskName taskName){
+
+    if(taskName == TaskName.addition)
+    {
+      return ArithmeticOperation.addition;
+    }
+    if(taskName == TaskName.subtraction)
+    {
+      return ArithmeticOperation.subtraction;
+    }
+    if(taskName == TaskName.multiplication)
+    {
+      return ArithmeticOperation.multiplication;
+    }
+    if(taskName == TaskName.division)
+    {
+      return ArithmeticOperation.division;
+    }
+
+    throw ArgumentError();
 
   }
 

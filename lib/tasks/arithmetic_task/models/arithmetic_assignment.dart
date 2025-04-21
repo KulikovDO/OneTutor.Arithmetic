@@ -1,11 +1,11 @@
 import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
-import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/addition_operation.dart';
-import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/division_operation.dart';
-import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/multiplication_operation.dart';
-import 'package:one_tutor_arithmetic/screens/arithmetic_screen/models/subtraction_operation.dart';
+import 'package:one_tutor_arithmetic/tasks/arithmetic_task/models/addition_operation.dart';
+import 'package:one_tutor_arithmetic/tasks/arithmetic_task/models/division_operation.dart';
+import 'package:one_tutor_arithmetic/tasks/arithmetic_task/models/multiplication_operation.dart';
+import 'package:one_tutor_arithmetic/tasks/arithmetic_task/models/subtraction_operation.dart';
 
-class ArithmeticTask {
-  const ArithmeticTask({
+class ArithmeticAssignment {
+  const ArithmeticAssignment({
     required this.firstNumber,
     required this.secondNumber,
     required this.text,
@@ -19,9 +19,9 @@ class ArithmeticTask {
   final String operationSymbol;
   final ArithmeticOperation arithmeticOperation;
 
-  static ArithmeticTask create(ArithmeticOperation arithmeticOperation){
+  static ArithmeticAssignment create(ArithmeticOperation arithmeticOperation){
 
-    return ArithmeticTask(
+    return ArithmeticAssignment(
       firstNumber: -1, 
       secondNumber: -1, 
       text: "", 
@@ -30,7 +30,7 @@ class ArithmeticTask {
 
   }
 
-  ArithmeticTask prepareTask(){
+  ArithmeticAssignment prepareTask(){
 
     switch(arithmeticOperation){
       case ArithmeticOperation.addition:
