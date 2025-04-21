@@ -31,6 +31,11 @@ class _OrderingTaskState extends State<OrderingTask> {
     setState(() {
       _acceptedData = data; 
     });
+
+    bool isAnswerGiven = checkAnswerIsGiven();
+    if(isAnswerGiven){
+      widget.onValueEntered();
+    }
   
   }
 
@@ -112,7 +117,6 @@ class _OrderingTaskState extends State<OrderingTask> {
     super.initState();
     assignment = OrderingAssignment.create();
     initAssignment();
-    
 
   }
 
