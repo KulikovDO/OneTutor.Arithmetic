@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/ordering_task/models/ordering_assignment.dart';
-import 'package:one_tutor_arithmetic/widgets/drag_and_droppable_text_container.dart';
+import 'package:one_tutor_arithmetic/tasks/ordering_task/widgets/drag_and_droppable_text_container.dart';
 
 
 class OrderingTask extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/widgets/draggable_text_container.dart';
-import 'package:one_tutor_arithmetic/widgets/droppable_text_container.dart';
+import 'package:one_tutor_arithmetic/tasks/ordering_task/widgets/draggable_text_container.dart';
+import 'package:one_tutor_arithmetic/tasks/ordering_task/widgets/droppable_text_container.dart';
 
 class DragAndDroppableTextContainer extends StatefulWidget {
   
