@@ -8,10 +8,8 @@ import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
 
 class PebbleDivisionTask extends ConsumerStatefulWidget {
-
   final Function onValueEntered;
   final Function speakText;
-  
   const PebbleDivisionTask({super.key, required this.onValueEntered, required this.speakText});
 
   @override
@@ -22,7 +20,7 @@ class PebbleDivisionTask extends ConsumerStatefulWidget {
 class _PebbleDivisionTaskState extends ConsumerState<PebbleDivisionTask> {
 
   List<DroppableBucket> droppableBuckets = [];
-  late PebbleDivisionAssignment task;
+  late PebbleDivisionAssignment assignment;
   int enteredValue = -1;
   late SourceBucket sourceBucket;
   bool isError = false;
@@ -32,7 +30,7 @@ class _PebbleDivisionTaskState extends ConsumerState<PebbleDivisionTask> {
   initState() {
 
     super.initState();
-    task = PebbleDivisionAssignment.create();
+    assignment = PebbleDivisionAssignment.create();
     initAssignment();
 
   }
@@ -45,15 +43,15 @@ class _PebbleDivisionTaskState extends ConsumerState<PebbleDivisionTask> {
       droppableBuckets.clear();
       textInputContainerKey = GlobalKey();
 
-      task = task.prepareTask();
+      assignment = assignment.prepareTask();
 
-      sourceBucket = SourceBucket( key: GlobalKey(), numOfPebbles: task.numOfPebbles,);
+      sourceBucket = SourceBucket( key: GlobalKey(), numOfPebbles: assignment.numOfPebbles,);
 
       final map = ref.read(pebblesProvider);
       map.clear();
 
       
-      for(int i = 0; i < task.numOfBuckets; i++){
+      for(int i = 0; i < assignment.numOfBuckets; i++){
         GlobalKey key = GlobalKey();
         
         map[key] = [];
@@ -61,7 +59,7 @@ class _PebbleDivisionTaskState extends ConsumerState<PebbleDivisionTask> {
       }
     });
 
-    widget.speakText(task.text);
+    widget.speakText(assignment.text);
 
   }
 
@@ -74,7 +72,7 @@ class _PebbleDivisionTaskState extends ConsumerState<PebbleDivisionTask> {
   }
 
   bool checkAnswer() { 
-    bool isAnswerCorrect = task.checkAnswer(enteredValue);
+    bool isAnswerCorrect = assignment.checkAnswer(enteredValue);
 
     setState(() {
       isError = !isAnswerCorrect;
@@ -96,7 +94,7 @@ class _PebbleDivisionTaskState extends ConsumerState<PebbleDivisionTask> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: task.richText,
+                child: assignment.richText,
               ),
               sourceBucket,
             ]
@@ -122,7 +120,7 @@ class _PebbleDivisionTaskState extends ConsumerState<PebbleDivisionTask> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text( "${task.numOfPebbles} : ${task.numOfBuckets} = ", style:  const TextStyle( fontSize: 50, fontWeight: FontWeight.w500 )),
+              Text( "${assignment.numOfPebbles} : ${assignment.numOfBuckets} = ", style:  const TextStyle( fontSize: 50, fontWeight: FontWeight.w500 )),
               TextInputContainer(key: textInputContainerKey, onValueEntered: handleValueEntered, isError: isError,),
             ]
           ),

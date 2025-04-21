@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 Random rng = Random();
-class OrderingTask {
+class OrderingAssignment {
 
-  const OrderingTask({
+  const OrderingAssignment({
     required this.order,
     required this.numbers,
     required this.text,
@@ -17,9 +17,9 @@ class OrderingTask {
   final String text;
   final Widget richText;
 
-  static OrderingTask create() => const OrderingTask( order: 0, numbers: [], text: "", richText: Text(""));
+  static OrderingAssignment create() => const OrderingAssignment( order: 0, numbers: [], text: "", richText: Text(""));
 
-  OrderingTask prepareTask() {
+  OrderingAssignment prepareTask() {
     final List<String> numbers = [];
     int order = rng.nextInt( 2 );
     List<String> description = ["Put these numbers in order from highest to lowest", "Put these numbers in order from lowest to highest"];
@@ -29,7 +29,7 @@ class OrderingTask {
     
 
 
-    return OrderingTask( 
+    return OrderingAssignment( 
       order: order,
       numbers: numbers,  
       text: description[order], 

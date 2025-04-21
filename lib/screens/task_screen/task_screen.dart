@@ -12,6 +12,7 @@ import 'package:one_tutor_arithmetic/tasks/grouping_task/grouping_task.dart';
 import 'package:one_tutor_arithmetic/tasks/lollies_task/lollies_task.dart';
 import 'package:one_tutor_arithmetic/tasks/memory_task/memory_task.dart';
 import 'package:one_tutor_arithmetic/tasks/more_less_task/more_less_task.dart';
+import 'package:one_tutor_arithmetic/tasks/ordering_task/ordering_task.dart';
 import 'package:one_tutor_arithmetic/tasks/pebble_division_task/pebble_division_task.dart';
 import 'package:one_tutor_arithmetic/tasks/sequence_task/sequence_task.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
@@ -133,7 +134,9 @@ class _TaskScreenState extends State<TaskScreen> {
     super.initState();
     readConfig();
 
-    if(widget.taskName == TaskName.sequence){
+  if(widget.taskName == TaskName.ordering){
+      task = OrderingTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    } else if(widget.taskName == TaskName.sequence){
       task = SequenceTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.evenOdd){
       task = EvenOddTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
