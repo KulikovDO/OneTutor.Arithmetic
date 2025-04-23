@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/clock_task/models/clock_assignment.dart';
 import 'package:one_tutor_arithmetic/tasks/clock_task/widgets/clock.dart';
-import 'package:one_tutor_arithmetic/tasks/coins_task/widgets/tappable_text_container.dart';
+import 'package:one_tutor_arithmetic/widgets/tappable_text_container.dart';
 
 
 class ClockTask extends StatefulWidget {
@@ -99,9 +99,9 @@ class _ClockTaskState extends State<ClockTask> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children:[
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[0].toString(), selectedText: enteredValue, onTapped: handleTapped,),
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[1].toString(), selectedText: enteredValue, onTapped: handleTapped,),
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[2].toString(), selectedText: enteredValue, onTapped: handleTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[0].toString(), additionalText: "o'clock", selectedText: enteredValue, onTapped: handleTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[1].toString(), additionalText: "o'clock", selectedText: enteredValue, onTapped: handleTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[2].toString(), additionalText: "o'clock", selectedText: enteredValue, onTapped: handleTapped,),
               ]
             ),
         ),

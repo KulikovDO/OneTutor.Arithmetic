@@ -5,6 +5,7 @@ import 'package:one_tutor_arithmetic/data/task_name.dart';
 import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
 import 'package:one_tutor_arithmetic/tasks/arithmetic_task/arithmetic_task.dart';
+import 'package:one_tutor_arithmetic/tasks/clock_task/clock_task.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/coins_task.dart';
 import 'package:one_tutor_arithmetic/tasks/days_of_week_task/days_of_week_task.dart';
 import 'package:one_tutor_arithmetic/tasks/decomposition_task/decomposition_task.dart';
@@ -159,8 +160,8 @@ class _TaskScreenState extends State<TaskScreen> {
       task = CoinsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.grouping){
       task = GroupingTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
-    } else if(widget.taskName == TaskName.coins){
-      task = CoinsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    } else if(widget.taskName == TaskName.clock){
+      task = ClockTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.fractions){
       task = FractionsTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.memory){

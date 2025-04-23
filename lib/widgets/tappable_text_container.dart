@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
 class TappableTextContainer extends StatelessWidget {
-  final String text;
+  final String mainText;
+  final String additionalText;
   final String selectedText;
   final Function onTapped;
 
   const TappableTextContainer({
     super.key,
-    required this.text,
+    required this.mainText,
+    required this.additionalText,
     required this.selectedText,
     required this.onTapped,
   });
 
-  onTapInside() => onTapped(text);
+  onTapInside() => onTapped(mainText);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class TappableTextContainer extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(width: 2),
-              color: (selectedText == text) ? Colors.lightBlue[200] as Color : Colors.lightBlue[50] as Color,
+              color: (selectedText == mainText) ? Colors.lightBlue[200] as Color : Colors.lightBlue[50] as Color,
             ),
             height: size.width / 4,
             width: size.width / 4,
@@ -39,14 +41,14 @@ class TappableTextContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text( text, style: const TextStyle(fontSize: 45, decoration: TextDecoration.none, height: 1.0)),
-                    const Text( "o'clock", style: TextStyle(fontSize: 20, decoration: TextDecoration.none, )),
+                    Text( mainText, style: const TextStyle(fontSize: 45, decoration: TextDecoration.none, height: 1.0)),
+                    Text( /*"o'clock"*/additionalText, style: TextStyle(fontSize: 20, decoration: TextDecoration.none, )),
                   ],
                 ),
                 Align(
                   alignment: Alignment.topLeft,
                   child:
-                    (selectedText == text)
+                    (selectedText == mainText)
                       ?
                     Icon(
                       Icons.radio_button_checked,
