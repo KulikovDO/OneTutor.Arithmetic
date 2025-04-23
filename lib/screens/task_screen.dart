@@ -107,6 +107,7 @@ class _TaskScreenState extends State<TaskScreen> {
 
     if(iteration >= numOfIterations){
 
+      // delay to display last bit of progress animation
       await Future.delayed(const Duration(milliseconds: 600));
 
       if (!mounted) return;
@@ -138,8 +139,6 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   void initState() {
     super.initState();
-
-    // widget.taskName
     title = categories.where((c) => c.taskName == widget.taskName).first.description;
 
     readConfig();
