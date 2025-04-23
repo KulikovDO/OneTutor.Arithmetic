@@ -31,8 +31,7 @@ class TappableTextContainer extends StatelessWidget {
     } else {
       backgroundColor = (selectedText == mainText) ? Colors.lightBlue[200] as Color : Colors.lightBlue[50] as Color;
     }
-
-    
+   
     return
       Padding(
         padding: const EdgeInsets.all(8.0),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/model/tile_content.dart';
-import 'package:one_tutor_arithmetic/screens/task_screen/task_screen.dart';
+import 'package:one_tutor_arithmetic/screens/task_screen.dart';
 
 class Navigation {
 

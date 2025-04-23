@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/even_odd_task/models/even_odd_assignment.dart';
-import 'package:one_tutor_arithmetic/tasks/even_odd_task/widgets/tappable_text_contrainer.dart';
+import 'package:one_tutor_arithmetic/tasks/even_odd_task/widgets/tappable_text_container.dart';
 
 
 class EvenOddTask extends StatefulWidget {
@@ -26,6 +26,13 @@ class _EvenOddTaskState extends State<EvenOddTask> {
 
     setState(() {
       isError = !isAnswerCorrect;
+
+      if(!isAnswerCorrect){
+        tappableTextContainerList.clear();
+        for(String number in assignment.numbers){
+          tappableTextContainerList.add(TappableTextContainer(key: GlobalKey(), text: number, onTapped: onTapped, isError: isError, isTapped: selectedNumbers.contains(number)));
+        }
+      }
     });
 
     return isAnswerCorrect;
@@ -56,8 +63,9 @@ class _EvenOddTaskState extends State<EvenOddTask> {
       tappableTextContainerList.clear();
 
       for(String number in assignment.numbers){
-        tappableTextContainerList.add(TappableTextContainer(key: GlobalKey(), text: number, onTapped: onTapped,));
-      }  
+        tappableTextContainerList.add(TappableTextContainer(key: GlobalKey(), text: number, onTapped: onTapped, isError: isError, isTapped: false,));
+      }
+
     });
 
     widget.speakText(assignment.text);
@@ -72,8 +80,6 @@ class _EvenOddTaskState extends State<EvenOddTask> {
     super.initState();
     assignment = EvenOddAssignment.create();
     initAssignment();
-
-    
 
   }
 
