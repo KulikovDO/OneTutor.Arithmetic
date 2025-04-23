@@ -99,9 +99,9 @@ class _ClockTaskState extends State<ClockTask> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children:[
-                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[0].toString(), additionalText: "o'clock", selectedText: enteredValue, isFullWidth: false, onTapped: handleTapped,),
-                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[1].toString(), additionalText: "o'clock", selectedText: enteredValue, isFullWidth: false, onTapped: handleTapped,),
-                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[2].toString(), additionalText: "o'clock", selectedText: enteredValue, isFullWidth: false, onTapped: handleTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[0].toString(), additionalText: "o'clock", selectedText: enteredValue, isFullWidth: false, isError: isError, onTapped: handleTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[1].toString(), additionalText: "o'clock", selectedText: enteredValue, isFullWidth: false, isError: isError, onTapped: handleTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[2].toString(), additionalText: "o'clock", selectedText: enteredValue, isFullWidth: false, isError: isError, onTapped: handleTapped,),
               ]
             ),
         ),

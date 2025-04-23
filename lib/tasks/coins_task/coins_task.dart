@@ -126,9 +126,9 @@ class _CoinsTaskState extends State<CoinsTask> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children:[
                 // TODO: isError
-                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[0].toString(), additionalText: "", isFullWidth: true, selectedText: enteredValue, onTapped: handleOnTapped,),
-                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[1].toString(), additionalText: "", isFullWidth: true, selectedText: enteredValue, onTapped: handleOnTapped,),
-                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[2].toString(), additionalText: "", isFullWidth: true, selectedText: enteredValue, onTapped: handleOnTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[0].toString(), additionalText: "", isFullWidth: true, selectedText: enteredValue, isError: isError, onTapped: handleOnTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[1].toString(), additionalText: "", isFullWidth: true, selectedText: enteredValue, isError: isError, onTapped: handleOnTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[2].toString(), additionalText: "", isFullWidth: true, selectedText: enteredValue, isError: isError, onTapped: handleOnTapped,),
               ]
             ),
         ),

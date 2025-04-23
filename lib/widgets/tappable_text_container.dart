@@ -5,6 +5,7 @@ class TappableTextContainer extends StatelessWidget {
   final String additionalText;
   final String selectedText;
   final bool isFullWidth;
+  final bool isError;
   final Function onTapped;
 
   const TappableTextContainer({
@@ -13,6 +14,7 @@ class TappableTextContainer extends StatelessWidget {
     required this.additionalText,
     required this.selectedText,
     required this.isFullWidth,
+    required this.isError,
     required this.onTapped,
   });
 
@@ -23,6 +25,13 @@ class TappableTextContainer extends StatelessWidget {
 
     Size size = MediaQuery.of(context).size;
     double mainTextFontSize = isFullWidth ? size.width / 18 : 45;
+    Color backgroundColor;
+    if(isError){
+      backgroundColor = (selectedText == mainText) ? Colors.red[200] as Color : const Color.fromARGB(255, 255, 230, 230);
+    } else {
+      backgroundColor = (selectedText == mainText) ? Colors.lightBlue[200] as Color : Colors.lightBlue[50] as Color;
+    }
+
     
     return
       Padding(
@@ -32,8 +41,11 @@ class TappableTextContainer extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(width: 2),
-              color: (selectedText == mainText) ? Colors.lightBlue[200] as Color : Colors.lightBlue[50] as Color,
+              border: Border.all(
+                width: 2, 
+                color: isError ? Colors.red : Colors.black,
+              ),
+              color: backgroundColor,
             ),
             height: isFullWidth ? 0.2 * size.width : size.width / 4,
             width: isFullWidth ? 0.75 * size.width : size.width / 4,
