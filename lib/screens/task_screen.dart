@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:one_tutor_arithmetic/data/arithmetic_operation.dart';
 import 'package:one_tutor_arithmetic/data/task_name.dart';
-import 'package:one_tutor_arithmetic/misc/extensions.dart';
 import 'package:one_tutor_arithmetic/screens/final_screen.dart';
+import 'package:one_tutor_arithmetic/data/categories.dart';
 import 'package:one_tutor_arithmetic/tasks/arithmetic_task/arithmetic_task.dart';
 import 'package:one_tutor_arithmetic/tasks/clock_task/clock_task.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/coins_task.dart';
@@ -52,6 +52,7 @@ class _TaskScreenState extends State<TaskScreen> {
   int numOfIterations = 10;
   double progress = 0;
   bool isSubmitDisabled = true;
+  late String title;
   late Widget task;
   
   dynamic globalKey = GlobalKey();
@@ -137,6 +138,10 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   void initState() {
     super.initState();
+
+    // widget.taskName
+    title = categories.where((c) => c.taskName == widget.taskName).first.description;
+
     readConfig();
 
     if([TaskName.addition, TaskName.subtraction, TaskName.multiplication, TaskName.division].contains(widget.taskName)){
@@ -202,7 +207,7 @@ class _TaskScreenState extends State<TaskScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text( widget.taskName.name.capitalize() ),
+        title: Text( /*widget.taskName.name.capitalize()*/title ),
       ),
       body:
         Stack(
