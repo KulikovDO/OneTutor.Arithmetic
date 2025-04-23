@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/more_less_task/models/more_less_assignment.dart';
-import 'package:one_tutor_arithmetic/tasks/more_less_task/widgets/tappable_text_container.dart';
+import 'package:one_tutor_arithmetic/widgets/tappable_text_container.dart';
 
 
 class MoreLessTask extends StatefulWidget {
@@ -92,9 +92,9 @@ class _MoreLessTaskState extends State<MoreLessTask> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children:[
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[0].toString(), selectedText: enteredValue, onTapped: onTapped,),
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[1].toString(), selectedText: enteredValue, onTapped: onTapped,),
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[2].toString(), selectedText: enteredValue, onTapped: onTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[0].toString(), additionalText: "", selectedText: enteredValue, isFullWidth: false, onTapped: onTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[1].toString(), additionalText: "", selectedText: enteredValue, isFullWidth: false, onTapped: onTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[2].toString(), additionalText: "", selectedText: enteredValue, isFullWidth: false, onTapped: onTapped,),
               ]
             ),
         ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/models/coins_assignment.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/widgets/fifty_cents.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/widgets/one_dollar.dart';
-import 'package:one_tutor_arithmetic/tasks/coins_task/widgets/tappable_text_container.dart';
+import 'package:one_tutor_arithmetic/widgets/tappable_text_container.dart';
 import 'package:one_tutor_arithmetic/tasks/coins_task/widgets/twenty_cents.dart';
 
 
@@ -126,9 +126,9 @@ class _CoinsTaskState extends State<CoinsTask> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children:[
                 // TODO: isError
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[0].toString(), selectedText: enteredValue, onTapped: handleOnTapped,),
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[1].toString(), selectedText: enteredValue, onTapped: handleOnTapped,),
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[2].toString(), selectedText: enteredValue, onTapped: handleOnTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[0].toString(), additionalText: "", isFullWidth: true, selectedText: enteredValue, onTapped: handleOnTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[1].toString(), additionalText: "", isFullWidth: true, selectedText: enteredValue, onTapped: handleOnTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[2].toString(), additionalText: "", isFullWidth: true, selectedText: enteredValue, onTapped: handleOnTapped,),
               ]
             ),
         ),

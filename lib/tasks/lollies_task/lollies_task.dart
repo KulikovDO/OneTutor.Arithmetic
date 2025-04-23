@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/lollies_task/models/lollies_assignment.dart';
 import 'package:one_tutor_arithmetic/tasks/lollies_task/widgets/jelly_bean.dart';
-import 'package:one_tutor_arithmetic/tasks/lollies_task/widgets/tappable_text_container.dart';
+import 'package:one_tutor_arithmetic/widgets/tappable_text_container.dart';
 
 
 class LolliesTask extends StatefulWidget {
@@ -113,9 +113,9 @@ class _LolliesTaskState extends State<LolliesTask> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children:[
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[0].toString(), selectedText: enteredValue, onTapped: onTapped,),
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[1].toString(), selectedText: enteredValue, onTapped: onTapped,),
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[2].toString(), selectedText: enteredValue, onTapped: onTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[0].toString(), additionalText: "", selectedText: enteredValue, isFullWidth: false, onTapped: onTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[1].toString(), additionalText: "", selectedText: enteredValue, isFullWidth: false, onTapped: onTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[2].toString(), additionalText: "", selectedText: enteredValue, isFullWidth: false, onTapped: onTapped,),
               ]
             ),
         ),

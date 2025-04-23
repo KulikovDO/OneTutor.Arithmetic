@@ -4,6 +4,7 @@ class TappableTextContainer extends StatelessWidget {
   final String mainText;
   final String additionalText;
   final String selectedText;
+  final bool isFullWidth;
   final Function onTapped;
 
   const TappableTextContainer({
@@ -11,6 +12,7 @@ class TappableTextContainer extends StatelessWidget {
     required this.mainText,
     required this.additionalText,
     required this.selectedText,
+    required this.isFullWidth,
     required this.onTapped,
   });
 
@@ -20,6 +22,7 @@ class TappableTextContainer extends StatelessWidget {
   Widget build(BuildContext context) {
 
     Size size = MediaQuery.of(context).size;
+    double mainTextFontSize = isFullWidth ? size.width / 18 : 45;
     
     return
       Padding(
@@ -32,8 +35,8 @@ class TappableTextContainer extends StatelessWidget {
               border: Border.all(width: 2),
               color: (selectedText == mainText) ? Colors.lightBlue[200] as Color : Colors.lightBlue[50] as Color,
             ),
-            height: size.width / 4,
-            width: size.width / 4,
+            height: isFullWidth ? 0.2 * size.width : size.width / 4,
+            width: isFullWidth ? 0.75 * size.width : size.width / 4,
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -41,8 +44,9 @@ class TappableTextContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text( mainText, style: const TextStyle(fontSize: 45, decoration: TextDecoration.none, height: 1.0)),
-                    Text( /*"o'clock"*/additionalText, style: TextStyle(fontSize: 20, decoration: TextDecoration.none, )),
+                    Text( mainText, style: TextStyle(fontSize: mainTextFontSize, decoration: TextDecoration.none, height: 1.0)),
+                    if(additionalText != "")
+                      Text( additionalText, style: const TextStyle(fontSize: 20, decoration: TextDecoration.none, )),
                   ],
                 ),
                 Align(

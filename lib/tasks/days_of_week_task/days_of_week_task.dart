@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/days_of_week_task/models/days_of_week_assignment.dart';
-import 'package:one_tutor_arithmetic/tasks/days_of_week_task/widgets/tappable_text_container.dart';
+import 'package:one_tutor_arithmetic/widgets/tappable_text_container.dart';
 
 class DaysOfWeekTask extends StatefulWidget {
   final Function onValueEntered;
@@ -87,9 +87,9 @@ class _DaysOfWeekTaskState extends State<DaysOfWeekTask> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children:[
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[0].toString(), selectedText: enteredValue, onTapped: onTapped,),
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[1].toString(), selectedText: enteredValue, onTapped: onTapped,),
-                TappableTextContainer(key: GlobalKey(), text: assignment.answerOptions[2].toString(), selectedText: enteredValue, onTapped: onTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[0].toString(), additionalText: "", selectedText: enteredValue, isFullWidth: true, onTapped: onTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[1].toString(), additionalText: "", selectedText: enteredValue, isFullWidth: true, onTapped: onTapped,),
+                TappableTextContainer(key: GlobalKey(), mainText: assignment.answerOptions[2].toString(), additionalText: "", selectedText: enteredValue, isFullWidth: true, onTapped: onTapped,),
               ]
             ),
         ),
