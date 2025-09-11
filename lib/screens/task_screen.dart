@@ -18,6 +18,7 @@ import 'package:one_tutor_arithmetic/tasks/more_less_task/more_less_task.dart';
 import 'package:one_tutor_arithmetic/tasks/ordering_task/ordering_task.dart';
 import 'package:one_tutor_arithmetic/tasks/pebble_division_task/pebble_division_task.dart';
 import 'package:one_tutor_arithmetic/tasks/sequence_task/sequence_task.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_task.dart';
 import 'package:one_tutor_arithmetic/widgets/background.dart';
 import 'package:one_tutor_arithmetic/widgets/bottom_navigation_bar.dart';
 import 'package:one_tutor_arithmetic/widgets/progress_indicator.dart' as pi;
@@ -172,7 +173,9 @@ class _TaskScreenState extends State<TaskScreen> {
       task = MemoryTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
     } else if(widget.taskName == TaskName.decomposition){
       task = DecompositionTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
-    } else {
+    } else if(widget.taskName == TaskName.subtractionDecomposition){
+      task = SubtractionDecompositionTask(key: globalKey, onValueEntered: handleValueEntered, speakText: handleSpeakText,);
+    }else {
       throw Exception("Task not implemented yet");
     }
 

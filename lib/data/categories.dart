@@ -107,6 +107,12 @@ const categories = [
     icon: Icons.settings_ethernet,
     description: "Decomposition",
   ),
+  TileContent(
+    taskName: TaskName.subtractionDecomposition,
+    color: Colors.blueGrey,
+    icon: Icons.remove_circle,
+    description: "Subtraction with Decomposition",
+  ),
 ];
 
-// color: Colors.lime,
+// Colors.lime

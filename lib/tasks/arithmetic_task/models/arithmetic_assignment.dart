@@ -23,7 +23,7 @@ class ArithmeticAssignment {
 
     return ArithmeticAssignment(
       firstNumber: -1, 
-      secondNumber: -1, 
+      secondNumber: -1,
       text: "", 
       operationSymbol: "", 
       arithmeticOperation: arithmeticOperation);

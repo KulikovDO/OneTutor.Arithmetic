@@ -16,4 +16,5 @@ enum TaskName {
   fractions,
   memory,
   decomposition,
+  subtractionDecomposition,
 }
