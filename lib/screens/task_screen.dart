@@ -82,7 +82,7 @@ class _TaskScreenState extends State<TaskScreen> {
       if (!mounted) return;
       completeIteration( );
 
-    } else{
+    } else {
 
       await speak("Please try again");
       if (!mounted) return;

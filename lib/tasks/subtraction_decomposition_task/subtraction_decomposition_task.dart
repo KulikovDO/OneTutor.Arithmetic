@@ -27,8 +27,9 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
     setState(() {
       prevFirstNumber = assignment.firstNumber;
       prevSecondNumber = assignment.secondNumber;
-      
     });
+
+    
 
     // setState(() {
     //   enteredValue = -1;
@@ -55,6 +56,18 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
 
     widget.speakText(assignment.text);
 
+  }
+
+  bool checkAnswer() { 
+    // bool isAnswerCorrect = assignment.checkAnswer(enteredValue); 
+
+    // setState(() {
+    //   isError = !isAnswerCorrect;
+    // });
+
+    // return isAnswerCorrect;
+
+    return true;
   }
 
 

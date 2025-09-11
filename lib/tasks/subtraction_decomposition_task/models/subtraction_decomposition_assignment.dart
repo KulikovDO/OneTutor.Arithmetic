@@ -21,10 +21,10 @@ class SubtractionDecompositionAssignment {
   SubtractionDecompositionAssignment prepareTask(int prevFirstNumber, int prevSecondNumber) {
 
     int firstOnes = rng.nextInt(8) + 1; // from 1 to 8
-    int secondOnes = rng.nextInt( 9 - (firstOnes + 1)  ) + firstOnes + 1; // firstOnes to 9
+    int secondOnes = rng.nextInt( 9 - (firstOnes)  ) + firstOnes + 1; // firstOnes to 9
 
     int firstTens = rng.nextInt( 9 - 2 ) + 2; // from 2 to 9
-    int secondTens = rng.nextInt( firstTens + 1 ) + 1; // 1 to firstTens
+    int secondTens = rng.nextInt( firstTens - 1 ) + 1; // 1 to firstTens
 
     int firstNumber = firstOnes + firstTens * 10;
     int secondNumber = secondOnes + secondTens * 10;
