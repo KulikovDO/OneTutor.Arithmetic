@@ -60,7 +60,7 @@ class _ArithmeticTaskState extends State<ArithmeticTask> {
       prevSecondNumber = assignment.secondNumber;
       enteredValue = -1;
       isError = false;
-      textInputContainerKey = GlobalKey();  
+      textInputContainerKey = GlobalKey();
     });
     
     widget.speakText(assignment.text);    
