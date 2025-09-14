@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/models/subtraction_decomposition_assignment.dart';
-import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/initial_text_inputs.dart';
 
 
 class SubtractionDecompositionTask extends StatefulWidget {
@@ -18,18 +18,9 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
   late SubtractionDecompositionAssignment assignment;
   int prevFirstNumber = 0;
   int prevSecondNumber = 0;
-  
-  bool firstNumberTensError = false;
-  bool firstNumberOnesError = false;
-  bool secondNumberTensError = false;
-  bool secondNumberOnesError = false;
+  bool displayInitialTextInputs = false;
 
-  /*late*/ GlobalKey firstNumberTensKey = GlobalKey();
-  /*late*/ GlobalKey firstNumberOnesKey = GlobalKey();
-  /*late*/ GlobalKey secondNumberTensKey = GlobalKey();
-  /*late*/ GlobalKey secondNumberOnesKey = GlobalKey();
-
-  initAssignment(){
+  initAssignment() async{
 
     assignment = assignment.prepareTask(prevFirstNumber, prevSecondNumber);
 
@@ -38,32 +29,16 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
       prevSecondNumber = assignment.secondNumber;
     });
 
-    
 
-    // setState(() {
-    //   enteredValue = -1;
-    //   isError = false;
-    //   textInputContainerKey = GlobalKey();
-    //   firstTextContainerList.clear();
-    //   secondTextContainerList.clear();
-    //   bool isPopulatingFirstList = true;
-    //   for(int option in assignment.options){
+    await widget.speakText(assignment.text);
 
-    //     if(option == -1){
-    //       isPopulatingFirstList = false;
-    //       continue;
-    //     }
+    if (!mounted) return;
 
-    //     if(isPopulatingFirstList){
-    //       firstTextContainerList.add(TextContainer(key: GlobalKey(), text: option.toString()));
-    //     } else {
-    //       secondTextContainerList.add(TextContainer(key: GlobalKey(), text: option.toString()));
-    //     }
+    setState(() { 
 
-    //   } 
-    // });
+      displayInitialTextInputs = true;
 
-    widget.speakText(assignment.text);
+    });
 
   }
 
@@ -79,26 +54,10 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
     return true;
   }
 
-  handleValueEntered(int value, GlobalKey key) {
-
+  handleInitialValuesEntered(){
     setState(() {
-      switch(key) {
-        case GlobalKey k when k == firstNumberTensKey:
-          firstNumberTensError = (assignment.firstNumber.toString()[0] != value.toString());
-        case GlobalKey k when k == firstNumberOnesKey:
-          firstNumberOnesError = (assignment.firstNumber.toString()[1] != value.toString());
-        case GlobalKey k when k == secondNumberTensKey:
-          secondNumberTensError = (assignment.secondNumber.toString()[0] != value.toString());
-        case GlobalKey k when k == secondNumberOnesKey:
-          secondNumberOnesError = (assignment.secondNumber.toString()[1] != value.toString());
-      }
+      displayInitialTextInputs = false; // testing only
     });
-
-    // setState(() {
-    //   enteredValue = value;
-    // });
-    // widget.onValueEntered();
-
   }
 
   @override
@@ -128,35 +87,9 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
                   ),
                 ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 140,
-                  child: Text(
-                    "First number",
-                    style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                TextInputContainer(key: firstNumberTensKey, onValueEntered: (value) { handleValueEntered(value, firstNumberTensKey); }, isError: firstNumberTensError,),
-                TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleValueEntered(value, firstNumberOnesKey); }, isError: firstNumberOnesError,),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 140,
-                  child: Text(
-                    "Second number",
-                    style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                TextInputContainer(key: secondNumberTensKey, onValueEntered: (value) { handleValueEntered(value, secondNumberTensKey); }, isError: secondNumberTensError,),
-                TextInputContainer(key: secondNumberOnesKey, onValueEntered: (value) { handleValueEntered(value, secondNumberOnesKey); }, isError: secondNumberOnesError,),
-                
-              ],
-            ),
+
+            if(displayInitialTextInputs)
+            InitialTextInputs(firstNumber: assignment.firstNumber, secondNumber: assignment.secondNumber, onValuesEntered: handleInitialValuesEntered,),
           ]
       ),
     );

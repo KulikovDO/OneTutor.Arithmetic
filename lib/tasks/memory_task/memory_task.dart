@@ -39,8 +39,7 @@ class _MemoryTaskState extends State<MemoryTask> {
     }
     return isAnswerCorrect;
   }
-  
-  
+    
   handleAnimationCompleted() {
     setState(() {
       displayAnimation = false;
