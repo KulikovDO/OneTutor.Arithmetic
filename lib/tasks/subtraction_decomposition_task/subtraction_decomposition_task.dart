@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/models/subtraction_decomposition_assignment.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/initial_text_inputs.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/subtract_ones.dart';
 
 
 class SubtractionDecompositionTask extends StatefulWidget {
@@ -19,6 +20,7 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
   int prevFirstNumber = 0;
   int prevSecondNumber = 0;
   bool displayInitialTextInputs = false;
+  bool displaySubtractOnes = false;
 
   initAssignment() async{
 
@@ -35,9 +37,7 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
     if (!mounted) return;
 
     setState(() { 
-
       displayInitialTextInputs = true;
-
     });
 
   }
@@ -56,7 +56,7 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
 
   handleInitialValuesEntered(){
     setState(() {
-      displayInitialTextInputs = false; // testing only
+      displaySubtractOnes = true;
     });
   }
 
@@ -89,7 +89,10 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
             ),
 
             if(displayInitialTextInputs)
-            InitialTextInputs(firstNumber: assignment.firstNumber, secondNumber: assignment.secondNumber, onValuesEntered: handleInitialValuesEntered,),
+              InitialTextInputs(firstNumber: assignment.firstNumber, secondNumber: assignment.secondNumber, onValuesEntered: handleInitialValuesEntered,),
+
+            if(displaySubtractOnes)
+              SubtractOnes(firstNumber: assignment.firstNumber, secondNumber: assignment.secondNumber)
           ]
       ),
     );
