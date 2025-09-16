@@ -4,11 +4,13 @@ import 'package:flutter/services.dart';
 class TextInputContainer extends StatefulWidget {
   final Function onValueEntered;
   final bool isError;
+  final int? numberOfDigits;
 
   const TextInputContainer({
     super.key,
     required this.onValueEntered,
     required this.isError,
+    this.numberOfDigits,
   });
 
   @override
@@ -48,6 +50,15 @@ class TextInputContainerState extends State<TextInputContainer> {
     handleSubmitted(valueController.text);
   }
 
+  void handleValueChanged(String value) {
+  
+    if(widget.numberOfDigits != null && value.length >= widget.numberOfDigits!){
+      FocusManager.instance.primaryFocus?.unfocus();
+      handleSubmitted(value);
+    }
+
+  }
+
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -80,6 +91,7 @@ class TextInputContainerState extends State<TextInputContainer> {
                   onFocusChange: handleFocusChange,
                   child: TextField(
                     controller: valueController,
+                    onChanged: handleValueChanged,
                     onTapOutside: (event) => handleTapOutside(),
                     cursorHeight: 50,
                     onSubmitted: handleSubmitted,
@@ -112,4 +124,6 @@ class TextInputContainerState extends State<TextInputContainer> {
           ),
       );
   }
+
+  
 }

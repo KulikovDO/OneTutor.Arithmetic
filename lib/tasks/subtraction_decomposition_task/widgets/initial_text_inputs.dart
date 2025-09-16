@@ -74,8 +74,8 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
                 style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ),
-            TextInputContainer(key: firstNumberTensKey, onValueEntered: (value) { handleValueEntered(value, firstNumberTensKey); }, isError: firstNumberTensError,),
-            TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleValueEntered(value, firstNumberOnesKey); }, isError: firstNumberOnesError,),
+            TextInputContainer(key: firstNumberTensKey, onValueEntered: (value) { handleValueEntered(value, firstNumberTensKey); }, isError: firstNumberTensError, numberOfDigits: 1,),
+            TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleValueEntered(value, firstNumberOnesKey); }, isError: firstNumberOnesError,  numberOfDigits: 1,),
           ],
         ),
         Row(
@@ -88,8 +88,8 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
                 style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ),
-            TextInputContainer(key: secondNumberTensKey, onValueEntered: (value) { handleValueEntered(value, secondNumberTensKey); }, isError: secondNumberTensError,),
-            TextInputContainer(key: secondNumberOnesKey, onValueEntered: (value) { handleValueEntered(value, secondNumberOnesKey); }, isError: secondNumberOnesError,),
+            TextInputContainer(key: secondNumberTensKey, onValueEntered: (value) { handleValueEntered(value, secondNumberTensKey); }, isError: secondNumberTensError, numberOfDigits: 1,),
+            TextInputContainer(key: secondNumberOnesKey, onValueEntered: (value) { handleValueEntered(value, secondNumberOnesKey); }, isError: secondNumberOnesError,  numberOfDigits: 1,),
             
           ],
         ),
