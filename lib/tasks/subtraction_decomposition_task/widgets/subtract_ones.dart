@@ -5,13 +5,13 @@ class SubtractOnes extends StatefulWidget {
   
   final int firstNumber;
   final int secondNumber;
-  // final Function onValuesEntered;
+  // final Function onResultEntered;
   
   const SubtractOnes({
     super.key, 
     required this.firstNumber,
     required this.secondNumber,
-    // required this.onValuesEntered
+    // required this.onResultEntered
   });
 
   @override
@@ -49,7 +49,22 @@ class _SubtractOnesState extends State<SubtractOnes> {
     });
   }
 
-  handleResultOnesEntered(int value) {  }
+  handleResultOnesEntered(int value) { 
+
+    int result = widget.firstNumber - widget.secondNumber;
+    String resultOnes = (result > 9) ? result.toString()[1] : result.toString();
+
+    if(resultOnes == value.toString()){
+      setState(() {
+        isErrorResultOnes = false;
+      });
+      // widget.onResultEntered();
+    } else {
+      setState(() {
+        isErrorResultOnes = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
