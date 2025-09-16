@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class TextContainer extends StatelessWidget {
+class SimpleTextContainer extends StatelessWidget {
   final String text;
 
-  const TextContainer({
+  const SimpleTextContainer({
     super.key,
     required this.text,
   });

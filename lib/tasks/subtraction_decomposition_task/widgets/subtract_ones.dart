@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
 class SubtractOnes extends StatefulWidget {
@@ -21,6 +22,8 @@ class SubtractOnes extends StatefulWidget {
 
 class _SubtractOnesState extends State<SubtractOnes> {
 
+  bool isOnesEntered = false;
+
   /*late*/ GlobalKey<TextInputContainerState> numberTenKey = GlobalKey();
   /*late*/ GlobalKey<TextInputContainerState> firstNumberOnesKey = GlobalKey();
   /*late*/ GlobalKey<TextInputContainerState> secondNumberOnesKey = GlobalKey();
@@ -38,15 +41,39 @@ class _SubtractOnesState extends State<SubtractOnes> {
   }
 
   handleFirstNumberOnesEntered(int value) {  
+    // TODO: convert to simple if
     setState(() {
       isErrorFirstNumberOnes = widget.firstNumber.toString()[1] == value.toString() ? false : true;
     });
+    checkOnceEntered();
   }
 
   handleSecondNumberOnesEntered(int value) {  
+    // TODO: convert to simple if
     setState(() {
       isErrorSecondNumberOnes = widget.secondNumber.toString()[1] == value.toString() ? false : true;
     });
+    checkOnceEntered();
+  }
+
+  checkOnceEntered(){
+    if( // all values entered correctly
+        (numberTenKey.currentState as TextInputContainerState).valueController.text != ''
+      && (firstNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
+      && (secondNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
+      && !isErrorNumberTen
+      && !isErrorFirstNumberOnes
+      && !isErrorSecondNumberOnes
+    ){
+      setState(() {
+        isOnesEntered = true;
+      }); 
+    } else {
+      setState(() {
+        isOnesEntered = false;
+      }); 
+    }
+
   }
 
   handleResultOnesEntered(int value) { 
@@ -106,6 +133,26 @@ class _SubtractOnesState extends State<SubtractOnes> {
             
           ],
         ),
+
+        // TODO: separate widget
+        if(isOnesEntered)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SimpleTextContainer(text: "1"),
+              SimpleTextContainer(text: widget.firstNumber.toString()[1]),
+              const Text(
+                "=",
+                style: TextStyle(color: Colors.black, fontSize: 60),
+              ),
+              TextInputContainer(key: GlobalKey(), onValueEntered: handleResultOnesEntered, isError: false, numberOfDigits: 1,),
+              const Text(
+                  "+",
+                  style: TextStyle(color: Colors.black, fontSize: 40),
+              ),
+              TextInputContainer(key: GlobalKey(), onValueEntered: handleResultOnesEntered, isError: false, numberOfDigits: 1,),
+           ]
+          ),
 
       ],
     );

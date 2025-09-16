@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/sequence_task/models/sequence_assignment.dart';
-import 'package:one_tutor_arithmetic/tasks/sequence_task/widgets/text_container.dart';
+import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
 
@@ -62,9 +62,9 @@ class _SequenceTaskState extends State<SequenceTask> {
         }
 
         if(isPopulatingFirstList){
-          firstTextContainerList.add(TextContainer(key: GlobalKey(), text: option.toString()));
+          firstTextContainerList.add(SimpleTextContainer(key: GlobalKey(), text: option.toString()));
         } else {
-          secondTextContainerList.add(TextContainer(key: GlobalKey(), text: option.toString()));
+          secondTextContainerList.add(SimpleTextContainer(key: GlobalKey(), text: option.toString()));
         }
 
       } 
