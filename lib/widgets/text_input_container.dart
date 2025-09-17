@@ -5,12 +5,14 @@ class TextInputContainer extends StatefulWidget {
   final Function onValueEntered;
   final bool isError;
   final int? numberOfDigits;
+  final double boxSize;
 
   const TextInputContainer({
     super.key,
     required this.onValueEntered,
     required this.isError,
     this.numberOfDigits,
+    this.boxSize = 80.0,
   });
 
   @override
@@ -82,8 +84,8 @@ class TextInputContainerState extends State<TextInputContainer> {
               color: widget.isError ? const Color.fromARGB(255, 255, 230, 230) : Colors.lightBlue[50] as Color,
 
             ),
-            height: 80.0,
-            width: 80.0,
+            height: widget.boxSize,
+            width: widget.boxSize,
             
             child: Center(
               child: 
@@ -93,7 +95,7 @@ class TextInputContainerState extends State<TextInputContainer> {
                     controller: valueController,
                     onChanged: handleValueChanged,
                     onTapOutside: (event) => handleTapOutside(),
-                    cursorHeight: 50,
+                    cursorHeight: 0.625 * widget.boxSize,
                     onSubmitted: handleSubmitted,
                     keyboardType: TextInputType.number,
                     inputFormatters: [
@@ -108,12 +110,12 @@ class TextInputContainerState extends State<TextInputContainer> {
                       disabledBorder: InputBorder.none,
                       hintText: "?",
                       hintStyle: TextStyle(
-                        fontSize: 45,
+                        fontSize: 0.56 * widget.boxSize,
                         color: isTapped ? Colors.grey.withOpacity(0) : Colors.black.withOpacity(0.7),
                       ),
                     ),
-                    style: const TextStyle(
-                      fontSize: 45, 
+                    style: TextStyle(
+                      fontSize: 0.56 * widget.boxSize,
                       height: 1.4,
                       color: Colors.black,
                     ),

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class SimpleTextContainer extends StatelessWidget {
   final String text;
+  final double boxSize;
 
   const SimpleTextContainer({
     super.key,
     required this.text,
+    this.boxSize = 80.0,
   });
 
   @override
@@ -20,12 +22,12 @@ class SimpleTextContainer extends StatelessWidget {
             border: Border.all(width: 2),
             color: Colors.lightBlue[50] as Color,
           ),
-          height: 80.0,
-          width: 80.0,
+          height: boxSize,
+          width: boxSize,
           
           child: Center(
             child: 
-            Text( text, style: const TextStyle(fontSize: 45, decoration: TextDecoration.none )),
+            Text( text, style: TextStyle(fontSize: 0.56 * boxSize, decoration: TextDecoration.none )),
           ),
         ),
       );

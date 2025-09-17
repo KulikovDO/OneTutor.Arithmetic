@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/first_number_ones_decomposition.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/second_number_ones_decomposition.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
 class SubtractOnes extends StatefulWidget {
@@ -23,6 +24,7 @@ class SubtractOnes extends StatefulWidget {
 class _SubtractOnesState extends State<SubtractOnes> {
 
   bool isOnesEntered = false;
+  bool isFirstNumberDecompositionComplete = false;
 
   /*late*/ GlobalKey<TextInputContainerState> numberTenKey = GlobalKey();
   /*late*/ GlobalKey<TextInputContainerState> firstNumberOnesKey = GlobalKey();
@@ -93,6 +95,15 @@ class _SubtractOnesState extends State<SubtractOnes> {
     }
   }
 
+  handleFirstNumberDecompositionComplete(){
+    setState(() {
+      isFirstNumberDecompositionComplete = true;
+    });
+  }
+
+  handleSecondNumberDecompositionComplete(){}
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -134,25 +145,11 @@ class _SubtractOnesState extends State<SubtractOnes> {
           ],
         ),
 
-        // TODO: separate widget
         if(isOnesEntered)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SimpleTextContainer(text: "1"),
-              SimpleTextContainer(text: widget.firstNumber.toString()[1]),
-              const Text(
-                "=",
-                style: TextStyle(color: Colors.black, fontSize: 60),
-              ),
-              TextInputContainer(key: GlobalKey(), onValueEntered: handleResultOnesEntered, isError: false, numberOfDigits: 1,),
-              const Text(
-                  "+",
-                  style: TextStyle(color: Colors.black, fontSize: 40),
-              ),
-              TextInputContainer(key: GlobalKey(), onValueEntered: handleResultOnesEntered, isError: false, numberOfDigits: 1,),
-           ]
-          ),
+          FirstNumberOnesDecomposition(key: GlobalKey(), firstNumber: widget.firstNumber, onResultEntered: handleFirstNumberDecompositionComplete,),
+
+        if(isFirstNumberDecompositionComplete)
+          SecondNumberOnesDecomposition(key: GlobalKey(), secondNumber: widget.secondNumber, onResultEntered: handleSecondNumberDecompositionComplete,),
 
       ],
     );
