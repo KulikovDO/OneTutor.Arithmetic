@@ -85,8 +85,6 @@ class _EnterOnesState extends State<EnterOnes> {
           "=",
           style: TextStyle(color: Colors.black, fontSize: 60),
         ),
-        // TextInputContainer(key: resultOnesKey, onValueEntered: handleResultOnesEntered, isError: isErrorResultOnes, numberOfDigits: 1,),
-        
       ],
     );
   }
