@@ -6,12 +6,14 @@ class InitialTextInputs extends StatefulWidget {
   final int firstNumber;
   final int secondNumber;
   final Function onValuesEntered;
+  final Function speakText;
   
   const InitialTextInputs({
     super.key, 
     required this.firstNumber,
     required this.secondNumber,
-    required this.onValuesEntered
+    required this.onValuesEntered,
+    required this.speakText,
   });
 
   @override
@@ -21,17 +23,19 @@ class InitialTextInputs extends StatefulWidget {
 
 class _InitialTextInputsState extends State<InitialTextInputs> {
 
+  bool isFirstNumberEntered = false;
+
   bool firstNumberTensError = false;
   bool firstNumberOnesError = false;
   bool secondNumberTensError = false;
   bool secondNumberOnesError = false;
 
-  /*late*/ GlobalKey<TextInputContainerState> firstNumberTensKey = GlobalKey();
-  /*late*/ GlobalKey<TextInputContainerState> firstNumberOnesKey = GlobalKey();
-  /*late*/ GlobalKey<TextInputContainerState> secondNumberTensKey = GlobalKey();
-  /*late*/ GlobalKey<TextInputContainerState> secondNumberOnesKey = GlobalKey();
+  GlobalKey<TextInputContainerState> firstNumberTensKey = GlobalKey();
+  GlobalKey<TextInputContainerState> firstNumberOnesKey = GlobalKey();
+  GlobalKey<TextInputContainerState> secondNumberTensKey = GlobalKey();
+  GlobalKey<TextInputContainerState> secondNumberOnesKey = GlobalKey();
 
-  handleValueEntered(int value, GlobalKey key) {
+  handleValueEnteredAsync(int value, GlobalKey key) {
 
     setState(() {
       switch(key) {
@@ -47,17 +51,51 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
 
       if( // all values entered correctly
         (firstNumberTensKey.currentState as TextInputContainerState).valueController.text != ''
-        && (secondNumberTensKey.currentState as TextInputContainerState).valueController.text != ''
         && (firstNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
-        && (secondNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
         && !firstNumberTensError
         && !firstNumberOnesError
+      ){
+        
+        if(!isFirstNumberEntered){
+          speakTextAsync( "Enter the second number");
+        }
+        
+        setState(() {
+          isFirstNumberEntered = true;
+          
+        });
+      } else {
+        setState(() {
+          isFirstNumberEntered = false;
+        });
+      }
+
+      if(secondNumberTensKey.currentState == null || secondNumberTensKey.currentState == null){
+        return;
+      }
+
+      if( // all values entered correctly
+        isFirstNumberEntered      
+        && (secondNumberTensKey.currentState as TextInputContainerState).valueController.text != ''
+        && (secondNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
         && !secondNumberTensError
         && !secondNumberOnesError
       ){
         widget.onValuesEntered();
       }
     });
+  }
+
+  speakTextAsync(String text) async{
+    await widget.speakText(text);
+  }
+
+  @override
+  initState() {
+
+    super.initState();
+    speakTextAsync("Enter the first number");
+
   }
 
   @override
@@ -74,10 +112,11 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
                 style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ),
-            TextInputContainer(key: firstNumberTensKey, onValueEntered: (value) { handleValueEntered(value, firstNumberTensKey); }, isError: firstNumberTensError, numberOfDigits: 1,),
-            TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleValueEntered(value, firstNumberOnesKey); }, isError: firstNumberOnesError,  numberOfDigits: 1,),
+            TextInputContainer(key: firstNumberTensKey, onValueEntered: (value) { handleValueEnteredAsync(value, firstNumberTensKey); }, isError: firstNumberTensError, numberOfDigits: 1,),
+            TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleValueEnteredAsync(value, firstNumberOnesKey); }, isError: firstNumberOnesError,  numberOfDigits: 1,),
           ],
         ),
+        if(isFirstNumberEntered)
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -88,8 +127,8 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
                 style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ),
-            TextInputContainer(key: secondNumberTensKey, onValueEntered: (value) { handleValueEntered(value, secondNumberTensKey); }, isError: secondNumberTensError, numberOfDigits: 1,),
-            TextInputContainer(key: secondNumberOnesKey, onValueEntered: (value) { handleValueEntered(value, secondNumberOnesKey); }, isError: secondNumberOnesError,  numberOfDigits: 1,),
+            TextInputContainer(key: secondNumberTensKey, onValueEntered: (value) { handleValueEnteredAsync(value, secondNumberTensKey); }, isError: secondNumberTensError, numberOfDigits: 1,),
+            TextInputContainer(key: secondNumberOnesKey, onValueEntered: (value) { handleValueEnteredAsync(value, secondNumberOnesKey); }, isError: secondNumberOnesError,  numberOfDigits: 1,),
             
           ],
         ),

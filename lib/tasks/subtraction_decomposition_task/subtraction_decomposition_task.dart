@@ -89,7 +89,7 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
             ),
 
             if(displayInitialTextInputs)
-              InitialTextInputs(firstNumber: assignment.firstNumber, secondNumber: assignment.secondNumber, onValuesEntered: handleInitialValuesEntered,),
+              InitialTextInputs(firstNumber: assignment.firstNumber, secondNumber: assignment.secondNumber, onValuesEntered: handleInitialValuesEntered, speakText: widget.speakText,),
 
             if(displaySubtractOnes)
               SubtractOnes(firstNumber: assignment.firstNumber, secondNumber: assignment.secondNumber)
