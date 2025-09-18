@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/enter_ones.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/first_number_ones_decomposition.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/second_number_ones_decomposition.dart';
-import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
+
 
 class SubtractOnes extends StatefulWidget {
   
@@ -25,74 +26,38 @@ class _SubtractOnesState extends State<SubtractOnes> {
 
   bool isOnesEntered = false;
   bool isFirstNumberDecompositionComplete = false;
+  bool isSecondNumberDecompositionComplete = false;
 
-  /*late*/ GlobalKey<TextInputContainerState> numberTenKey = GlobalKey();
-  /*late*/ GlobalKey<TextInputContainerState> firstNumberOnesKey = GlobalKey();
-  /*late*/ GlobalKey<TextInputContainerState> secondNumberOnesKey = GlobalKey();
-  /*late*/ GlobalKey<TextInputContainerState> resultOnesKey = GlobalKey();
+  
+  GlobalKey enterOnesKey = GlobalKey();
+  GlobalKey firstNumberOnesDecompositionKey = GlobalKey();
+  GlobalKey secondNumberOnesDecompositionKey = GlobalKey();
 
-  bool isErrorNumberTen = false;
-  bool isErrorFirstNumberOnes = false;
-  bool isErrorSecondNumberOnes = false;
-  bool isErrorResultOnes = false;
+  
 
-  handleNumberTenEntered(int value) {  
+  
+
+  // handleResultOnesEntered(int value) { 
+
+  //   int result = widget.firstNumber - widget.secondNumber;
+  //   String resultOnes = (result > 9) ? result.toString()[1] : result.toString();
+
+  //   if(resultOnes == value.toString()){
+  //     setState(() {
+  //       isErrorResultOnes = false;
+  //     });
+  //     // widget.onResultEntered();
+  //   } else {
+  //     setState(() {
+  //       isErrorResultOnes = true;
+  //     });
+  //   }
+  // }
+
+  handleOnesEntered(){
     setState(() {
-      isErrorNumberTen = value == 1 ? false : true;
+      isOnesEntered = true;
     });
-  }
-
-  handleFirstNumberOnesEntered(int value) {  
-    // TODO: convert to simple if
-    setState(() {
-      isErrorFirstNumberOnes = widget.firstNumber.toString()[1] == value.toString() ? false : true;
-    });
-    checkOnceEntered();
-  }
-
-  handleSecondNumberOnesEntered(int value) {  
-    // TODO: convert to simple if
-    setState(() {
-      isErrorSecondNumberOnes = widget.secondNumber.toString()[1] == value.toString() ? false : true;
-    });
-    checkOnceEntered();
-  }
-
-  checkOnceEntered(){
-    if( // all values entered correctly
-        (numberTenKey.currentState as TextInputContainerState).valueController.text != ''
-      && (firstNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
-      && (secondNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
-      && !isErrorNumberTen
-      && !isErrorFirstNumberOnes
-      && !isErrorSecondNumberOnes
-    ){
-      setState(() {
-        isOnesEntered = true;
-      }); 
-    } else {
-      setState(() {
-        isOnesEntered = false;
-      }); 
-    }
-
-  }
-
-  handleResultOnesEntered(int value) { 
-
-    int result = widget.firstNumber - widget.secondNumber;
-    String resultOnes = (result > 9) ? result.toString()[1] : result.toString();
-
-    if(resultOnes == value.toString()){
-      setState(() {
-        isErrorResultOnes = false;
-      });
-      // widget.onResultEntered();
-    } else {
-      setState(() {
-        isErrorResultOnes = true;
-      });
-    }
   }
 
   handleFirstNumberDecompositionComplete(){
@@ -101,7 +66,11 @@ class _SubtractOnesState extends State<SubtractOnes> {
     });
   }
 
-  handleSecondNumberDecompositionComplete(){}
+  handleSecondNumberDecompositionComplete(){
+    setState(() {
+      isSecondNumberDecompositionComplete = true;
+    });
+  }
 
 
   @override
@@ -123,33 +92,13 @@ class _SubtractOnesState extends State<SubtractOnes> {
             ),
         ),
         
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextInputContainer(key: numberTenKey, onValueEntered: handleNumberTenEntered, isError: isErrorNumberTen, numberOfDigits: 1,),
-            TextInputContainer(key: firstNumberOnesKey, onValueEntered: handleFirstNumberOnesEntered, isError: isErrorFirstNumberOnes,  numberOfDigits: 1,),
-            const Padding(
-              padding: EdgeInsets.only(left: 5, right: 5),
-              child: Text(
-                "-",
-                style: TextStyle(color: Colors.black, fontSize: 60),
-              ),
-            ),
-            TextInputContainer(key: secondNumberOnesKey, onValueEntered: handleSecondNumberOnesEntered, isError: isErrorSecondNumberOnes, numberOfDigits: 1,),
-            const Text(
-              "=",
-              style: TextStyle(color: Colors.black, fontSize: 60),
-            ),
-            TextInputContainer(key: resultOnesKey, onValueEntered: handleResultOnesEntered, isError: isErrorResultOnes, numberOfDigits: 1,),
-            
-          ],
-        ),
+        EnterOnes(key: enterOnesKey, firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: handleOnesEntered,),
 
         if(isOnesEntered)
-          FirstNumberOnesDecomposition(key: GlobalKey(), firstNumber: widget.firstNumber, onResultEntered: handleFirstNumberDecompositionComplete,),
+          FirstNumberOnesDecomposition(key: firstNumberOnesDecompositionKey, firstNumber: widget.firstNumber, onResultEntered: handleFirstNumberDecompositionComplete,),
 
         if(isFirstNumberDecompositionComplete)
-          SecondNumberOnesDecomposition(key: GlobalKey(), secondNumber: widget.secondNumber, onResultEntered: handleSecondNumberDecompositionComplete,),
+          SecondNumberOnesDecomposition(key: secondNumberOnesDecompositionKey, firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: handleSecondNumberDecompositionComplete,),
 
       ],
     );

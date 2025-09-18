@@ -4,11 +4,13 @@ import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
 class SecondNumberOnesDecomposition extends StatefulWidget {
   
+  final int firstNumber;
   final int secondNumber;
   final Function onResultEntered;
   
   const SecondNumberOnesDecomposition({
     super.key, 
+    required this.firstNumber,
     required this.secondNumber,
     required this.onResultEntered
   });
@@ -25,8 +27,33 @@ class _SecondNumberOnesDecompositionState extends State<SecondNumberOnesDecompos
   GlobalKey<TextInputContainerState> firstNumberKey = GlobalKey();
   GlobalKey<TextInputContainerState> secondNumberKey = GlobalKey();
 
-  handleFirstNumberEntered(int value) {}
-  handleSecondNumberEntered(int value) {}
+  handleFirstNumberEntered(int value) {
+
+    setState(() {
+      firstNumberError = widget.firstNumber.toString()[1] == value.toString() ? false : true;
+    });
+    checkEnteredData();
+
+  }
+
+  handleSecondNumberEntered(int value) {
+
+    setState(() {
+      secondNumberError = (int.parse(widget.secondNumber.toString()[1]) - int.parse(widget.firstNumber.toString()[1])).toString()  == value.toString() ? false : true;
+    });
+    checkEnteredData();
+  }
+
+  checkEnteredData() {
+    if( // all values entered correctly
+      (firstNumberKey.currentState as TextInputContainerState).valueController.text != ''
+      && (secondNumberKey.currentState as TextInputContainerState).valueController.text != ''
+      && !firstNumberError
+      && !secondNumberError
+    ){
+      widget.onResultEntered();
+    } 
+  }
 
   @override
   Widget build(BuildContext context) {
