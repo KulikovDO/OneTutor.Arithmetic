@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
 class EnterOnes extends StatefulWidget {
@@ -6,12 +7,14 @@ class EnterOnes extends StatefulWidget {
   final int firstNumber;
   final int secondNumber;
   final Function onResultEntered;
+  final Function speakText;
   
   const EnterOnes({
     super.key, 
     required this.firstNumber,
     required this.secondNumber,
-    required this.onResultEntered
+    required this.onResultEntered,
+    required this.speakText,
   });
 
   @override
@@ -21,19 +24,24 @@ class EnterOnes extends StatefulWidget {
 
 class _EnterOnesState extends State<EnterOnes> {
 
-  GlobalKey numberTenKey = GlobalKey();
+  // GlobalKey numberTenKey = GlobalKey();
   GlobalKey firstNumberOnesKey = GlobalKey();
   GlobalKey secondNumberOnesKey = GlobalKey();
 
-  bool isErrorNumberTen = false;
+  // bool isErrorNumberTen = false;
+  bool isOnesEntered = false;
   bool isErrorFirstNumberOnes = false;
   bool isErrorSecondNumberOnes = false;
 
-  handleNumberTenEntered(int value) {  
-    setState(() {
-      isErrorNumberTen = value == 1 ? false : true;
-    });
+  speakTextAsync(String text) async{
+    await widget.speakText(text);
   }
+
+  // handleNumberTenEntered(int value) {  
+  //   setState(() {
+  //     isErrorNumberTen = value == 1 ? false : true;
+  //   });
+  // }
 
   handleFirstNumberOnesEntered(int value) {  
     setState(() {
@@ -51,18 +59,26 @@ class _EnterOnesState extends State<EnterOnes> {
 
   checkOnceEntered(){
     if( // all values entered correctly
-        (numberTenKey.currentState as TextInputContainerState).valueController.text != ''
-      && (firstNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
+      /*  (numberTenKey.currentState as TextInputContainerState).valueController.text != ''
+      &&*/ (firstNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
       && (secondNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
-      && !isErrorNumberTen
+      // && !isErrorNumberTen
       && !isErrorFirstNumberOnes
       && !isErrorSecondNumberOnes
     ){
       setState(() {
-        // isOnesEntered = true;
-        widget.onResultEntered();
+        isOnesEntered = true;
       }); 
+
+
     } 
+  }
+
+  @override
+  initState() {
+
+    super.initState();
+    speakTextAsync("Enter ones to subtract");
 
   }
 
@@ -71,7 +87,12 @@ class _EnterOnesState extends State<EnterOnes> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TextInputContainer(key: numberTenKey, onValueEntered: handleNumberTenEntered, isError: isErrorNumberTen, numberOfDigits: 1,),
+        // TextInputContainer(key: numberTenKey, onValueEntered: handleNumberTenEntered, isError: isErrorNumberTen, numberOfDigits: 1,),
+        
+        if(isOnesEntered)
+          const SimpleTextContainer(text: "1"),
+        if(!isOnesEntered)
+          const SizedBox( width: 87, height: 87,),
         TextInputContainer(key: firstNumberOnesKey, onValueEntered: handleFirstNumberOnesEntered, isError: isErrorFirstNumberOnes,  numberOfDigits: 1,),
         const Padding(
           padding: EdgeInsets.only(left: 5, right: 5),
