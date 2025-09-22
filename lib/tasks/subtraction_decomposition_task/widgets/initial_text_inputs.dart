@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
 class InitialTextInputs extends StatefulWidget {
@@ -24,6 +25,7 @@ class InitialTextInputs extends StatefulWidget {
 class _InitialTextInputsState extends State<InitialTextInputs> {
 
   bool isFirstNumberEntered = false;
+  bool isSecondNumberEntered = false;
 
   bool firstNumberTensError = false;
   bool firstNumberOnesError = false;
@@ -35,55 +37,70 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
   GlobalKey<TextInputContainerState> secondNumberTensKey = GlobalKey();
   GlobalKey<TextInputContainerState> secondNumberOnesKey = GlobalKey();
 
-  handleValueEnteredAsync(int value, GlobalKey key) {
-
+  handleFirstNumberValueEnteredAsync(int value, GlobalKey key) {
     setState(() {
       switch(key) {
         case var k when k == firstNumberTensKey:
           firstNumberTensError = (widget.firstNumber.toString()[0] != value.toString());
         case var k when k == firstNumberOnesKey:
           firstNumberOnesError = (widget.firstNumber.toString()[1] != value.toString());
+      }
+    });
+
+    // first number entered correctly
+    if((firstNumberTensKey.currentState as TextInputContainerState).valueController.text != ''
+      && (firstNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
+      && !firstNumberTensError
+      && !firstNumberOnesError){
+      
+      if(!isFirstNumberEntered){
+        speakTextAsync( "Enter the second number");
+      }
+      
+      setState(() {
+        isFirstNumberEntered = true;
+      });
+
+    } else {
+      setState(() {
+        isFirstNumberEntered = false;
+      });
+    }
+  }
+  
+  
+  
+  
+  
+  
+  handleSecondNumberValueEnteredAsync(int value, GlobalKey key) {
+
+    setState(() {
+      switch(key) {
         case var k when k == secondNumberTensKey:
           secondNumberTensError = (widget.secondNumber.toString()[0] != value.toString());
         case var k when k == secondNumberOnesKey:
           secondNumberOnesError = (widget.secondNumber.toString()[1] != value.toString());
       }
-
-      if( // all values entered correctly
-        (firstNumberTensKey.currentState as TextInputContainerState).valueController.text != ''
-        && (firstNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
-        && !firstNumberTensError
-        && !firstNumberOnesError
-      ){
-        
-        if(!isFirstNumberEntered){
-          speakTextAsync( "Enter the second number");
-        }
-        
-        setState(() {
-          isFirstNumberEntered = true;
-          
-        });
-      } else {
-        setState(() {
-          isFirstNumberEntered = false;
-        });
-      }
-
-      if(secondNumberTensKey.currentState == null || secondNumberTensKey.currentState == null){
-        return;
-      }
-
-      if( // all values entered correctly
-        isFirstNumberEntered      
-        && (secondNumberTensKey.currentState as TextInputContainerState).valueController.text != ''
-        && (secondNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
-        && !secondNumberTensError
-        && !secondNumberOnesError
-      ){
-        widget.onValuesEntered();
-      }
     });
+
+    // second number entered correctly
+    if((secondNumberTensKey.currentState as TextInputContainerState).valueController.text != ''
+      && (secondNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
+      && !secondNumberTensError
+      && !secondNumberOnesError){
+      
+      setState(() {
+        isSecondNumberEntered = true;
+      });
+
+      widget.onValuesEntered();
+    } else {
+      setState(() {
+        isSecondNumberEntered = false;
+      });
+    }
+
   }
 
   speakTextAsync(String text) async{
@@ -112,8 +129,14 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
                 style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ),
-            TextInputContainer(key: firstNumberTensKey, onValueEntered: (value) { handleValueEnteredAsync(value, firstNumberTensKey); }, isError: firstNumberTensError, numberOfDigits: 1,),
-            TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleValueEnteredAsync(value, firstNumberOnesKey); }, isError: firstNumberOnesError,  numberOfDigits: 1,),
+            if(!isFirstNumberEntered)
+              TextInputContainer(key: firstNumberTensKey, onValueEntered: (value) { handleFirstNumberValueEnteredAsync(value, firstNumberTensKey); }, isError: firstNumberTensError, numberOfDigits: 1,),
+            if(isFirstNumberEntered)
+              SimpleTextContainer(text: widget.firstNumber.toString()[0]),
+            if(!isFirstNumberEntered)
+              TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleFirstNumberValueEnteredAsync(value, firstNumberOnesKey); }, isError: firstNumberOnesError,  numberOfDigits: 1,),
+            if(isFirstNumberEntered)
+              SimpleTextContainer(text: widget.firstNumber.toString()[1]),
           ],
         ),
         if(isFirstNumberEntered)
@@ -127,8 +150,14 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
                 style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ),
-            TextInputContainer(key: secondNumberTensKey, onValueEntered: (value) { handleValueEnteredAsync(value, secondNumberTensKey); }, isError: secondNumberTensError, numberOfDigits: 1,),
-            TextInputContainer(key: secondNumberOnesKey, onValueEntered: (value) { handleValueEnteredAsync(value, secondNumberOnesKey); }, isError: secondNumberOnesError,  numberOfDigits: 1,),
+            if(!isSecondNumberEntered)
+              TextInputContainer(key: secondNumberTensKey, onValueEntered: (value) { handleSecondNumberValueEnteredAsync(value, secondNumberTensKey); }, isError: secondNumberTensError, numberOfDigits: 1,),
+            if(isSecondNumberEntered)
+              SimpleTextContainer(text: widget.secondNumber.toString()[0]),
+            if(!isSecondNumberEntered)
+              TextInputContainer(key: secondNumberOnesKey, onValueEntered: (value) { handleSecondNumberValueEnteredAsync(value, secondNumberOnesKey); }, isError: secondNumberOnesError,  numberOfDigits: 1,),
+            if(isSecondNumberEntered)
+              SimpleTextContainer(text: widget.secondNumber.toString()[1]),
             
           ],
         ),
