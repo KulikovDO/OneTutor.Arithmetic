@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/widgets/animated_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
@@ -68,11 +69,6 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
     }
   }
   
-  
-  
-  
-  
-  
   handleSecondNumberValueEnteredAsync(int value, GlobalKey key) {
 
     setState(() {
@@ -103,7 +99,7 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
 
   }
 
-  speakTextAsync(String text) async{
+  speakTextAsync(String text) async {
     await widget.speakText(text);
   }
 
@@ -136,7 +132,7 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
             if(!isFirstNumberEntered)
               TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleFirstNumberValueEnteredAsync(value, firstNumberOnesKey); }, isError: firstNumberOnesError,  numberOfDigits: 1,),
             if(isFirstNumberEntered)
-              SimpleTextContainer(text: widget.firstNumber.toString()[1]),
+              AnimatedTextContainer(text: widget.firstNumber.toString()[1]),
           ],
         ),
         if(isFirstNumberEntered)
@@ -157,7 +153,7 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
             if(!isSecondNumberEntered)
               TextInputContainer(key: secondNumberOnesKey, onValueEntered: (value) { handleSecondNumberValueEnteredAsync(value, secondNumberOnesKey); }, isError: secondNumberOnesError,  numberOfDigits: 1,),
             if(isSecondNumberEntered)
-              SimpleTextContainer(text: widget.secondNumber.toString()[1]),
+              AnimatedTextContainer(text: widget.secondNumber.toString()[1]),
             
           ],
         ),
