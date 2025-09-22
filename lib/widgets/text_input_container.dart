@@ -22,13 +22,11 @@ class TextInputContainer extends StatefulWidget {
 class TextInputContainerState extends State<TextInputContainer> {
 
   bool isTapped = false;
-  //FocusNode focusNode = FocusNode();
   final TextEditingController valueController = TextEditingController();
 
   handleSubmitted(String value){
 
     if(value == ""){
-      // FocusScope.of(context).requestFocus(focusNode);
       return;
     }
 

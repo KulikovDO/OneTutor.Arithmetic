@@ -41,21 +41,21 @@ class _DelayIndicatorState extends State<DelayIndicator> with SingleTickerProvid
     controller.forward();
 
     controller.addStatusListener((status) {
-    if (status == AnimationStatus.completed) {
-      setState(() {
-        iteration++;
-      });
-      if (iteration < widget.repeatTimes) {
-        
-        controller.reset();
+      if (status == AnimationStatus.completed) {
+        setState(() {
+          iteration++;
+        });
+        if (iteration < widget.repeatTimes) {
+          
+          controller.reset();
+          controller.forward();
+        } else {
+          widget.onCompleted(); // call the onCompleted function
+        }
+      } else if (status == AnimationStatus.dismissed) {
         controller.forward();
-      } else {
-        widget.onCompleted(); // call the onCompleted function
       }
-    } else if (status == AnimationStatus.dismissed) {
-      controller.forward();
-    }
-  });
+    });
 
   }
 

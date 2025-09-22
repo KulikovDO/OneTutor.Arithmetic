@@ -27,7 +27,7 @@ class _StartScreenIntroState extends State<StartScreenIntro> {
   void initState() {
     super.initState();
  
-     _timer = Timer.periodic(const Duration(seconds:3), (Timer t) {
+    _timer = Timer.periodic(const Duration(seconds:3), (Timer t) {
 
       setState(() {
 
