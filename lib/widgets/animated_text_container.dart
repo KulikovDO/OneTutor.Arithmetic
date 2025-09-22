@@ -14,9 +14,57 @@ class AnimatedTextContainer extends StatefulWidget {
   State<AnimatedTextContainer> createState() => _AnimatedTextContainerState();
 }
 
-class _AnimatedTextContainerState extends State<AnimatedTextContainer> {
+class _AnimatedTextContainerState extends State<AnimatedTextContainer> with SingleTickerProviderStateMixin {
 
-  
+  late Animation<double> animation; 
+  late AnimationController controller; //TODO: animation controller
+  int iteration = 0;
+  int repeatTimes = 3;
+  bool isAnimationCompleted = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
+
+    Tween<double> progressTween = Tween(begin: 0.0, end: 1.0);
+    animation = progressTween.animate(controller)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    controller.forward();
+
+    controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        setState(() {
+          iteration++;
+        });
+        if (iteration < repeatTimes) {
+          
+          controller.reset();
+          controller.forward();
+        } else {
+          setState(() {
+            isAnimationCompleted = true;
+          });
+        }
+      } else if (status == AnimationStatus.dismissed) {
+        controller.forward();
+      }
+    });
+
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +74,7 @@ class _AnimatedTextContainerState extends State<AnimatedTextContainer> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 2),
+            border: isAnimationCompleted ? Border.all(width: 2) : Border.all(width: animation.value * 4),
             color: Colors.lightBlue[50] as Color,
           ),
           height: widget.boxSize,
