@@ -62,10 +62,8 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
 
   checkOnceEntered(){
     if( // all values entered correctly
-      /*  (numberTenKey.currentState as TextInputContainerState).valueController.text != ''
-      &&*/ (firstNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
+      (firstNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
       && (secondNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
-      // && !isErrorNumberTen
       && !isErrorFirstNumberOnes
       && !isErrorSecondNumberOnes
     ){
@@ -73,6 +71,7 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
         isOnesEntered = true;
       }); 
 
+      ref.read(subtractionDecompositionProvider.notifier).resetAnimationOnes();
 
     } 
   }
@@ -90,13 +89,15 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // TextInputContainer(key: numberTenKey, onValueEntered: handleNumberTenEntered, isError: isErrorNumberTen, numberOfDigits: 1,),
-        
         if(isOnesEntered)
           const SimpleTextContainer(text: "1"),
         if(!isOnesEntered)
           const SizedBox( width: 87, height: 87,),
-        TextInputContainer(key: firstNumberOnesKey, onValueEntered: handleFirstNumberOnesEntered, isError: isErrorFirstNumberOnes,  numberOfDigits: 1,),
+        if(isOnesEntered)
+          SimpleTextContainer(text: widget.firstNumber.toString()[1]),
+        if(!isOnesEntered)
+          TextInputContainer(key: firstNumberOnesKey, onValueEntered: handleFirstNumberOnesEntered, isError: isErrorFirstNumberOnes,  numberOfDigits: 1,),
+
         const Padding(
           padding: EdgeInsets.only(left: 5, right: 5),
           child: Text(
@@ -104,7 +105,10 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
             style: TextStyle(color: Colors.black, fontSize: 60),
           ),
         ),
-        TextInputContainer(key: secondNumberOnesKey, onValueEntered: handleSecondNumberOnesEntered, isError: isErrorSecondNumberOnes, numberOfDigits: 1,),
+        if(isOnesEntered)
+          SimpleTextContainer(text: widget.secondNumber.toString()[1]),
+        if(!isOnesEntered)
+          TextInputContainer(key: secondNumberOnesKey, onValueEntered: handleSecondNumberOnesEntered, isError: isErrorSecondNumberOnes, numberOfDigits: 1,),
         const Text(
           "=",
           style: TextStyle(color: Colors.black, fontSize: 60),

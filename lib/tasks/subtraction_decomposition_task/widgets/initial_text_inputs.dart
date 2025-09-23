@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_tutor_arithmetic/widgets/animated_text_container.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/animated_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
@@ -37,9 +37,6 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
   GlobalKey<TextInputContainerState> firstNumberOnesKey = GlobalKey();
   GlobalKey<TextInputContainerState> secondNumberTensKey = GlobalKey();
   GlobalKey<TextInputContainerState> secondNumberOnesKey = GlobalKey();
-  GlobalKey<AnimatedTextContainerState> firstNumberOnesContainerKey = GlobalKey();
-
-  late AnimatedTextContainer firstNumberOnesContainer;
 
   handleFirstNumberValueEnteredAsync(int value, GlobalKey key) {
     setState(() {
@@ -92,9 +89,6 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
       setState(() {
         isSecondNumberEntered = true;
       });
-
-      firstNumberOnesContainer.animate.value = true;
-
       widget.onValuesEntered();
     } else {
       setState(() {
@@ -113,8 +107,6 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
 
     super.initState();
     speakTextAsync("Enter the first number");
-
-    firstNumberOnesContainer = AnimatedTextContainer(key: firstNumberOnesContainerKey, text: widget.firstNumber.toString()[1]);
 
   }
 
@@ -139,9 +131,7 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
             if(!isFirstNumberEntered)
               TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleFirstNumberValueEnteredAsync(value, firstNumberOnesKey); }, isError: firstNumberOnesError,  numberOfDigits: 1,),
             if(isFirstNumberEntered)
-              // AnimatedTextContainer(text: widget.firstNumber.toString()[1]),
-              firstNumberOnesContainer,
-              
+              AnimatedTextContainer(text: widget.firstNumber.toString()[1]),
           ],
         ),
         if(isFirstNumberEntered)

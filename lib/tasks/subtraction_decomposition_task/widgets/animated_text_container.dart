@@ -6,13 +6,12 @@ class AnimatedTextContainer extends ConsumerStatefulWidget {
   final String text;
   final double boxSize;
 
-  AnimatedTextContainer({
+  const AnimatedTextContainer({
     super.key,
     required this.text,
     this.boxSize = 80.0,
   });
 
-  final ValueNotifier animate = ValueNotifier(false);
 
   @override
   ConsumerState<AnimatedTextContainer> createState() => AnimatedTextContainerState();
@@ -31,22 +30,11 @@ class AnimatedTextContainerState extends ConsumerState<AnimatedTextContainer> wi
   @override
   void initState() {
 
-    
-    
-    // widget.animate.addListener(() {
-
-    //   animationController.forward();
-    //   setState(() {
-    //     isAnimationStarted = true;
-    //   });
-
-    // });
-
     super.initState();
 
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 500),
     );
 
     Tween<double> progressTween = Tween(begin: 0.0, end: 1.0);
@@ -94,6 +82,15 @@ class AnimatedTextContainerState extends ConsumerState<AnimatedTextContainer> wi
           isAnimationStarted = true;
         });
 
+      }
+
+      if (newState.shouldResetAnimationOnes) {
+        animationController.stop();
+        setState(() {
+          isAnimationStarted = false;
+          isAnimationCompleted = false;
+          backgroundColor = Colors.lightBlue[50] as Color;
+        });
       }
     });
 
