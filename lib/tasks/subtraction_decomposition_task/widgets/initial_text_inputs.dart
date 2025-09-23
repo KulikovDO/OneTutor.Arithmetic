@@ -37,6 +37,7 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
   GlobalKey<TextInputContainerState> firstNumberOnesKey = GlobalKey();
   GlobalKey<TextInputContainerState> secondNumberTensKey = GlobalKey();
   GlobalKey<TextInputContainerState> secondNumberOnesKey = GlobalKey();
+  GlobalKey<AnimatedTextContainerState> firstNumberOnesContainerKey = GlobalKey();
 
   late AnimatedTextContainer firstNumberOnesContainer;
 
@@ -113,7 +114,7 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
     super.initState();
     speakTextAsync("Enter the first number");
 
-    firstNumberOnesContainer = AnimatedTextContainer(text: widget.firstNumber.toString()[1]);
+    firstNumberOnesContainer = AnimatedTextContainer(key: firstNumberOnesContainerKey, text: widget.firstNumber.toString()[1]);
 
   }
 

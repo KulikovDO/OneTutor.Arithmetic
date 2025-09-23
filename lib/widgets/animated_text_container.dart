@@ -13,10 +13,10 @@ class AnimatedTextContainer extends StatefulWidget {
   final ValueNotifier animate = ValueNotifier(false);
 
   @override
-  State<AnimatedTextContainer> createState() => _AnimatedTextContainerState();
+  State<AnimatedTextContainer> createState() => AnimatedTextContainerState();
 }
 
-class _AnimatedTextContainerState extends State<AnimatedTextContainer> with SingleTickerProviderStateMixin {
+class AnimatedTextContainerState extends State<AnimatedTextContainer> with SingleTickerProviderStateMixin {
 
   late Animation<double> animation; 
   late AnimationController animationController;
@@ -24,6 +24,7 @@ class _AnimatedTextContainerState extends State<AnimatedTextContainer> with Sing
   int repeatTimes = 3;
   bool isAnimationCompleted = false;
   bool isAnimationStarted = false;
+  Color backgroundColor = Colors.lightBlue[50] as Color;
 
   @override
   void initState() {
@@ -63,6 +64,7 @@ class _AnimatedTextContainerState extends State<AnimatedTextContainer> with Sing
         } else {
           setState(() {
             isAnimationCompleted = true;
+            backgroundColor = Colors.lightBlue[400] as Color;
           });
         }
       } else if (status == AnimationStatus.dismissed) {
@@ -86,8 +88,13 @@ class _AnimatedTextContainerState extends State<AnimatedTextContainer> with Sing
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: isAnimationCompleted || !isAnimationStarted ? Border.all(width: 2) : Border.all(width: animation.value * 4),
-            color: Colors.lightBlue[50] as Color,
+            border: isAnimationCompleted || !isAnimationStarted 
+              ? Border.all(
+                width: isAnimationCompleted && isAnimationStarted ? 4 : 2, 
+                color: isAnimationCompleted && isAnimationStarted ? Colors.blueAccent : Colors.black
+              ) 
+              : Border.all(width: animation.value * 4, color: Colors.blueAccent),
+            color: backgroundColor,
           ),
           height: widget.boxSize,
           width: widget.boxSize,
