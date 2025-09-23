@@ -100,8 +100,8 @@ class _SubtractOnesState extends State<SubtractOnes> {
         // if(isSecondNumberDecompositionComplete)
         //   EnterOnesResult(key: GlobalKey(), firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: (value){},),
 
-        // if(isOnesEntered && !isSecondNumberDecompositionComplete)
-        //   FirstNumberOnesDecomposition(key: firstNumberOnesDecompositionKey, firstNumber: widget.firstNumber, onResultEntered: handleFirstNumberDecompositionComplete,),
+        if(isOnesEntered && !isSecondNumberDecompositionComplete)
+          FirstNumberOnesDecomposition(key: firstNumberOnesDecompositionKey, firstNumber: widget.firstNumber, onResultEntered: handleFirstNumberDecompositionComplete, speakText: widget.speakText,),
 
         // if(isFirstNumberDecompositionComplete && !isSecondNumberDecompositionComplete)
         //   SecondNumberOnesDecomposition(key: secondNumberOnesDecompositionKey, firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: handleSecondNumberDecompositionComplete,),

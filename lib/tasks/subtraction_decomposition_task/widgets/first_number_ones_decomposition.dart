@@ -6,11 +6,13 @@ class FirstNumberOnesDecomposition extends StatefulWidget {
   
   final int firstNumber;
   final Function onResultEntered;
+  final Function speakText;
   
   const FirstNumberOnesDecomposition({
     super.key, 
     required this.firstNumber,
-    required this.onResultEntered
+    required this.onResultEntered,
+    required this.speakText,
   });
 
   @override
@@ -19,28 +21,15 @@ class FirstNumberOnesDecomposition extends StatefulWidget {
 
 class _FirstNumberOnesDecompositionState extends State<FirstNumberOnesDecomposition> {
 
-  bool tenError = false;
-  bool zeroError = false;
   bool firstNumberError = false;
+  bool isFirstNumberEntered = false;
 
-  GlobalKey<TextInputContainerState> tenKey = GlobalKey();
-  GlobalKey<TextInputContainerState> zeroKey = GlobalKey();
   GlobalKey<TextInputContainerState> firstNumberKey = GlobalKey();
   
   double boxSize = 60.0;
 
-  handleTenEntered(int value) {
-    setState(() {
-      tenError = value == 1 ? false : true;
-    });
-    checkEnteredData();
-  }
-
-  handleZeroEntered(int value) {
-    setState(() {
-      zeroError = value == 0 ? false : true;
-    });
-    checkEnteredData();
+  speakTextAsync(String text) async {
+    await widget.speakText(text);
   }
 
   handleSecondNumberEntered(int value) {
@@ -50,17 +39,34 @@ class _FirstNumberOnesDecompositionState extends State<FirstNumberOnesDecomposit
     checkEnteredData();
   }
 
-  checkEnteredData() {
+  checkEnteredData() async {
     if( // all values entered correctly
-        (tenKey.currentState as TextInputContainerState).valueController.text != ''
-      && (zeroKey.currentState as TextInputContainerState).valueController.text != ''
-      && (firstNumberKey.currentState as TextInputContainerState).valueController.text != ''
-      && !tenError
-      && !zeroError
+      (firstNumberKey.currentState as TextInputContainerState).valueController.text != ''
       && !firstNumberError
     ){
+      
+      setState(() {
+        isFirstNumberEntered = true;
+      });
+      
+      await widget.speakText("That's correct");
       widget.onResultEntered();
-    } 
+    } else {
+      
+      setState(() {
+        isFirstNumberEntered = false;
+      });
+
+      await widget.speakText("Please try again");
+    }
+
+  }
+
+  @override
+  initState() {
+
+    super.initState();
+    speakTextAsync("1${widget.firstNumber.toString()[1]} is ten plus which number?");
 
   }
 
@@ -76,13 +82,16 @@ class _FirstNumberOnesDecompositionState extends State<FirstNumberOnesDecomposit
           "=",
           style: TextStyle(color: Colors.black, fontSize: 60),
         ),
-        TextInputContainer(key: tenKey, onValueEntered: handleTenEntered, isError: tenError, numberOfDigits: 1, boxSize: boxSize,),
-        TextInputContainer(key: zeroKey, onValueEntered: handleZeroEntered, isError: zeroError, numberOfDigits: 1, boxSize: boxSize,),
+        SimpleTextContainer(text: "1", boxSize: boxSize,),
+        SimpleTextContainer(text: "0", boxSize: boxSize,),
         const Text(
             "+",
             style: TextStyle(color: Colors.black, fontSize: 40),
         ),
-        TextInputContainer(key: firstNumberKey, onValueEntered: handleSecondNumberEntered, isError: firstNumberError, numberOfDigits: 1, boxSize: boxSize,),
+        if(!isFirstNumberEntered)
+          TextInputContainer(key: firstNumberKey, onValueEntered: handleSecondNumberEntered, isError: firstNumberError, numberOfDigits: 1, boxSize: boxSize,),
+        if(isFirstNumberEntered)          
+          SimpleTextContainer(text: widget.firstNumber.toString()[1], boxSize: boxSize,),
       ]
     );
   }

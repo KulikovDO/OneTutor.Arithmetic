@@ -26,11 +26,9 @@ class EnterOnes extends ConsumerStatefulWidget {
 
 class _EnterOnesState extends ConsumerState<EnterOnes> {
 
-  // GlobalKey numberTenKey = GlobalKey();
   GlobalKey firstNumberOnesKey = GlobalKey();
   GlobalKey secondNumberOnesKey = GlobalKey();
 
-  // bool isErrorNumberTen = false;
   bool isOnesEntered = false;
   bool isErrorFirstNumberOnes = false;
   bool isErrorSecondNumberOnes = false;
@@ -39,12 +37,6 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
     await widget.speakText(text);
     ref.read(subtractionDecompositionProvider.notifier).animateOnes();
   }
-
-  // handleNumberTenEntered(int value) {  
-  //   setState(() {
-  //     isErrorNumberTen = value == 1 ? false : true;
-  //   });
-  // }
 
   handleFirstNumberOnesEntered(int value) {  
     setState(() {
@@ -72,6 +64,7 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
       }); 
 
       ref.read(subtractionDecompositionProvider.notifier).resetAnimationOnes();
+      widget.onResultEntered();
 
     } 
   }
