@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
 import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
-class EnterOnes extends StatefulWidget {
+class EnterOnes extends ConsumerStatefulWidget {
   
   final int firstNumber;
   final int secondNumber;
@@ -18,11 +20,11 @@ class EnterOnes extends StatefulWidget {
   });
 
   @override
-  State<EnterOnes> createState() => _EnterOnesState();
+  ConsumerState<EnterOnes> createState() => _EnterOnesState();
 }
 
 
-class _EnterOnesState extends State<EnterOnes> {
+class _EnterOnesState extends ConsumerState<EnterOnes> {
 
   // GlobalKey numberTenKey = GlobalKey();
   GlobalKey firstNumberOnesKey = GlobalKey();
@@ -35,6 +37,7 @@ class _EnterOnesState extends State<EnterOnes> {
 
   speakTextAsync(String text) async{
     await widget.speakText(text);
+    ref.read(subtractionDecompositionProvider.notifier).animateOnes();
   }
 
   // handleNumberTenEntered(int value) {  

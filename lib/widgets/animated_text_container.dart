@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
 
-class AnimatedTextContainer extends StatefulWidget {
+class AnimatedTextContainer extends ConsumerStatefulWidget {
   final String text;
   final double boxSize;
 
@@ -13,10 +15,10 @@ class AnimatedTextContainer extends StatefulWidget {
   final ValueNotifier animate = ValueNotifier(false);
 
   @override
-  State<AnimatedTextContainer> createState() => AnimatedTextContainerState();
+  ConsumerState<AnimatedTextContainer> createState() => AnimatedTextContainerState();
 }
 
-class AnimatedTextContainerState extends State<AnimatedTextContainer> with SingleTickerProviderStateMixin {
+class AnimatedTextContainerState extends ConsumerState<AnimatedTextContainer> with SingleTickerProviderStateMixin {
 
   late Animation<double> animation; 
   late AnimationController animationController;
@@ -30,14 +32,15 @@ class AnimatedTextContainerState extends State<AnimatedTextContainer> with Singl
   void initState() {
 
     
-    widget.animate.addListener(() {
+    
+    // widget.animate.addListener(() {
 
-      animationController.forward();
-      setState(() {
-        isAnimationStarted = true;
-      });
+    //   animationController.forward();
+    //   setState(() {
+    //     isAnimationStarted = true;
+    //   });
 
-    });
+    // });
 
     super.initState();
 
@@ -82,6 +85,18 @@ class AnimatedTextContainerState extends State<AnimatedTextContainer> with Singl
 
   @override
   Widget build(BuildContext context) {
+
+    ref.listen(subtractionDecompositionProvider, (previousState, newState) {
+      if (newState.shouldAnimateOnes) {
+
+        animationController.forward();
+        setState(() {
+          isAnimationStarted = true;
+        });
+
+      }
+    });
+
     return
       Padding(
         padding: const EdgeInsets.all(4.0),
