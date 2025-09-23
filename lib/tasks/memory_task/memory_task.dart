@@ -58,31 +58,6 @@ class _MemoryTaskState extends State<MemoryTask> {
     await widget.speakText(assignment.text);
   }
 
-  completeIteration(){
-
-    textInputRow.reset.value = true;
-  //   setState(() {
-
-  //     _iteration = _iteration == numOfIterations ? 1 : _iteration + 1;
-  //     _progress = _iteration / numOfIterations;
-
-  //   });
-
-  //   if( _iteration >= numOfIterations){
-
-  //     if (!mounted) return;
-
-  //     Navigator.of(context).push(
-  //       MaterialPageRoute(
-  //         builder: (ctx) => const FinalScreen()
-  //       ),
-  //     );
-        
-  //   } else {
-  //     init();
-  //   }
-  }
-
   initAssignment() async {
 
     assignment = assignment.prepareTask();

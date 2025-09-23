@@ -4,11 +4,13 @@ class AnimatedTextContainer extends StatefulWidget {
   final String text;
   final double boxSize;
 
-  const AnimatedTextContainer({
+  AnimatedTextContainer({
     super.key,
     required this.text,
     this.boxSize = 80.0,
   });
+
+  final ValueNotifier animate = ValueNotifier(false);
 
   @override
   State<AnimatedTextContainer> createState() => _AnimatedTextContainerState();
@@ -17,44 +19,54 @@ class AnimatedTextContainer extends StatefulWidget {
 class _AnimatedTextContainerState extends State<AnimatedTextContainer> with SingleTickerProviderStateMixin {
 
   late Animation<double> animation; 
-  late AnimationController controller; //TODO: animation controller
+  late AnimationController animationController;
   int iteration = 0;
   int repeatTimes = 3;
   bool isAnimationCompleted = false;
+  bool isAnimationStarted = false;
 
   @override
   void initState() {
+
+    
+    widget.animate.addListener(() {
+
+      animationController.forward();
+      setState(() {
+        isAnimationStarted = true;
+      });
+
+    });
+
     super.initState();
 
-    controller = AnimationController(
+    animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1500),
     );
 
     Tween<double> progressTween = Tween(begin: 0.0, end: 1.0);
-    animation = progressTween.animate(controller)
+    animation = progressTween.animate(animationController)
       ..addListener(() {
         setState(() {});
       });
 
-    controller.forward();
-
-    controller.addStatusListener((status) {
+    animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
           iteration++;
         });
         if (iteration < repeatTimes) {
           
-          controller.reset();
-          controller.forward();
+          animationController.reset();
+          animationController.forward();
         } else {
           setState(() {
             isAnimationCompleted = true;
           });
         }
       } else if (status == AnimationStatus.dismissed) {
-        controller.forward();
+        animationController.forward();
       }
     });
 
@@ -62,7 +74,7 @@ class _AnimatedTextContainerState extends State<AnimatedTextContainer> with Sing
 
   @override
   void dispose() {
-    controller.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
@@ -74,7 +86,7 @@ class _AnimatedTextContainerState extends State<AnimatedTextContainer> with Sing
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: isAnimationCompleted ? Border.all(width: 2) : Border.all(width: animation.value * 4),
+            border: isAnimationCompleted || !isAnimationStarted ? Border.all(width: 2) : Border.all(width: animation.value * 4),
             color: Colors.lightBlue[50] as Color,
           ),
           height: widget.boxSize,

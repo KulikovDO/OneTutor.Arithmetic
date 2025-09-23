@@ -38,6 +38,8 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
   GlobalKey<TextInputContainerState> secondNumberTensKey = GlobalKey();
   GlobalKey<TextInputContainerState> secondNumberOnesKey = GlobalKey();
 
+  late AnimatedTextContainer firstNumberOnesContainer;
+
   handleFirstNumberValueEnteredAsync(int value, GlobalKey key) {
     setState(() {
       switch(key) {
@@ -90,6 +92,8 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
         isSecondNumberEntered = true;
       });
 
+      firstNumberOnesContainer.animate.value = true;
+
       widget.onValuesEntered();
     } else {
       setState(() {
@@ -108,6 +112,8 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
 
     super.initState();
     speakTextAsync("Enter the first number");
+
+    firstNumberOnesContainer = AnimatedTextContainer(text: widget.firstNumber.toString()[1]);
 
   }
 
@@ -132,7 +138,9 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
             if(!isFirstNumberEntered)
               TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleFirstNumberValueEnteredAsync(value, firstNumberOnesKey); }, isError: firstNumberOnesError,  numberOfDigits: 1,),
             if(isFirstNumberEntered)
-              AnimatedTextContainer(text: widget.firstNumber.toString()[1]),
+              // AnimatedTextContainer(text: widget.firstNumber.toString()[1]),
+              firstNumberOnesContainer,
+              
           ],
         ),
         if(isFirstNumberEntered)
