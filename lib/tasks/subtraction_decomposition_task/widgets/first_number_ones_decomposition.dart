@@ -6,6 +6,7 @@ class FirstNumberOnesDecomposition extends StatefulWidget {
   
   final int firstNumber;
   final Function onResultEntered;
+  // final Future<void> Function(String) speakText;
   final Function speakText;
   
   const FirstNumberOnesDecomposition({
@@ -39,7 +40,7 @@ class _FirstNumberOnesDecompositionState extends State<FirstNumberOnesDecomposit
     checkEnteredData();
   }
 
-  checkEnteredData() async {
+  checkEnteredData() async{
     if( // all values entered correctly
       (firstNumberKey.currentState as TextInputContainerState).valueController.text != ''
       && !firstNumberError
@@ -49,15 +50,17 @@ class _FirstNumberOnesDecompositionState extends State<FirstNumberOnesDecomposit
         isFirstNumberEntered = true;
       });
       
-      await widget.speakText("That's correct");
+      await speakTextAsync("That's correct");
+      // await Future.delayed(const Duration(seconds: 1));
       widget.onResultEntered();
+
     } else {
       
       setState(() {
         isFirstNumberEntered = false;
       });
 
-      await widget.speakText("Please try again");
+      speakTextAsync("Please try again");
     }
 
   }

@@ -7,12 +7,14 @@ class SecondNumberOnesDecomposition extends StatefulWidget {
   final int firstNumber;
   final int secondNumber;
   final Function onResultEntered;
+  final Function speakText;
   
   const SecondNumberOnesDecomposition({
     super.key, 
     required this.firstNumber,
     required this.secondNumber,
-    required this.onResultEntered
+    required this.onResultEntered,
+    required this.speakText,
   });
 
   @override
@@ -21,35 +23,34 @@ class SecondNumberOnesDecomposition extends StatefulWidget {
 
 class _SecondNumberOnesDecompositionState extends State<SecondNumberOnesDecomposition> {
   double boxSize = 60.0;
-  bool firstNumberError = false;
-  bool secondNumberError = false;
+  bool isSecondNumberError = false;
 
-  GlobalKey<TextInputContainerState> firstNumberKey = GlobalKey();
   GlobalKey<TextInputContainerState> secondNumberKey = GlobalKey();
 
-  handleFirstNumberEntered(int value) {
+  speakTextAsync(String text) async {
+    await widget.speakText(text);
+  }
 
-    setState(() {
-      firstNumberError = widget.firstNumber.toString()[1] == value.toString() ? false : true;
-    });
-    checkEnteredData();
+  @override
+  initState() {
+
+    super.initState();
+    speakTextAsync("${widget.secondNumber.toString()[1]} is ${widget.firstNumber.toString()[1]} plus which number?");
 
   }
 
   handleSecondNumberEntered(int value) {
 
     setState(() {
-      secondNumberError = (int.parse(widget.secondNumber.toString()[1]) - int.parse(widget.firstNumber.toString()[1])).toString()  == value.toString() ? false : true;
+      isSecondNumberError = (int.parse(widget.secondNumber.toString()[1]) - int.parse(widget.firstNumber.toString()[1])).toString()  == value.toString() ? false : true;
     });
     checkEnteredData();
   }
 
   checkEnteredData() {
     if( // all values entered correctly
-      (firstNumberKey.currentState as TextInputContainerState).valueController.text != ''
-      && (secondNumberKey.currentState as TextInputContainerState).valueController.text != ''
-      && !firstNumberError
-      && !secondNumberError
+      (secondNumberKey.currentState as TextInputContainerState).valueController.text != ''
+      && !isSecondNumberError
     ){
       widget.onResultEntered();
     } 
@@ -65,12 +66,12 @@ class _SecondNumberOnesDecompositionState extends State<SecondNumberOnesDecompos
           "=",
           style: TextStyle(color: Colors.black, fontSize: 60),
         ),
-        TextInputContainer(key: firstNumberKey, onValueEntered: handleFirstNumberEntered, isError: firstNumberError, numberOfDigits: 1, boxSize: boxSize,),
+        SimpleTextContainer(text: widget.firstNumber.toString()[1], boxSize: boxSize,),
         const Text(
             "+",
             style: TextStyle(color: Colors.black, fontSize: 40),
         ),
-        TextInputContainer(key: secondNumberKey, onValueEntered: handleSecondNumberEntered, isError: secondNumberError, numberOfDigits: 1, boxSize: boxSize,),
+        TextInputContainer(key: secondNumberKey, onValueEntered: handleSecondNumberEntered, isError: isSecondNumberError, numberOfDigits: 1, boxSize: boxSize,),
       ]
     );
   }
