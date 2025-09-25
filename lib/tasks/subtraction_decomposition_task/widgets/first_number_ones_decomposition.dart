@@ -33,25 +33,25 @@ class _FirstNumberOnesDecompositionState extends State<FirstNumberOnesDecomposit
     await widget.speakText(text);
   }
 
-  handleSecondNumberEntered(int value) {
+  handleSecondNumberEntered(int value) async {
     setState(() {
       firstNumberError = widget.firstNumber.toString()[1] == value.toString() ? false : true;
     });
-    checkEnteredData();
-  }
-
-  checkEnteredData() async{
+    
     if( // all values entered correctly
       (firstNumberKey.currentState as TextInputContainerState).valueController.text != ''
       && !firstNumberError
     ){
       
+      await speakTextAsync("That's correct");
+      await Future.delayed(const Duration(milliseconds: 1500)); // not sure why previous speakTextAsync is not awaited properly
+
       setState(() {
         isFirstNumberEntered = true;
       });
       
-      await speakTextAsync("That's correct");
-      // await Future.delayed(const Duration(seconds: 1));
+      
+      
       widget.onResultEntered();
 
     } else {

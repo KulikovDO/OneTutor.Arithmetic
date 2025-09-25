@@ -39,21 +39,24 @@ class _SecondNumberOnesDecompositionState extends State<SecondNumberOnesDecompos
 
   }
 
-  handleSecondNumberEntered(int value) {
+  handleSecondNumberEntered(int value) async {
 
     setState(() {
       isSecondNumberError = (int.parse(widget.secondNumber.toString()[1]) - int.parse(widget.firstNumber.toString()[1])).toString()  == value.toString() ? false : true;
     });
-    checkEnteredData();
-  }
-
-  checkEnteredData() {
+    
     if( // all values entered correctly
       (secondNumberKey.currentState as TextInputContainerState).valueController.text != ''
       && !isSecondNumberError
     ){
+      
+      await speakTextAsync("That's correct");
+      await Future.delayed(const Duration(milliseconds: 1500)); // not sure why previous speakTextAsync is not awaited properly
       widget.onResultEntered();
-    } 
+    } else {
+      // incorrect value entered
+      await speakTextAsync("Please try again");
+    }
   }
 
   @override

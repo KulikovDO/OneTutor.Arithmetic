@@ -52,10 +52,10 @@ class _EnterOnesResultState extends State<EnterOnesResult> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
-          "=",
-          style: TextStyle(color: Colors.black, fontSize: 60),
-        ),
+        // const Text(
+        //   "=",
+        //   style: TextStyle(color: Colors.black, fontSize: 60),
+        // ),
         SimpleTextContainer(text: "1", boxSize: boxSize,),
         SimpleTextContainer(text: "0", boxSize: boxSize,),
         const Text(
