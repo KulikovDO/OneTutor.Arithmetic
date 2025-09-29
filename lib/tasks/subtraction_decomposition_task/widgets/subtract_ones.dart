@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/enter_ones.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/enter_ones_result.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/first_number_ones_decomposition.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/second_number_ones_decomposition.dart';
 
 
-class SubtractOnes extends StatefulWidget {
+class SubtractOnes extends ConsumerStatefulWidget {
   
   final int firstNumber;
   final int secondNumber;
@@ -21,11 +23,11 @@ class SubtractOnes extends StatefulWidget {
   });
 
   @override
-  State<SubtractOnes> createState() => _SubtractOnesState();
+  ConsumerState<SubtractOnes> createState() => _SubtractOnesState();
 }
 
 
-class _SubtractOnesState extends State<SubtractOnes> {
+class _SubtractOnesState extends ConsumerState<SubtractOnes> {
 
   bool isOnesEntered = false;
   bool isFirstNumberDecompositionComplete = false;
@@ -75,7 +77,11 @@ class _SubtractOnesState extends State<SubtractOnes> {
       isSecondNumberDecompositionComplete = true;
     });
 
+    ref.read(subtractionDecompositionProvider.notifier).animateCancelOut();
+    
     speakTextAsync("From highlighted select two numbers to cancel out");
+
+    // animation
 
   }
 

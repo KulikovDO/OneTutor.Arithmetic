@@ -81,7 +81,7 @@ class AnimatedTextContainerState extends ConsumerState<AnimatedTextContainer> wi
   Widget build(BuildContext context) {
 
     ref.listen(subtractionDecompositionProvider, (previousState, newState) {
-      if (newState.shouldAnimateOnes) {
+      if (newState.shouldAnimate && widget.highlightOption == newState.highlightOption) {
 
         animationController.forward();
         setState(() {
@@ -90,7 +90,7 @@ class AnimatedTextContainerState extends ConsumerState<AnimatedTextContainer> wi
 
       }
 
-      if (newState.shouldResetAnimationOnes) {
+      if (newState.shouldResetAnimation && widget.highlightOption == newState.highlightOption) {
         animationController.stop();
         setState(() {
           isAnimationStarted = false;
