@@ -37,7 +37,7 @@ class _SubtractOnesState extends State<SubtractOnes> {
   GlobalKey secondNumberOnesDecompositionKey = GlobalKey();
 
   
-
+  speakTextAsync(String text) async => await widget.speakText(text);
   
 
   // handleResultOnesEntered(int value) { 
@@ -70,9 +70,13 @@ class _SubtractOnesState extends State<SubtractOnes> {
   }
 
   handleSecondNumberDecompositionComplete(){
+    
     setState(() {
       isSecondNumberDecompositionComplete = true;
     });
+
+    speakTextAsync("From highlighted select two numbers to cancel out");
+
   }
 
 
@@ -103,8 +107,8 @@ class _SubtractOnesState extends State<SubtractOnes> {
         if(isFirstNumberDecompositionComplete /*&& !isSecondNumberDecompositionComplete*/)
           SecondNumberOnesDecomposition(key: secondNumberOnesDecompositionKey, firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: handleSecondNumberDecompositionComplete, speakText: widget.speakText,),
 
-        if(isSecondNumberDecompositionComplete)
-          EnterOnesResult(key: GlobalKey(), firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: (value){},),
+        // if(isSecondNumberDecompositionComplete)
+        //   EnterOnesResult(key: GlobalKey(), firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: (value){},),
 
       ],
     );

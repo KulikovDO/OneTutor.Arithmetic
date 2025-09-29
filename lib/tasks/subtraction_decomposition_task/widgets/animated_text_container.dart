@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
 
+Color highlightedBackgroundColor = Colors.lightBlue[100] as Color;
+Color initialBackgroundColor = Colors.lightBlue[50] as Color;
+
 class AnimatedTextContainer extends ConsumerStatefulWidget {
   final String text;
   final double boxSize;
@@ -25,7 +28,7 @@ class AnimatedTextContainerState extends ConsumerState<AnimatedTextContainer> wi
   int repeatTimes = 3;
   bool isAnimationCompleted = false;
   bool isAnimationStarted = false;
-  Color backgroundColor = Colors.lightBlue[50] as Color;
+  Color backgroundColor = initialBackgroundColor;
 
   @override
   void initState() {
@@ -55,7 +58,7 @@ class AnimatedTextContainerState extends ConsumerState<AnimatedTextContainer> wi
         } else {
           setState(() {
             isAnimationCompleted = true;
-            backgroundColor = Colors.lightBlue[400] as Color;
+            backgroundColor = highlightedBackgroundColor;
           });
         }
       } else if (status == AnimationStatus.dismissed) {
@@ -89,7 +92,7 @@ class AnimatedTextContainerState extends ConsumerState<AnimatedTextContainer> wi
         setState(() {
           isAnimationStarted = false;
           isAnimationCompleted = false;
-          backgroundColor = Colors.lightBlue[50] as Color;
+          backgroundColor = initialBackgroundColor;
         });
       }
     });
