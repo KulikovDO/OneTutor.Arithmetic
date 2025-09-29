@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/data/highlight_option.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
 
 Color highlightedBackgroundColor = Colors.lightBlue[100] as Color;
@@ -8,10 +9,12 @@ Color initialBackgroundColor = Colors.lightBlue[50] as Color;
 class AnimatedTextContainer extends ConsumerStatefulWidget {
   final String text;
   final double boxSize;
+  final HighlightOption highlightOption;
 
   const AnimatedTextContainer({
     super.key,
     required this.text,
+    required this.highlightOption,
     this.boxSize = 80.0,
   });
 

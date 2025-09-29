@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/data/highlight_option.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/animated_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
@@ -75,7 +76,7 @@ class _SecondNumberOnesDecompositionState extends State<SecondNumberOnesDecompos
           "=",
           style: TextStyle(color: Colors.black, fontSize: 60),
         ),
-        AnimatedTextContainer(text: widget.firstNumber.toString()[1], boxSize: boxSize,),
+        AnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.cancelOut, boxSize: boxSize,),
         const Text(
             "+",
             style: TextStyle(color: Colors.black, fontSize: 40),
@@ -83,7 +84,7 @@ class _SecondNumberOnesDecompositionState extends State<SecondNumberOnesDecompos
         if(!isSecondNumberEntered)
           TextInputContainer(key: secondNumberKey, onValueEntered: handleSecondNumberEntered, isError: isSecondNumberError, numberOfDigits: 1, boxSize: boxSize,),
         if(isSecondNumberEntered)          
-          AnimatedTextContainer(text: expectedValue.toString(), boxSize: boxSize,),
+          AnimatedTextContainer(text: expectedValue.toString(), highlightOption: HighlightOption.cancelOut, boxSize: boxSize,),
       ]
     );
   }
