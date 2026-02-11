@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/data/highlight_option.dart';
-import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/animated_text_container.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/tappable_animated_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
@@ -96,7 +96,7 @@ class _FirstNumberOnesDecompositionState extends State<FirstNumberOnesDecomposit
         if(!isFirstNumberEntered)
           TextInputContainer(key: firstNumberKey, onValueEntered: handleSecondNumberEntered, isError: firstNumberError, numberOfDigits: 1, boxSize: boxSize,),
         if(isFirstNumberEntered)          
-          AnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.cancelOut, boxSize: boxSize,),
+          TappableAnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.cancelOut, boxSize: boxSize,),
       ]
     );
   }
