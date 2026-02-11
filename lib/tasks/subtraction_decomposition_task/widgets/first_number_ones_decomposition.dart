@@ -87,8 +87,8 @@ class _FirstNumberOnesDecompositionState extends State<FirstNumberOnesDecomposit
           "=",
           style: TextStyle(color: Colors.black, fontSize: 60),
         ),
-        AnimatedTextContainer(text: "1", highlightOption: HighlightOption.cancelOut, boxSize: boxSize,),
-        AnimatedTextContainer(text: "0", highlightOption: HighlightOption.cancelOut, boxSize: boxSize,),
+        SimpleTextContainer(text: "1", boxSize: boxSize,),
+        SimpleTextContainer(text: "0", boxSize: boxSize,),
         const Text(
             "+",
             style: TextStyle(color: Colors.black, fontSize: 40),

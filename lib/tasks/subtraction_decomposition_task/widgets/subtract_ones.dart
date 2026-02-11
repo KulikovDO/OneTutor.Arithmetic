@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/enter_ones.dart';
-import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/enter_ones_result.dart';
+// import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/enter_ones_result.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/first_number_ones_decomposition.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/second_number_ones_decomposition.dart';
 
@@ -71,17 +71,14 @@ class _SubtractOnesState extends ConsumerState<SubtractOnes> {
     });
   }
 
-  handleSecondNumberDecompositionComplete(){
+  handleSecondNumberDecompositionComplete() async {
     
     setState(() {
       isSecondNumberDecompositionComplete = true;
     });
 
+    await widget.speakText("From highlighted select two numbers to cancel out");
     ref.read(subtractionDecompositionProvider.notifier).animateCancelOut();
-    
-    speakTextAsync("From highlighted select two numbers to cancel out");
-
-    // animation
 
   }
 
