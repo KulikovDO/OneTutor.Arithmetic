@@ -5,6 +5,7 @@ import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtra
 
 Color highlightedBackgroundColor = Colors.lightBlue[100] as Color;
 Color initialBackgroundColor = Colors.lightBlue[50] as Color;
+Color tappedBackgroundColor = Colors.purple[100] as Color;
 
 class TappableAnimatedTextContainer extends ConsumerStatefulWidget {
   final String text;
@@ -32,6 +33,7 @@ class TappableAnimatedTextContainerState extends ConsumerState<TappableAnimatedT
   bool isAnimationCompleted = false;
   bool isAnimationStarted = false;
   Color backgroundColor = initialBackgroundColor;
+  bool isTapped = false;
 
   @override
   void initState() {
@@ -77,6 +79,21 @@ class TappableAnimatedTextContainerState extends ConsumerState<TappableAnimatedT
     super.dispose();
   }
 
+  handleTapInside() {
+
+      if(isTapped){
+        setState(() {
+          isTapped = false;
+          backgroundColor = initialBackgroundColor;
+        });
+      } else {
+        setState(() {
+          isTapped = true;
+          backgroundColor = tappedBackgroundColor;
+        });
+      }
+    }
+
   @override
   Widget build(BuildContext context) {
 
@@ -100,12 +117,23 @@ class TappableAnimatedTextContainerState extends ConsumerState<TappableAnimatedT
       }
     });
 
-    handleTapInside() {
 
-      if(isAnimationCompleted){
-        debugPrint(isAnimationCompleted.toString());
+    getBorder() {
+      if(isTapped){
+        return Border.all(width: 4, color: Colors.purple[600] as Color);
+      }
+      else if(isAnimationCompleted || !isAnimationStarted){
+        return Border.all(
+          width: isAnimationCompleted && isAnimationStarted ? 4 : 2, 
+          color: isAnimationCompleted && isAnimationStarted ? Colors.blueAccent : Colors.black
+        );
+      } 
+      else {
+        return Border.all(width: animation.value * 4, color: Colors.blueAccent);
       }
     }
+
+    
 
     return
       Padding(
@@ -115,12 +143,13 @@ class TappableAnimatedTextContainerState extends ConsumerState<TappableAnimatedT
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: isAnimationCompleted || !isAnimationStarted 
-              ? Border.all(
-                width: isAnimationCompleted && isAnimationStarted ? 4 : 2, 
-                color: isAnimationCompleted && isAnimationStarted ? Colors.blueAccent : Colors.black
-              ) 
-              : Border.all(width: animation.value * 4, color: Colors.blueAccent),
+            border: getBorder(),
+            // border: isAnimationCompleted || !isAnimationStarted 
+            //   ? Border.all(
+            //     width: isAnimationCompleted && isAnimationStarted ? 4 : 2, 
+            //     color: isAnimationCompleted && isAnimationStarted ? Colors.blueAccent : Colors.black
+            //   ) 
+            //   : Border.all(width: animation.value * 4, color: Colors.blueAccent),
             color: backgroundColor,
           ),
           height: widget.boxSize,
