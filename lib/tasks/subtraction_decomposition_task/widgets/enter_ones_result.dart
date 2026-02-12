@@ -7,12 +7,14 @@ class EnterOnesResult extends StatefulWidget {
   final int firstNumber;
   final int secondNumber;
   final Function onResultEntered;
+  final Function speakText;
   
   const EnterOnesResult({
     super.key, 
     required this.firstNumber,
     required this.secondNumber,
-    required this.onResultEntered
+    required this.onResultEntered,
+    required this.speakText,
   });
 
   @override
@@ -27,6 +29,8 @@ class _EnterOnesResultState extends State<EnterOnesResult> {
   bool isErrorResultOnes = false;
   late int decompositionOnes;
   late int expectedResultOnes;
+
+  speakTextAsync(String text) async => await widget.speakText(text);
   
   handleResultOnesEntered(int value){
     setState(() {
@@ -42,6 +46,8 @@ class _EnterOnesResultState extends State<EnterOnesResult> {
       widget.firstNumber - widget.secondNumber > 9 
       ? int.parse((widget.firstNumber - widget.secondNumber).toString()[1])
       : widget.firstNumber - widget.secondNumber;
+
+    speakTextAsync("How much is 10 minus $decompositionOnes?");
     
     super.initState();
     

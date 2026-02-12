@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
+// import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/enter_ones.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/enter_ones_result.dart';
 // import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/enter_ones_result.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/first_number_ones_decomposition.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/second_number_ones_decomposition.dart';
@@ -77,9 +78,6 @@ class _SubtractOnesState extends ConsumerState<SubtractOnes> {
       isSecondNumberDecompositionComplete = true;
     });
 
-    await widget.speakText("From highlighted select two numbers to cancel out");
-    ref.read(subtractionDecompositionProvider.notifier).animateCancelOut();
-
   }
 
 
@@ -104,14 +102,14 @@ class _SubtractOnesState extends ConsumerState<SubtractOnes> {
         
         EnterOnes(key: enterOnesKey, firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: handleOnesEntered, speakText: widget.speakText,),
 
-        if(isOnesEntered /*&& !isSecondNumberDecompositionComplete*/)
+        if(isOnesEntered && !isSecondNumberDecompositionComplete)
           FirstNumberOnesDecomposition(key: firstNumberOnesDecompositionKey, firstNumber: widget.firstNumber, onResultEntered: handleFirstNumberDecompositionComplete, speakText: widget.speakText,),
 
-        if(isFirstNumberDecompositionComplete /*&& !isSecondNumberDecompositionComplete*/)
+        if(isFirstNumberDecompositionComplete && !isSecondNumberDecompositionComplete)
           SecondNumberOnesDecomposition(key: secondNumberOnesDecompositionKey, firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: handleSecondNumberDecompositionComplete, speakText: widget.speakText,),
 
-        // if(isSecondNumberDecompositionComplete)
-        //   EnterOnesResult(key: GlobalKey(), firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: (value){},),
+        if(isSecondNumberDecompositionComplete)
+          EnterOnesResult(key: GlobalKey(), firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: (value){}, speakText: widget.speakText,),
 
       ],
     );
