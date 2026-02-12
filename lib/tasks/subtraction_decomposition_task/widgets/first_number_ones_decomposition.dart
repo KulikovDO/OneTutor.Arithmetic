@@ -96,7 +96,7 @@ class _FirstNumberOnesDecompositionState extends State<FirstNumberOnesDecomposit
         if(!isFirstNumberEntered)
           TextInputContainer(key: firstNumberKey, onValueEntered: handleSecondNumberEntered, isError: firstNumberError, numberOfDigits: 1, boxSize: boxSize,),
         if(isFirstNumberEntered)          
-          TappableAnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.cancelOut, boxSize: boxSize,),
+          TappableAnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.cancelOut, tag: "1", boxSize: boxSize,),
       ]
     );
   }

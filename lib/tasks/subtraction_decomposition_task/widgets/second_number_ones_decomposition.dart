@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/data/highlight_option.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/tappable_animated_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SecondNumberOnesDecomposition extends StatefulWidget {
+class SecondNumberOnesDecomposition extends ConsumerStatefulWidget {
   
   final int firstNumber;
   final int secondNumber;
@@ -20,10 +22,10 @@ class SecondNumberOnesDecomposition extends StatefulWidget {
   });
 
   @override
-  State<SecondNumberOnesDecomposition> createState() => _SecondNumberOnesDecompositionState();
+  ConsumerState<SecondNumberOnesDecomposition> createState() => _SecondNumberOnesDecompositionState();
 }
 
-class _SecondNumberOnesDecompositionState extends State<SecondNumberOnesDecomposition> {
+class _SecondNumberOnesDecompositionState extends ConsumerState<SecondNumberOnesDecomposition> {
   double boxSize = 60.0;
   bool isSecondNumberError = false;
   bool isSecondNumberEntered = false;
@@ -32,7 +34,7 @@ class _SecondNumberOnesDecompositionState extends State<SecondNumberOnesDecompos
   GlobalKey<TextInputContainerState> secondNumberKey = GlobalKey();
 
   speakTextAsync(String text) async => await widget.speakText(text);
-  
+ 
 
   @override
   initState() {
@@ -68,6 +70,15 @@ class _SecondNumberOnesDecompositionState extends State<SecondNumberOnesDecompos
 
   @override
   Widget build(BuildContext context) {
+
+    ref.listen(subtractionDecompositionProvider, (previousState, newState) async {
+      if(newState.canCancelOut){
+          await speakTextAsync("That's correct");
+        }
+    });
+
+
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -76,7 +87,7 @@ class _SecondNumberOnesDecompositionState extends State<SecondNumberOnesDecompos
           "=",
           style: TextStyle(color: Colors.black, fontSize: 60),
         ),
-        TappableAnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.cancelOut, boxSize: boxSize,),
+        TappableAnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.cancelOut, tag: "2", boxSize: boxSize,),
         const Text(
             "+",
             style: TextStyle(color: Colors.black, fontSize: 40),
@@ -84,7 +95,7 @@ class _SecondNumberOnesDecompositionState extends State<SecondNumberOnesDecompos
         if(!isSecondNumberEntered)
           TextInputContainer(key: secondNumberKey, onValueEntered: handleSecondNumberEntered, isError: isSecondNumberError, numberOfDigits: 1, boxSize: boxSize,),
         if(isSecondNumberEntered)          
-          TappableAnimatedTextContainer(text: expectedValue.toString(), highlightOption: HighlightOption.cancelOut, boxSize: boxSize,),
+          TappableAnimatedTextContainer(text: expectedValue.toString(), highlightOption: HighlightOption.cancelOut, tag: "2", boxSize: boxSize,),
       ]
     );
   }

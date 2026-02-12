@@ -10,12 +10,14 @@ Color tappedBackgroundColor = Colors.purple[100] as Color;
 class TappableAnimatedTextContainer extends ConsumerStatefulWidget {
   final String text;
   final double boxSize;
+  final String tag;
   final HighlightOption highlightOption;
 
   const TappableAnimatedTextContainer({
     super.key,
     required this.text,
     required this.highlightOption,
+    this.tag = "",
     this.boxSize = 80.0,
   });
 
@@ -34,6 +36,7 @@ class TappableAnimatedTextContainerState extends ConsumerState<TappableAnimatedT
   bool isAnimationStarted = false;
   Color backgroundColor = initialBackgroundColor;
   bool isTapped = false;
+  bool canBeTapped = false;
 
   @override
   void initState() {
@@ -62,6 +65,7 @@ class TappableAnimatedTextContainerState extends ConsumerState<TappableAnimatedT
           animationController.forward();
         } else {
           setState(() {
+            canBeTapped = true;
             isAnimationCompleted = true;
             backgroundColor = highlightedBackgroundColor;
           });
@@ -81,18 +85,34 @@ class TappableAnimatedTextContainerState extends ConsumerState<TappableAnimatedT
 
   handleTapInside() {
 
-      if(isTapped){
-        setState(() {
-          isTapped = false;
-          backgroundColor = initialBackgroundColor;
-        });
-      } else {
-        setState(() {
-          isTapped = true;
-          backgroundColor = tappedBackgroundColor;
-        });
-      }
+    if(!canBeTapped) {
+      return;
     }
+
+    
+
+    if(isTapped){
+      
+      ref.read(subtractionDecompositionProvider.notifier).deselectNumber(int.parse(widget.tag));
+      
+      setState(() {
+        isTapped = false;
+        backgroundColor = highlightedBackgroundColor;
+      });
+    } else {
+      
+      bool canProceed = ref.read(subtractionDecompositionProvider.notifier).selectNumber(int.parse(widget.tag), int.parse(widget.text));
+
+      if(!canProceed) {
+        return;
+      }
+      
+      setState(() {
+        isTapped = true;
+        backgroundColor = tappedBackgroundColor;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +135,7 @@ class TappableAnimatedTextContainerState extends ConsumerState<TappableAnimatedT
           backgroundColor = initialBackgroundColor;
         });
       }
+
     });
 
 
@@ -144,12 +165,6 @@ class TappableAnimatedTextContainerState extends ConsumerState<TappableAnimatedT
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: getBorder(),
-            // border: isAnimationCompleted || !isAnimationStarted 
-            //   ? Border.all(
-            //     width: isAnimationCompleted && isAnimationStarted ? 4 : 2, 
-            //     color: isAnimationCompleted && isAnimationStarted ? Colors.blueAccent : Colors.black
-            //   ) 
-            //   : Border.all(width: animation.value * 4, color: Colors.blueAccent),
             color: backgroundColor,
           ),
           height: widget.boxSize,
