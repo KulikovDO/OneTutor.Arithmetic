@@ -26,6 +26,7 @@ class EnterOnes extends ConsumerStatefulWidget {
 
 class _EnterOnesState extends ConsumerState<EnterOnes> {
 
+  double boxSize = 60.0;
   GlobalKey firstNumberOnesKey = GlobalKey();
   GlobalKey secondNumberOnesKey = GlobalKey();
 
@@ -83,13 +84,13 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if(isOnesEntered)
-          const SimpleTextContainer(text: "1"),
+          SimpleTextContainer(text: "1", boxSize: boxSize,),
         if(!isOnesEntered)
           const SizedBox( width: 87, height: 87,),
         if(isOnesEntered)
-          SimpleTextContainer(text: widget.firstNumber.toString()[1]),
+          SimpleTextContainer(text: widget.firstNumber.toString()[1], boxSize: boxSize,),
         if(!isOnesEntered)
-          TextInputContainer(key: firstNumberOnesKey, onValueEntered: handleFirstNumberOnesEntered, isError: isErrorFirstNumberOnes,  numberOfDigits: 1,),
+          TextInputContainer(key: firstNumberOnesKey, onValueEntered: handleFirstNumberOnesEntered, isError: isErrorFirstNumberOnes,  numberOfDigits: 1, boxSize: boxSize,),
 
         const Padding(
           padding: EdgeInsets.only(left: 5, right: 5),
@@ -99,9 +100,9 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
           ),
         ),
         if(isOnesEntered)
-          SimpleTextContainer(text: widget.secondNumber.toString()[1]),
+          SimpleTextContainer(text: widget.secondNumber.toString()[1], boxSize: boxSize,),
         if(!isOnesEntered)
-          TextInputContainer(key: secondNumberOnesKey, onValueEntered: handleSecondNumberOnesEntered, isError: isErrorSecondNumberOnes, numberOfDigits: 1,),
+          TextInputContainer(key: secondNumberOnesKey, onValueEntered: handleSecondNumberOnesEntered, isError: isErrorSecondNumberOnes, numberOfDigits: 1, boxSize: boxSize,),
         const Text(
           "=",
           style: TextStyle(color: Colors.black, fontSize: 60),

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
-class EnterOnesResult extends StatefulWidget {
+class SubtractOnesResult extends StatefulWidget {
   
   final int firstNumber;
   final int secondNumber;
   final Function onResultEntered;
   final Function speakText;
   
-  const EnterOnesResult({
+  const SubtractOnesResult({
     super.key, 
     required this.firstNumber,
     required this.secondNumber,
@@ -18,11 +18,11 @@ class EnterOnesResult extends StatefulWidget {
   });
 
   @override
-  State<EnterOnesResult> createState() => _EnterOnesResultState();
+  State<SubtractOnesResult> createState() => _SubtractOnesResultState();
 }
 
 
-class _EnterOnesResultState extends State<EnterOnesResult> {
+class _SubtractOnesResultState extends State<SubtractOnesResult> {
 
   double boxSize = 60.0;
   GlobalKey resultOnesKey = GlobalKey();
@@ -36,6 +36,13 @@ class _EnterOnesResultState extends State<EnterOnesResult> {
     setState(() {
       isErrorResultOnes = value == expectedResultOnes ? false : true;
     });
+
+    if(value == expectedResultOnes){
+        speakTextAsync("That's correct");
+        widget.onResultEntered(value);
+      } else {
+        speakTextAsync("Please try again.");
+      }
   }
 
   @override
@@ -58,10 +65,6 @@ class _EnterOnesResultState extends State<EnterOnesResult> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // const Text(
-        //   "=",
-        //   style: TextStyle(color: Colors.black, fontSize: 60),
-        // ),
         SimpleTextContainer(text: "1", boxSize: boxSize,),
         SimpleTextContainer(text: "0", boxSize: boxSize,),
         const Text(
