@@ -107,6 +107,8 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
           "=",
           style: TextStyle(color: Colors.black, fontSize: 60),
         ),
+        if(isOnesEntered)
+          SimpleTextContainer(text: "?", boxSize: boxSize,),
       ],
     );
   }

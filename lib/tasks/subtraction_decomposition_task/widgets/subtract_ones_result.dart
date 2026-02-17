@@ -32,14 +32,19 @@ class _SubtractOnesResultState extends State<SubtractOnesResult> {
 
   speakTextAsync(String text) async => await widget.speakText(text);
   
-  handleResultOnesEntered(int value){
+  handleResultOnesEntered(int value) async {
     setState(() {
       isErrorResultOnes = value == expectedResultOnes ? false : true;
     });
 
     if(value == expectedResultOnes){
-        speakTextAsync("That's correct");
-        widget.onResultEntered(value);
+        String firstNumber = "1${widget.firstNumber.toString()[1]}";
+        String secondNumber = widget.secondNumber.toString()[1];
+        
+        await speakTextAsync("That's correct. Thus, $firstNumber minus $secondNumber is $expectedResultOnes");
+        await Future.delayed(const Duration(milliseconds: 2000)); // not sure why previous speakTextAsync is not awaited properly
+
+        widget.onResultEntered();
       } else {
         speakTextAsync("Please try again.");
       }

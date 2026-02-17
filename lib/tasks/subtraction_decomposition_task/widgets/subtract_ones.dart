@@ -29,6 +29,7 @@ class SubtractOnes extends ConsumerStatefulWidget {
 class _SubtractOnesState extends ConsumerState<SubtractOnes> {
 
   bool isOnesEntered = false;
+  bool isOnesResultEntered = false;
   bool isFirstNumberDecompositionComplete = false;
   bool isSecondNumberDecompositionComplete = false;
 
@@ -41,22 +42,12 @@ class _SubtractOnesState extends ConsumerState<SubtractOnes> {
   speakTextAsync(String text) async => await widget.speakText(text);
   
 
-  // handleResultOnesEntered(int value) { 
+  handleResultOnesEntered() { 
+    setState(() {
+      isOnesResultEntered = true;
+    });
+  }
 
-  //   int result = widget.firstNumber - widget.secondNumber;
-  //   String resultOnes = (result > 9) ? result.toString()[1] : result.toString();
-
-  //   if(resultOnes == value.toString()){
-  //     setState(() {
-  //       isErrorResultOnes = false;
-  //     });
-  //     // widget.onResultEntered();
-  //   } else {
-  //     setState(() {
-  //       isErrorResultOnes = true;
-  //     });
-  //   }
-  // }
 
   handleOnesEntered(){
     setState(() {
@@ -100,14 +91,14 @@ class _SubtractOnesState extends ConsumerState<SubtractOnes> {
         
         EnterOnes(key: enterOnesKey, firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: handleOnesEntered, speakText: widget.speakText,),
 
-        if(isOnesEntered/* && !isSecondNumberDecompositionComplete*/)
+        if(isOnesEntered && !isOnesResultEntered)
           FirstNumberOnesDecomposition(key: firstNumberOnesDecompositionKey, firstNumber: widget.firstNumber, onResultEntered: handleFirstNumberDecompositionComplete, speakText: widget.speakText,),
 
-        if(isFirstNumberDecompositionComplete/* && !isSecondNumberDecompositionComplete*/)
+        if(isFirstNumberDecompositionComplete && !isOnesResultEntered)
           SecondNumberOnesDecomposition(key: secondNumberOnesDecompositionKey, firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: handleSecondNumberDecompositionComplete, speakText: widget.speakText,),
 
-        if(isSecondNumberDecompositionComplete)
-          SubtractOnesResult(key: GlobalKey(), firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: (value){}, speakText: widget.speakText,),
+        if(isSecondNumberDecompositionComplete && !isOnesResultEntered)
+          SubtractOnesResult(key: GlobalKey(), firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: handleResultOnesEntered, speakText: widget.speakText,),
 
       ],
     );
