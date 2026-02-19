@@ -10,14 +10,14 @@ class SubtractOnes extends ConsumerStatefulWidget {
   
   final int firstNumber;
   final int secondNumber;
-  // final Function onResultEntered;
+  final Function onOnesResultEntered;
   final Function speakText;
   
   const SubtractOnes({
     super.key, 
     required this.firstNumber,
     required this.secondNumber,
-    // required this.onResultEntered
+    required this.onOnesResultEntered,
     required this.speakText,
   });
 
@@ -47,6 +47,7 @@ class _SubtractOnesState extends ConsumerState<SubtractOnes> {
       isOnesResultEntered = true;
       enterOnesKey = GlobalKey();
     });
+    widget.onOnesResultEntered();
   }
 
 
