@@ -45,6 +45,7 @@ class _SubtractOnesState extends ConsumerState<SubtractOnes> {
   handleResultOnesEntered() { 
     setState(() {
       isOnesResultEntered = true;
+      enterOnesKey = GlobalKey();
     });
   }
 
@@ -89,7 +90,7 @@ class _SubtractOnesState extends ConsumerState<SubtractOnes> {
             ),
         ),
         
-        EnterOnes(key: enterOnesKey, firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: handleOnesEntered, speakText: widget.speakText,),
+        EnterOnes(key: enterOnesKey, firstNumber: widget.firstNumber, secondNumber: widget.secondNumber, onResultEntered: handleOnesEntered, speakText: widget.speakText, isResultEntered: isOnesResultEntered, ),
 
         if(isOnesEntered && !isOnesResultEntered)
           FirstNumberOnesDecomposition(key: firstNumberOnesDecompositionKey, firstNumber: widget.firstNumber, onResultEntered: handleFirstNumberDecompositionComplete, speakText: widget.speakText,),

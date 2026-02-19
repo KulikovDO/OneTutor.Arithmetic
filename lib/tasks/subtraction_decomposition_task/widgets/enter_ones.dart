@@ -10,6 +10,7 @@ class EnterOnes extends ConsumerStatefulWidget {
   final int secondNumber;
   final Function onResultEntered;
   final Function speakText;
+  final bool isResultEntered;
   
   const EnterOnes({
     super.key, 
@@ -17,6 +18,7 @@ class EnterOnes extends ConsumerStatefulWidget {
     required this.secondNumber,
     required this.onResultEntered,
     required this.speakText,
+    required this.isResultEntered,
   });
 
   @override
@@ -69,12 +71,22 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
 
     } 
   }
+  getDisplayedResult() {
+    if(widget.isResultEntered){
+      return ((widget.firstNumber - widget.secondNumber) % 10).toString();
+    } else {
+      return "?";
+    }
+  }
 
   @override
   initState() {
 
     super.initState();
-    speakTextAsync("Enter ones to subtract");
+
+    if(!widget.isResultEntered) {
+      speakTextAsync("Enter ones to subtract");
+    }
 
   }
 
@@ -83,13 +95,13 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if(isOnesEntered)
+        if(isOnesEntered || widget.isResultEntered)
           SimpleTextContainer(text: "1", boxSize: boxSize,),
-        if(!isOnesEntered)
+        if(!(isOnesEntered || widget.isResultEntered))
           const SizedBox( width: 87, height: 87,),
-        if(isOnesEntered)
+        if(isOnesEntered || widget.isResultEntered)
           SimpleTextContainer(text: widget.firstNumber.toString()[1], boxSize: boxSize,),
-        if(!isOnesEntered)
+        if(!(isOnesEntered || widget.isResultEntered))
           TextInputContainer(key: firstNumberOnesKey, onValueEntered: handleFirstNumberOnesEntered, isError: isErrorFirstNumberOnes,  numberOfDigits: 1, boxSize: boxSize,),
 
         const Padding(
@@ -99,17 +111,18 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
             style: TextStyle(color: Colors.black, fontSize: 60),
           ),
         ),
-        if(isOnesEntered)
+        if(isOnesEntered || widget.isResultEntered)
           SimpleTextContainer(text: widget.secondNumber.toString()[1], boxSize: boxSize,),
-        if(!isOnesEntered)
+        if(!(isOnesEntered || widget.isResultEntered))
           TextInputContainer(key: secondNumberOnesKey, onValueEntered: handleSecondNumberOnesEntered, isError: isErrorSecondNumberOnes, numberOfDigits: 1, boxSize: boxSize,),
         const Text(
           "=",
           style: TextStyle(color: Colors.black, fontSize: 60),
         ),
-        if(isOnesEntered)
-          SimpleTextContainer(text: "?", boxSize: boxSize,),
+        if(isOnesEntered || widget.isResultEntered)
+          SimpleTextContainer(text: getDisplayedResult(), boxSize: boxSize,),
       ],
     );
   }
+
 }
