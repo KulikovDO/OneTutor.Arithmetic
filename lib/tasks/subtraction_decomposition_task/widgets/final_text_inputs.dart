@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 // import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
@@ -21,6 +22,10 @@ class FinalTextInputs extends StatefulWidget {
 
 class _FinalTextInputsState extends State<FinalTextInputs> {
 
+  bool isErrorResultOnes = false;
+  bool isErrorResultTens = false;
+  bool isResultOnesEntered = false;
+
   GlobalKey<TextInputContainerState> borrowedTensKey = GlobalKey();
   GlobalKey<TextInputContainerState> finalResultOnesKey = GlobalKey();
   GlobalKey<TextInputContainerState> finalResultTensKey = GlobalKey();
@@ -35,20 +40,54 @@ class _FinalTextInputsState extends State<FinalTextInputs> {
 
   }
 
+  handleResultOnesEntered(int value){
+    int expectedOnes = (widget.firstNumber - widget.secondNumber) % 10;
+    if(value == expectedOnes){
+      setState(() {
+        isErrorResultOnes = false;
+        isResultOnesEntered = true;
+      });
+      speakTextAsync("That's correct!");
+    } else {
+      setState(() {
+        isErrorResultOnes = true;
+      });
+      speakTextAsync("Please try again.");
+    }
+  }
+
+  handleResultTensEntered(int value){
+    int expectedTens = (widget.firstNumber - widget.secondNumber) ~/ 10;
+    if(value == expectedTens){
+      setState(() {
+        isErrorResultTens = false;
+      });
+      speakTextAsync("That's correct!");
+    } else {
+      setState(() {
+        isErrorResultTens = true;
+      });
+      speakTextAsync("Please try again.");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children:[
-        Row(
+        const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 140,
+                child: Text(
+                  "Borrowed Tens",
+                  style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+                ),
               ),
-              TextInputContainer(key: borrowedTensKey, onValueEntered: (value) {  }, isError: false,),
-              const SizedBox(
-                width: 90,
-              ),
+              // TextInputContainer(key: borrowedTensKey, onValueEntered: (value) {  }, isError: false,),
+              SimpleTextContainer(text: '1'),
+              SizedBox( width: 90, ),
             ],
           ),
         
@@ -83,8 +122,12 @@ class _FinalTextInputsState extends State<FinalTextInputs> {
                 ),
               ),
           
-              TextInputContainer(key: finalResultTensKey, onValueEntered: (value) {  }, isError: false,),
-              TextInputContainer(key: finalResultOnesKey, onValueEntered: (value) {  }, isError: false,),
+              if(!isResultOnesEntered)
+                const SimpleTextContainer(text: '?'),
+              if(isResultOnesEntered)
+                TextInputContainer(key: finalResultTensKey, onValueEntered: handleResultTensEntered, isError: isErrorResultTens, numberOfDigits: 1,),
+
+              TextInputContainer(key: finalResultOnesKey, onValueEntered: handleResultOnesEntered, isError: isErrorResultOnes, numberOfDigits: 1,),
             ],
           ),
       ]
