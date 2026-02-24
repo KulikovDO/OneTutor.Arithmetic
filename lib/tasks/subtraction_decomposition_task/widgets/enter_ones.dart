@@ -29,33 +29,73 @@ class EnterOnes extends ConsumerStatefulWidget {
 class _EnterOnesState extends ConsumerState<EnterOnes> {
 
   double boxSize = 60.0;
+
+  GlobalKey borrowedTensKey = GlobalKey();
   GlobalKey firstNumberOnesKey = GlobalKey();
   GlobalKey secondNumberOnesKey = GlobalKey();
 
-  bool isOnesEntered = false;
+  bool isBorrowedTensEntered = false;
+  bool isErrorBorrowedTens = false;
   bool isErrorFirstNumberOnes = false;
   bool isErrorSecondNumberOnes = false;
+  bool isOnesEntered = false;
 
-  speakTextAsync(String text) async{
-    await widget.speakText(text);
-    ref.read(subtractionDecompositionProvider.notifier).animateOnes();
+  speakTextAsync(String text) async => await widget.speakText(text);
+  
+
+  handleBorrowedTensEntered(int value) async{  
+    
+    if(value == 1){
+      setState(() {
+        isErrorBorrowedTens = false;
+        isBorrowedTensEntered = true;
+      });
+
+      await speakTextAsync("That's correct!");
+      await Future.delayed(const Duration(milliseconds: 2000)); // not sure why previous speakTextAsync is not awaited properly
+      widget.onResultEntered();
+
+    } else {
+      setState(() {
+        isErrorBorrowedTens = true;
+      });
+      speakTextAsync("Please try again");
+    }
+    
   }
 
   handleFirstNumberOnesEntered(int value) {  
-    setState(() {
-      isErrorFirstNumberOnes = widget.firstNumber.toString()[1] == value.toString() ? false : true;
-    });
+    
+    if(widget.firstNumber.toString()[1] == value.toString()){
+      setState(() {
+        isErrorFirstNumberOnes = false;
+      });
+    } else {
+      setState(() {
+        isErrorFirstNumberOnes = true;
+      });
+      speakTextAsync("Please try again");
+    }
     checkOnceEntered();
   }
 
   handleSecondNumberOnesEntered(int value) {  
-    setState(() {
-      isErrorSecondNumberOnes = widget.secondNumber.toString()[1] == value.toString() ? false : true;
-    });
+    
+    if(widget.secondNumber.toString()[1] == value.toString()){
+      setState(() {
+        isErrorSecondNumberOnes = false;
+      });
+    } else {
+      setState(() {
+        isErrorSecondNumberOnes = true;
+      });
+      speakTextAsync("Please try again");
+    }
+    
     checkOnceEntered();
   }
 
-  checkOnceEntered(){
+  checkOnceEntered() async {
     if( // all values entered correctly
       (firstNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
       && (secondNumberOnesKey.currentState as TextInputContainerState).valueController.text != ''
@@ -66,8 +106,9 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
         isOnesEntered = true;
       }); 
 
+      await speakTextAsync("How much you need to borrow to subtract the ones?");
       ref.read(subtractionDecompositionProvider.notifier).resetAnimationOnes();
-      widget.onResultEntered();
+      
 
     } 
   }
@@ -83,11 +124,14 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
   initState() {
 
     super.initState();
+    initAsync();
+  }
 
+  initAsync() async {
     if(!widget.isResultEntered) {
-      speakTextAsync("Enter ones to subtract");
+      await speakTextAsync("Enter ones to subtract");
+      ref.read(subtractionDecompositionProvider.notifier).animateOnes();
     }
-
   }
 
   @override
@@ -95,8 +139,15 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if(isOnesEntered || widget.isResultEntered)
+        
+        // if(isOnesEntered || widget.isResultEntered)
+        //   SimpleTextContainer(text: "1", boxSize: boxSize,),
+
+        if(isOnesEntered && !isBorrowedTensEntered)
+          TextInputContainer(key: borrowedTensKey, onValueEntered: handleBorrowedTensEntered, isError: isErrorBorrowedTens,  numberOfDigits: 1, boxSize: boxSize,),
+        if(isOnesEntered && isBorrowedTensEntered || widget.isResultEntered)
           SimpleTextContainer(text: "1", boxSize: boxSize,),
+
         if(!(isOnesEntered || widget.isResultEntered))
           const SizedBox( width: 87, height: 87,),
         if(isOnesEntered || widget.isResultEntered)
@@ -113,13 +164,15 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
         ),
         if(isOnesEntered || widget.isResultEntered)
           SimpleTextContainer(text: widget.secondNumber.toString()[1], boxSize: boxSize,),
+        
         if(!(isOnesEntered || widget.isResultEntered))
           TextInputContainer(key: secondNumberOnesKey, onValueEntered: handleSecondNumberOnesEntered, isError: isErrorSecondNumberOnes, numberOfDigits: 1, boxSize: boxSize,),
         const Text(
           "=",
           style: TextStyle(color: Colors.black, fontSize: 60),
         ),
-        if(isOnesEntered || widget.isResultEntered)
+        
+        if(isOnesEntered && isBorrowedTensEntered || widget.isResultEntered)
           SimpleTextContainer(text: getDisplayedResult(), boxSize: boxSize,),
       ],
     );

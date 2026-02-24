@@ -36,8 +36,13 @@ class _FinalTextInputsState extends State<FinalTextInputs> {
   initState() {
 
     super.initState();
-    speakTextAsync("Copy the result of the subtraction ones");
+    initAsync();
 
+  }
+
+  initAsync() async {
+    await Future.delayed(const Duration(milliseconds: 2000));
+    await speakTextAsync("Copy the result of the subtraction ones");
   }
 
   handleResultOnesEntered(int value){
