@@ -9,12 +9,14 @@ Color initialBackgroundColor = Colors.lightBlue[50] as Color;
 class AnimatedTextContainer extends ConsumerStatefulWidget {
   final String text;
   final double boxSize;
+  final Function onAnimationCompleted;
   final HighlightOption highlightOption;
 
   const AnimatedTextContainer({
     super.key,
     required this.text,
     required this.highlightOption,
+    required this.onAnimationCompleted,
     this.boxSize = 80.0,
   });
 
@@ -62,6 +64,7 @@ class AnimatedTextContainerState extends ConsumerState<AnimatedTextContainer> wi
           setState(() {
             isAnimationCompleted = true;
             backgroundColor = highlightedBackgroundColor;
+            widget.onAnimationCompleted();
           });
         }
       } else if (status == AnimationStatus.dismissed) {

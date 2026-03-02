@@ -1,28 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/data/highlight_option.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/animated_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
-class FinalTextInputs extends StatefulWidget {
+class FinalTextInputs extends ConsumerStatefulWidget {
   
   final int firstNumber;
   final int secondNumber;
   final Function speakText;
+  final Function onResultOnesCopied;
   
   const FinalTextInputs({
     super.key, 
     required this.firstNumber,
     required this.secondNumber,
     required this.speakText,
+    required this.onResultOnesCopied,
   });
 
   @override
-  State<FinalTextInputs> createState() => _FinalTextInputsState();
+  ConsumerState<FinalTextInputs> createState() => _FinalTextInputsState();
 }
 
-class _FinalTextInputsState extends State<FinalTextInputs> {
+class _FinalTextInputsState extends ConsumerState<FinalTextInputs> {
 
   bool isErrorResultOnes = false;
   bool isErrorResultTens = false;
+  bool isResultOnesAnimationCompleted = false;
   bool isResultOnesEntered = false;
 
   GlobalKey<TextInputContainerState> borrowedTensKey = GlobalKey();
@@ -40,23 +47,36 @@ class _FinalTextInputsState extends State<FinalTextInputs> {
   }
 
   initAsync() async {
+    
     await Future.delayed(const Duration(milliseconds: 2000));
     await speakTextAsync("Copy the result of the subtraction ones");
+    
+    ref.read(subtractionDecompositionProvider.notifier).animate(HighlightOption.resultOnes);
+
   }
 
-  handleResultOnesEntered(int value){
+  handleResultOnesAnimationCompleted(){
+
+    setState(() {
+      isResultOnesAnimationCompleted = true;
+    });
+
+  }
+
+  handleResultOnesEntered(int value) async{
     int expectedOnes = (widget.firstNumber - widget.secondNumber) % 10;
     if(value == expectedOnes){
       setState(() {
         isErrorResultOnes = false;
         isResultOnesEntered = true;
       });
-      speakTextAsync("That's correct!");
+      await speakTextAsync("That's correct!");
+      widget.onResultOnesCopied();
     } else {
       setState(() {
         isErrorResultOnes = true;
       });
-      speakTextAsync("Please try again.");
+      await speakTextAsync("Please try again.");
     }
   }
 
@@ -131,10 +151,15 @@ class _FinalTextInputsState extends State<FinalTextInputs> {
               if(isResultOnesEntered)
                 TextInputContainer(key: finalResultTensKey, onValueEntered: handleResultTensEntered, isError: isErrorResultTens, numberOfDigits: 1,),
 
-              TextInputContainer(key: finalResultOnesKey, onValueEntered: handleResultOnesEntered, isError: isErrorResultOnes, numberOfDigits: 1,),
+              if(isResultOnesAnimationCompleted)
+                TextInputContainer(key: finalResultOnesKey, onValueEntered: handleResultOnesEntered, isError: isErrorResultOnes, numberOfDigits: 1,),
+              if(!isResultOnesAnimationCompleted)
+                AnimatedTextContainer(text: "?", highlightOption: HighlightOption.resultOnes, onAnimationCompleted: handleResultOnesAnimationCompleted,),
             ],
           ),
       ]
     );
   }
+
+  
 }

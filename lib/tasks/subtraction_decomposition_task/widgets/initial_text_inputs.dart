@@ -132,7 +132,7 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
             if(!isFirstNumberEntered)
               TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleFirstNumberValueEnteredAsync(value, firstNumberOnesKey); }, isError: firstNumberOnesError,  numberOfDigits: 1,),
             if(isFirstNumberEntered)
-              AnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.ones,),
+              AnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.ones, onAnimationCompleted: (){},),
           ],
         ),
         if(isFirstNumberEntered)
@@ -153,7 +153,7 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
             if(!isSecondNumberEntered)
               TextInputContainer(key: secondNumberOnesKey, onValueEntered: (value) { handleSecondNumberValueEnteredAsync(value, secondNumberOnesKey); }, isError: secondNumberOnesError,  numberOfDigits: 1,),
             if(isSecondNumberEntered)
-              AnimatedTextContainer(text: widget.secondNumber.toString()[1], highlightOption: HighlightOption.ones,),
+              AnimatedTextContainer(text: widget.secondNumber.toString()[1], highlightOption: HighlightOption.ones, onAnimationCompleted: (){},),
             
           ],
         ),

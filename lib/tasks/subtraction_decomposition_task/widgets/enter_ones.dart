@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/data/highlight_option.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/animated_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
@@ -171,7 +172,8 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
         ),
         
         if(isOnesEntered && isBorrowedTensEntered || widget.isResultEntered)
-          SimpleTextContainer(text: getDisplayedResult(), boxSize: boxSize,),
+          // SimpleTextContainer(text: getDisplayedResult(), boxSize: boxSize,),
+          AnimatedTextContainer(text: getDisplayedResult(), highlightOption: HighlightOption.resultOnes, boxSize: boxSize, onAnimationCompleted: (){},),
       ],
     );
   }

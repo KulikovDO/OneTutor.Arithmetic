@@ -68,6 +68,12 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
     });
   }
 
+  handleOnesResultCopied(){
+    setState(() {
+      displaySubtractOnes = false;
+    });
+  }
+
   @override
   initState() {
 
@@ -100,7 +106,7 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
               InitialTextInputs(firstNumber: assignment.firstNumber, secondNumber: assignment.secondNumber, onValuesEntered: handleInitialValuesEntered, speakText: widget.speakText,),
 
             if(displayFinalTextInputs)
-              FinalTextInputs(firstNumber: assignment.firstNumber, secondNumber: assignment.secondNumber, speakText: widget.speakText,),
+              FinalTextInputs(firstNumber: assignment.firstNumber, secondNumber: assignment.secondNumber, speakText: widget.speakText, onResultOnesCopied: handleOnesResultCopied,),
 
             if(displaySubtractOnes)
               SubtractOnes(firstNumber: assignment.firstNumber, secondNumber: assignment.secondNumber, speakText: widget.speakText, onOnesResultEntered: handleOnesResultEntered,),
