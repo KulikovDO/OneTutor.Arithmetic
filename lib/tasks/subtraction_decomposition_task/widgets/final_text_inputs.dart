@@ -27,6 +27,8 @@ class FinalTextInputs extends ConsumerStatefulWidget {
 
 class _FinalTextInputsState extends ConsumerState<FinalTextInputs> {
 
+  double boxSize = 60.0;
+
   bool isErrorResultOnes = false;
   bool isErrorResultTens = false;
   bool isResultOnesAnimationCompleted = false;
@@ -73,8 +75,9 @@ class _FinalTextInputsState extends ConsumerState<FinalTextInputs> {
       await speakTextAsync("That's correct!");
       widget.onResultOnesCopied();
 
-      await Future.delayed(const Duration(seconds: 1));
+      
       await speakTextAsync("Finally, subtract tens");
+      await Future.delayed(const Duration(seconds: 1));
       ref.read(subtractionDecompositionProvider.notifier).animate(HighlightOption.resultTens);
 
     } else {
@@ -108,15 +111,13 @@ class _FinalTextInputsState extends ConsumerState<FinalTextInputs> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                width: 140,
+                width: 160,
                 child: Text(
                   "Borrowed Tens",
                   style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
                 ),
               ),
-              // TextInputContainer(key: borrowedTensKey, onValueEntered: (value) {  }, isError: false,),
-              // SimpleTextContainer(text: '1'),
-              AnimatedTextContainer(text: "1", highlightOption: HighlightOption.resultTens, onAnimationCompleted: (){},),
+              AnimatedTextContainer(text: "1", highlightOption: HighlightOption.resultTens, onAnimationCompleted: (){}, boxSize: boxSize),
               const SizedBox( width: 90, ),
             ],
           ),
@@ -153,14 +154,14 @@ class _FinalTextInputsState extends ConsumerState<FinalTextInputs> {
               ),
           
               if(!isResultOnesEntered)
-                const SimpleTextContainer(text: '?'),
+                SimpleTextContainer(text: '?', boxSize: boxSize,),
               if(isResultOnesEntered)
-                TextInputContainer(key: finalResultTensKey, onValueEntered: handleResultTensEntered, isError: isErrorResultTens, numberOfDigits: 1,),
+                TextInputContainer(key: finalResultTensKey, onValueEntered: handleResultTensEntered, isError: isErrorResultTens, numberOfDigits: 1, boxSize: boxSize,),
 
               if(isResultOnesAnimationCompleted)
-                TextInputContainer(key: finalResultOnesKey, onValueEntered: handleResultOnesEntered, isError: isErrorResultOnes, numberOfDigits: 1,),
+                TextInputContainer(key: finalResultOnesKey, onValueEntered: handleResultOnesEntered, isError: isErrorResultOnes, numberOfDigits: 1, boxSize: boxSize,),
               if(!isResultOnesAnimationCompleted)
-                AnimatedTextContainer(text: "?", highlightOption: HighlightOption.resultOnes, onAnimationCompleted: handleResultOnesAnimationCompleted,),
+                AnimatedTextContainer(text: "?", highlightOption: HighlightOption.resultOnes, onAnimationCompleted: handleResultOnesAnimationCompleted, boxSize: boxSize,),
             ],
           ),
       ]

@@ -78,7 +78,7 @@ class _SubtractOnesState extends ConsumerState<SubtractOnes> {
       children:[
         const SizedBox(
           width: double.infinity,
-          height: 50,
+          height: 40,
           child: 
             Center(
               child: Padding(

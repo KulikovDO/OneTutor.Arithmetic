@@ -92,7 +92,7 @@ class _SubtractionDecompositionTaskState extends State<SubtractionDecompositionT
           [
             SizedBox(
               width: double.infinity,
-              height: 80,
+              height: 40,
               child: 
                 Center(
                   child: Padding(
