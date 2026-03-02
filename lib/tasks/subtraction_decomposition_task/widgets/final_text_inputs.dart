@@ -72,6 +72,11 @@ class _FinalTextInputsState extends ConsumerState<FinalTextInputs> {
       });
       await speakTextAsync("That's correct!");
       widget.onResultOnesCopied();
+
+      await Future.delayed(const Duration(seconds: 1));
+      await speakTextAsync("Finally, subtract tens");
+      ref.read(subtractionDecompositionProvider.notifier).animate(HighlightOption.resultTens);
+
     } else {
       setState(() {
         isErrorResultOnes = true;
@@ -99,10 +104,10 @@ class _FinalTextInputsState extends ConsumerState<FinalTextInputs> {
   Widget build(BuildContext context) {
     return Column(
       children:[
-        const Row(
+        Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 140,
                 child: Text(
                   "Borrowed Tens",
@@ -110,8 +115,9 @@ class _FinalTextInputsState extends ConsumerState<FinalTextInputs> {
                 ),
               ),
               // TextInputContainer(key: borrowedTensKey, onValueEntered: (value) {  }, isError: false,),
-              SimpleTextContainer(text: '1'),
-              SizedBox( width: 90, ),
+              // SimpleTextContainer(text: '1'),
+              AnimatedTextContainer(text: "1", highlightOption: HighlightOption.resultTens, onAnimationCompleted: (){},),
+              const SizedBox( width: 90, ),
             ],
           ),
         

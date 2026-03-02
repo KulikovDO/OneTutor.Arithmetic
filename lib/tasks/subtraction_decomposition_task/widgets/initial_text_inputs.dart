@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/data/highlight_option.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/widgets/animated_text_container.dart';
-import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
+// import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
 class InitialTextInputs extends StatefulWidget {
@@ -128,7 +128,8 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
             if(!isFirstNumberEntered)
               TextInputContainer(key: firstNumberTensKey, onValueEntered: (value) { handleFirstNumberValueEnteredAsync(value, firstNumberTensKey); }, isError: firstNumberTensError, numberOfDigits: 1,),
             if(isFirstNumberEntered)
-              SimpleTextContainer(text: widget.firstNumber.toString()[0]),
+              // SimpleTextContainer(text: widget.firstNumber.toString()[0]),
+              AnimatedTextContainer(text: widget.firstNumber.toString()[0], highlightOption: HighlightOption.resultTens, onAnimationCompleted: (){},),
             if(!isFirstNumberEntered)
               TextInputContainer(key: firstNumberOnesKey, onValueEntered: (value) { handleFirstNumberValueEnteredAsync(value, firstNumberOnesKey); }, isError: firstNumberOnesError,  numberOfDigits: 1,),
             if(isFirstNumberEntered)
@@ -149,7 +150,8 @@ class _InitialTextInputsState extends State<InitialTextInputs> {
             if(!isSecondNumberEntered)
               TextInputContainer(key: secondNumberTensKey, onValueEntered: (value) { handleSecondNumberValueEnteredAsync(value, secondNumberTensKey); }, isError: secondNumberTensError, numberOfDigits: 1,),
             if(isSecondNumberEntered)
-              SimpleTextContainer(text: widget.secondNumber.toString()[0]),
+              // SimpleTextContainer(text: widget.secondNumber.toString()[0]),
+              AnimatedTextContainer(text: widget.secondNumber.toString()[0], highlightOption: HighlightOption.resultTens, onAnimationCompleted: (){},),
             if(!isSecondNumberEntered)
               TextInputContainer(key: secondNumberOnesKey, onValueEntered: (value) { handleSecondNumberValueEnteredAsync(value, secondNumberOnesKey); }, isError: secondNumberOnesError,  numberOfDigits: 1,),
             if(isSecondNumberEntered)

@@ -172,7 +172,6 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
         ),
         
         if(isOnesEntered && isBorrowedTensEntered || widget.isResultEntered)
-          // SimpleTextContainer(text: getDisplayedResult(), boxSize: boxSize,),
           AnimatedTextContainer(text: getDisplayedResult(), highlightOption: HighlightOption.resultOnes, boxSize: boxSize, onAnimationCompleted: (){},),
       ],
     );

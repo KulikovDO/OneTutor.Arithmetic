@@ -3,4 +3,5 @@ enum HighlightOption {
   cancelOut,
   none,
   resultOnes,
+  resultTens,
 }
