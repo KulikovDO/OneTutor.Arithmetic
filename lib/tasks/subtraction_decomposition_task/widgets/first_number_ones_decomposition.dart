@@ -52,8 +52,6 @@ class _FirstNumberOnesDecompositionState extends State<FirstNumberOnesDecomposit
         isFirstNumberEntered = true;
       });
       
-      
-      
       widget.onResultEntered();
 
     } else {
@@ -78,25 +76,33 @@ class _FirstNumberOnesDecompositionState extends State<FirstNumberOnesDecomposit
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        SimpleTextContainer(text: "1", boxSize: boxSize,),
-        SimpleTextContainer(text: widget.firstNumber.toString()[1], boxSize: boxSize,),
         const Text(
-          "=",
-          style: TextStyle(color: Colors.black, fontSize: 60),
+          "First number decomposition",
+          style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        SimpleTextContainer(text: "1", boxSize: boxSize,),
-        SimpleTextContainer(text: "0", boxSize: boxSize,),
-        const Text(
-            "+",
-            style: TextStyle(color: Colors.black, fontSize: 40),
-        ),
-        if(!isFirstNumberEntered)
-          TextInputContainer(key: firstNumberKey, onValueEntered: handleSecondNumberEntered, isError: firstNumberError, numberOfDigits: 1, boxSize: boxSize,),
-        if(isFirstNumberEntered)          
-          TappableAnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.cancelOut, tag: "1", boxSize: boxSize,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SimpleTextContainer(text: "1", boxSize: boxSize,),
+            SimpleTextContainer(text: widget.firstNumber.toString()[1], boxSize: boxSize,),
+            const Text(
+              "=",
+              style: TextStyle(color: Colors.black, fontSize: 60),
+            ),
+            SimpleTextContainer(text: "1", boxSize: boxSize,),
+            SimpleTextContainer(text: "0", boxSize: boxSize,),
+            const Text(
+                "+",
+                style: TextStyle(color: Colors.black, fontSize: 40),
+            ),
+            if(!isFirstNumberEntered)
+              TextInputContainer(key: firstNumberKey, onValueEntered: handleSecondNumberEntered, isError: firstNumberError, numberOfDigits: 1, boxSize: boxSize,),
+            if(isFirstNumberEntered)          
+              TappableAnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.cancelOut, tag: "1", boxSize: boxSize,),
+          ]
+        )
       ]
     );
   }

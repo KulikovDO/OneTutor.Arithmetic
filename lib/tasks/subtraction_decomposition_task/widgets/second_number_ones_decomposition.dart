@@ -82,23 +82,31 @@ class _SecondNumberOnesDecompositionState extends ConsumerState<SecondNumberOnes
 
 
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        SimpleTextContainer(text: widget.secondNumber.toString()[1], boxSize: boxSize,),
         const Text(
-          "=",
-          style: TextStyle(color: Colors.black, fontSize: 60),
+          "Second number decomposition",
+          style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        TappableAnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.cancelOut, tag: "2", boxSize: boxSize,),
-        const Text(
-            "+",
-            style: TextStyle(color: Colors.black, fontSize: 40),
-        ),
-        if(!isSecondNumberEntered)
-          TextInputContainer(key: secondNumberKey, onValueEntered: handleSecondNumberEntered, isError: isSecondNumberError, numberOfDigits: 1, boxSize: boxSize,),
-        if(isSecondNumberEntered)          
-          TappableAnimatedTextContainer(text: expectedValue.toString(), highlightOption: HighlightOption.cancelOut, tag: "2", boxSize: boxSize,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SimpleTextContainer(text: widget.secondNumber.toString()[1], boxSize: boxSize,),
+            const Text(
+              "=",
+              style: TextStyle(color: Colors.black, fontSize: 60),
+            ),
+            TappableAnimatedTextContainer(text: widget.firstNumber.toString()[1], highlightOption: HighlightOption.cancelOut, tag: "2", boxSize: boxSize,),
+            const Text(
+                "+",
+                style: TextStyle(color: Colors.black, fontSize: 40),
+            ),
+            if(!isSecondNumberEntered)
+              TextInputContainer(key: secondNumberKey, onValueEntered: handleSecondNumberEntered, isError: isSecondNumberError, numberOfDigits: 1, boxSize: boxSize,),
+            if(isSecondNumberEntered)          
+              TappableAnimatedTextContainer(text: expectedValue.toString(), highlightOption: HighlightOption.cancelOut, tag: "2", boxSize: boxSize,),
+          ]
+        )
       ]
     );
   }

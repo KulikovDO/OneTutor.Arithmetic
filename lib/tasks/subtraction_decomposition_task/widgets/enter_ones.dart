@@ -139,9 +139,6 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        
-        // if(isOnesEntered || widget.isResultEntered)
-        //   SimpleTextContainer(text: "1", boxSize: boxSize,),
 
         if(isOnesEntered && !isBorrowedTensEntered)
           TextInputContainer(key: borrowedTensKey, onValueEntered: handleBorrowedTensEntered, isError: isErrorBorrowedTens,  numberOfDigits: 1, boxSize: boxSize,),
