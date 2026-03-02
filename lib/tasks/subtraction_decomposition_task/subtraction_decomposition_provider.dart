@@ -16,13 +16,9 @@ class SubtractionDecompositionNotifier extends StateNotifier<SubtractionDecompos
     SubtractionDecompositionState(false, false, HighlightOption.none, {}, false) // initial state
   );
 
-  void animateOnes() => state = SubtractionDecompositionState(true, false, HighlightOption.ones, {}, false);
+  void animate(HighlightOption highlightOption) => state = SubtractionDecompositionState(true, false, highlightOption, {}, false);
   
-  void resetAnimationOnes() => state = SubtractionDecompositionState(false, true, HighlightOption.ones, {}, false);
-
-  void animateCancelOut() => state = SubtractionDecompositionState(true, false, HighlightOption.cancelOut, {}, false);
-  
-  void resetAnimationCancelOut() => state = SubtractionDecompositionState(false, true, HighlightOption.cancelOut, {}, false);
+  void resetAnimation(HighlightOption highlightOption) => state = SubtractionDecompositionState(false, true, highlightOption, {}, false);
 
   bool selectNumber(int row, int number) {
 

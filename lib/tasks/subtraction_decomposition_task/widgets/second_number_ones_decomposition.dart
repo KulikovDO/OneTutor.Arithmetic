@@ -62,7 +62,7 @@ class _SecondNumberOnesDecompositionState extends ConsumerState<SecondNumberOnes
       await speakTextAsync("That's correct");
       await Future.delayed(const Duration(milliseconds: 1500)); // not sure why previous speakTextAsync is not awaited properly
       await widget.speakText("From highlighted select two numbers to cancel out");
-      ref.read(subtractionDecompositionProvider.notifier).animateCancelOut();
+      ref.read(subtractionDecompositionProvider.notifier).animate(HighlightOption.cancelOut);
 
     } else {
       // incorrect value entered

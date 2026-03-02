@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/data/highlight_option.dart';
 import 'package:one_tutor_arithmetic/tasks/subtraction_decomposition_task/subtraction_decomposition_provider.dart';
 import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
@@ -107,7 +108,7 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
       }); 
 
       await speakTextAsync("How much you need to borrow to subtract the ones?");
-      ref.read(subtractionDecompositionProvider.notifier).resetAnimationOnes();
+      ref.read(subtractionDecompositionProvider.notifier).resetAnimation(HighlightOption.ones);
       
 
     } 
@@ -130,7 +131,7 @@ class _EnterOnesState extends ConsumerState<EnterOnes> {
   initAsync() async {
     if(!widget.isResultEntered) {
       await speakTextAsync("Enter ones to subtract");
-      ref.read(subtractionDecompositionProvider.notifier).animateOnes();
+      ref.read(subtractionDecompositionProvider.notifier).animate(HighlightOption.ones);
     }
   }
 

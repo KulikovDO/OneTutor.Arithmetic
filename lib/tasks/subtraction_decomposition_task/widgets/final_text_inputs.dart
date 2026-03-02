@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
-// import 'package:one_tutor_arithmetic/widgets/simple_text_container.dart';
 import 'package:one_tutor_arithmetic/widgets/text_input_container.dart';
 
 class FinalTextInputs extends StatefulWidget {
